@@ -43,9 +43,9 @@
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.ForeColor = Color.RoyalBlue;
-            lblTitle.Location = new Point(67, 33);
+            lblTitle.Location = new Point(54, 28);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(227, 46);
+            lblTitle.Size = new Size(354, 71);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "ĐĂNG NHẬP";
             // 
@@ -56,7 +56,7 @@
             lblUsername.ForeColor = Color.RoyalBlue;
             lblUsername.Location = new Point(48, 99);
             lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(128, 23);
+            lblUsername.Size = new Size(196, 36);
             lblUsername.TabIndex = 1;
             lblUsername.Text = "Tên đăng nhập";
             // 
@@ -66,7 +66,7 @@
             lblPassword.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPassword.Location = new Point(48, 169);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(86, 23);
+            lblPassword.Size = new Size(143, 38);
             lblPassword.TabIndex = 2;
             lblPassword.Text = "Mật khẩu";
             // 
@@ -74,14 +74,14 @@
             // 
             txtUsername.Location = new Point(54, 125);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(250, 27);
+            txtUsername.Size = new Size(250, 39);
             txtUsername.TabIndex = 0;
             // 
             // txtPassword
             // 
             txtPassword.Location = new Point(54, 195);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(253, 27);
+            txtPassword.Size = new Size(253, 39);
             txtPassword.TabIndex = 4;
             // 
             // btnLogin
@@ -120,13 +120,13 @@
             btnThoat.TabIndex = 7;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = false;
-            btnThoat.Click += this.btnThoat_Click;
+            btnThoat.Click += btnThoat_Click;
             // 
             // frmLogin
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(14F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(358, 394);
+            ClientSize = new Size(752, 614);
             Controls.Add(btnThoat);
             Controls.Add(btnSignUp);
             Controls.Add(btnLogin);
@@ -142,6 +142,7 @@
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Đăng Nhập";
+            Load += frmLogin_Load;
             ResumeLayout(false);
             PerformLayout();
         }
