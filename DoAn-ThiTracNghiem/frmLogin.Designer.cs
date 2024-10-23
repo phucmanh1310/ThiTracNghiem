@@ -109,6 +109,7 @@
             btnSignUp.TabIndex = 6;
             btnSignUp.Text = "ĐĂNG KÝ";
             btnSignUp.UseVisualStyleBackColor = false;
+            btnSignUp.Click += btnSignUp_Click;
             // 
             // btnThoat
             // 

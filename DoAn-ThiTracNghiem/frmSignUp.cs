@@ -16,5 +16,13 @@ namespace DoAn_ThiTracNghiem
         {
             InitializeComponent();
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmLogin login = new frmLogin();
+            login.ShowDialog();
+            this.Close();
+        }
     }
 }
