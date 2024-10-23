@@ -23,5 +23,14 @@ namespace DoAn_ThiTracNghiem
             }
 
         }
+
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmSignUp signUp = new frmSignUp();
+            signUp.ShowDialog();
+            signUp = null;
+            this.Show();
+        }
     }
 }

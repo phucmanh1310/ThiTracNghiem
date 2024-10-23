@@ -109,6 +109,7 @@
             btnSignUp.TabIndex = 6;
             btnSignUp.Text = "ĐĂNG KÝ";
             btnSignUp.UseVisualStyleBackColor = false;
+            btnSignUp.Click += btnSignUp_Click;
             // 
             // btnThoat
             // 
@@ -120,7 +121,7 @@
             btnThoat.TabIndex = 7;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = false;
-            btnThoat.Click += this.btnThoat_Click;
+            btnThoat.Click += btnThoat_Click;
             // 
             // frmLogin
             // 
