@@ -90,7 +90,6 @@
             label3.Size = new Size(564, 50);
             label3.TabIndex = 4;
             label3.Text = "CÁC THÔNG TIN NGƯỜI DÙNG";
-            label3.Click += this.label3_Click;
             // 
             // frmAdmin
             // 
