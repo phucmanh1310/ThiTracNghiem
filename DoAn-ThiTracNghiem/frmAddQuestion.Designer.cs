@@ -60,7 +60,7 @@
             txtQuestion.ForeColor = SystemColors.GrayText;
             txtQuestion.Location = new Point(29, 96);
             txtQuestion.Name = "txtQuestion";
-            txtQuestion.Size = new Size(569, 36);
+            txtQuestion.Size = new Size(602, 36);
             txtQuestion.TabIndex = 0;
             // 
             // lblQuestion
@@ -114,7 +114,7 @@
             btnAddQuestion.FlatAppearance.BorderSize = 0;
             btnAddQuestion.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddQuestion.ForeColor = Color.White;
-            btnAddQuestion.Location = new Point(178, 629);
+            btnAddQuestion.Location = new Point(210, 629);
             btnAddQuestion.Name = "btnAddQuestion";
             btnAddQuestion.Size = new Size(250, 40);
             btnAddQuestion.TabIndex = 5;
@@ -187,7 +187,7 @@
             cbxAnwer1.AutoSize = true;
             cbxAnwer1.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnwer1.ForeColor = Color.RoyalBlue;
-            cbxAnwer1.Location = new Point(530, 384);
+            cbxAnwer1.Location = new Point(544, 384);
             cbxAnwer1.Name = "cbxAnwer1";
             cbxAnwer1.Size = new Size(87, 34);
             cbxAnwer1.TabIndex = 14;
@@ -199,7 +199,7 @@
             cbxAnwer2.AutoSize = true;
             cbxAnwer2.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnwer2.ForeColor = Color.RoyalBlue;
-            cbxAnwer2.Location = new Point(530, 444);
+            cbxAnwer2.Location = new Point(544, 444);
             cbxAnwer2.Name = "cbxAnwer2";
             cbxAnwer2.Size = new Size(87, 34);
             cbxAnwer2.TabIndex = 15;
@@ -211,7 +211,7 @@
             cbxAnwer3.AutoSize = true;
             cbxAnwer3.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnwer3.ForeColor = Color.RoyalBlue;
-            cbxAnwer3.Location = new Point(530, 507);
+            cbxAnwer3.Location = new Point(544, 507);
             cbxAnwer3.Name = "cbxAnwer3";
             cbxAnwer3.Size = new Size(87, 34);
             cbxAnwer3.TabIndex = 16;
@@ -223,7 +223,7 @@
             cbxAnwer4.AutoSize = true;
             cbxAnwer4.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnwer4.ForeColor = Color.RoyalBlue;
-            cbxAnwer4.Location = new Point(530, 570);
+            cbxAnwer4.Location = new Point(544, 570);
             cbxAnwer4.Name = "cbxAnwer4";
             cbxAnwer4.Size = new Size(87, 34);
             cbxAnwer4.TabIndex = 17;
@@ -233,7 +233,7 @@
             // picImage
             // 
             picImage.BorderStyle = BorderStyle.FixedSingle;
-            picImage.Location = new Point(264, 169);
+            picImage.Location = new Point(294, 169);
             picImage.Name = "picImage";
             picImage.Size = new Size(337, 185);
             picImage.SizeMode = PictureBoxSizeMode.Zoom;
@@ -252,7 +252,7 @@
             groupBox1.ForeColor = Color.MidnightBlue;
             groupBox1.Location = new Point(29, 154);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(213, 200);
+            groupBox1.Size = new Size(248, 200);
             groupBox1.TabIndex = 22;
             groupBox1.TabStop = false;
             groupBox1.Text = "Loại Câu Hỏi :";
