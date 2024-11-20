@@ -96,6 +96,7 @@
             btnLogin.TabIndex = 5;
             btnLogin.Text = "ĐĂNG NHẬP";
             btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
             // 
             // btnSignUp
             // 
