@@ -24,6 +24,16 @@ namespace BLL
             }
             return tkAccess.checkLogin(taikhoan);
         }
+        // Phương thức kiểm tra tính hợp lệ của tên đăng nhập
+        public bool CheckUsername(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new Exception("Tên đăng nhập không được để trống!");
+            }
+
+            return !tkAccess.IsUsernameExist(username); // Hợp lệ nếu tên đăng nhập chưa tồn tại
+        }
 
     }
 }

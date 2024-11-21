@@ -109,8 +109,26 @@ namespace DoAn_ThiTracNghiem
 
         private void btnCheck_Click(object sender, EventArgs e)
         {
+            try
+            {
+                TaiKhoanBLL bll = new TaiKhoanBLL();
 
+                if (bll.CheckUsername(txtUsername.Text))
+                {
+                    MessageBox.Show("Bạn có thể dùng tên đăng nhập này!", "Tên đăng nhập hợp lệ!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Tên đăng nhập đã tồn tại!\nMời bạn nhập tên đăng nhập khác!", "Tồn tại tên đăng nhập!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtUsername.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi kiểm tra tên đăng nhập!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void frmSignUp_Load(object sender, EventArgs e)
         {
