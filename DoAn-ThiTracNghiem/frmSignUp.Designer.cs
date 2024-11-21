@@ -40,23 +40,19 @@
             txtPassword = new TextBox();
             txtPasswordAgain = new TextBox();
             txtFullName = new TextBox();
-            comboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
-            comboBox3 = new ComboBox();
-            comboBox4 = new ComboBox();
-            label1 = new Label();
-            label2 = new Label();
+            cbxGioiTinh = new ComboBox();
             btnCheck = new Button();
-            textBox1 = new TextBox();
+            txtAddress = new TextBox();
             btnBack = new Button();
             btnSignUp = new Button();
+            dtpNgaySinh = new DateTimePicker();
             SuspendLayout();
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(184, 61);
+            lblTitle.Location = new Point(245, 60);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(368, 46);
             lblTitle.TabIndex = 0;
@@ -110,7 +106,7 @@
             // lblBornDate
             // 
             lblBornDate.AutoSize = true;
-            lblBornDate.Location = new Point(508, 223);
+            lblBornDate.Location = new Point(496, 223);
             lblBornDate.Name = "lblBornDate";
             lblBornDate.Size = new Size(215, 46);
             lblBornDate.TabIndex = 6;
@@ -154,62 +150,17 @@
             txtFullName.ForeColor = SystemColors.GrayText;
             txtFullName.Location = new Point(401, 176);
             txtFullName.Name = "txtFullName";
-            txtFullName.Size = new Size(299, 30);
+            txtFullName.Size = new Size(387, 30);
             txtFullName.TabIndex = 11;
             // 
-            // comboBox1
+            // cbxGioiTinh
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(401, 269);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(65, 31);
-            comboBox1.TabIndex = 12;
-            // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(510, 269);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(45, 31);
-            comboBox2.TabIndex = 13;
-            // 
-            // comboBox3
-            // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(584, 269);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(45, 31);
-            comboBox3.TabIndex = 14;
-            // 
-            // comboBox4
-            // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(655, 269);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(45, 31);
-            comboBox4.TabIndex = 15;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial Narrow", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ActiveCaption;
-            label1.Location = new Point(561, 274);
-            label1.Name = "label1";
-            label1.Size = new Size(17, 27);
-            label1.TabIndex = 16;
-            label1.Text = "/";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Arial Narrow", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ActiveCaption;
-            label2.Location = new Point(635, 274);
-            label2.Name = "label2";
-            label2.Size = new Size(17, 27);
-            label2.TabIndex = 17;
-            label2.Text = "/";
+            cbxGioiTinh.FormattingEnabled = true;
+            cbxGioiTinh.Items.AddRange(new object[] { "Nam", "Nữ" });
+            cbxGioiTinh.Location = new Point(401, 269);
+            cbxGioiTinh.Name = "cbxGioiTinh";
+            cbxGioiTinh.Size = new Size(65, 31);
+            cbxGioiTinh.TabIndex = 12;
             // 
             // btnCheck
             // 
@@ -221,14 +172,15 @@
             btnCheck.TabIndex = 18;
             btnCheck.Text = "Kiểm ";
             btnCheck.UseVisualStyleBackColor = false;
+            btnCheck.Click += btnCheck_Click;
             // 
-            // textBox1
+            // txtAddress
             // 
-            textBox1.ForeColor = SystemColors.GrayText;
-            textBox1.Location = new Point(401, 355);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(299, 30);
-            textBox1.TabIndex = 19;
+            txtAddress.ForeColor = SystemColors.GrayText;
+            txtAddress.Location = new Point(401, 355);
+            txtAddress.Name = "txtAddress";
+            txtAddress.Size = new Size(387, 30);
+            txtAddress.TabIndex = 19;
             // 
             // btnBack
             // 
@@ -246,28 +198,33 @@
             // 
             btnSignUp.BackColor = SystemColors.ActiveCaption;
             btnSignUp.ForeColor = SystemColors.ButtonHighlight;
-            btnSignUp.Location = new Point(245, 409);
+            btnSignUp.Location = new Point(279, 408);
             btnSignUp.Name = "btnSignUp";
             btnSignUp.Size = new Size(279, 43);
             btnSignUp.TabIndex = 21;
             btnSignUp.Text = "ĐĂNG KÝ";
             btnSignUp.UseVisualStyleBackColor = false;
+            btnSignUp.Click += btnSignUp_Click;
+            // 
+            // dtpNgaySinh
+            // 
+            dtpNgaySinh.CalendarFont = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtpNgaySinh.Location = new Point(496, 270);
+            dtpNgaySinh.Name = "dtpNgaySinh";
+            dtpNgaySinh.Size = new Size(292, 30);
+            dtpNgaySinh.TabIndex = 22;
             // 
             // frmSignUp
             // 
             AutoScaleDimensions = new SizeF(10F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(768, 518);
+            ClientSize = new Size(829, 518);
+            Controls.Add(dtpNgaySinh);
             Controls.Add(btnSignUp);
             Controls.Add(btnBack);
-            Controls.Add(textBox1);
+            Controls.Add(txtAddress);
             Controls.Add(btnCheck);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(comboBox4);
-            Controls.Add(comboBox3);
-            Controls.Add(comboBox2);
-            Controls.Add(comboBox1);
+            Controls.Add(cbxGioiTinh);
             Controls.Add(txtFullName);
             Controls.Add(txtPasswordAgain);
             Controls.Add(txtPassword);
@@ -286,6 +243,8 @@
             Name = "frmSignUp";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmSignUp";
+            FormClosed += frmSignUp_FormClosed;
+            Load += frmSignUp_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -304,15 +263,11 @@
         private TextBox txtPassword;
         private TextBox txtPasswordAgain;
         private TextBox txtFullName;
-        private ComboBox comboBox1;
-        private ComboBox comboBox2;
-        private ComboBox comboBox3;
-        private ComboBox comboBox4;
-        private Label label1;
-        private Label label2;
+        private ComboBox cbxGioiTinh;
         private Button btnCheck;
-        private TextBox textBox1;
+        private TextBox txtAddress;
         private Button btnBack;
         private Button btnSignUp;
+        private DateTimePicker dtpNgaySinh;
     }
 }

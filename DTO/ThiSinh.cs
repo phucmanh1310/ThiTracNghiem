@@ -8,14 +8,25 @@ namespace DTO
 {
     public class ThiSinh
     {
-        int MaThiSinh { get; set; }
-        String HoTenThiSinh { get; set; }
-        String NgaySinh {  get; set; }
+        public int MaThiSinh { get; set; } // Public để BLL/DAL có thể gán giá trị sau
+        public string HoTenThiSinh { get; set; }
+        public DateTime NgaySinh { get; set; }
+        public char GioiTinh { get; set; }
+        public string DiaChi { get; set; }
+        public string Username { get; set; }
 
-        char GioiTinh {  get; set; }
+        // Constructor mặc định
+        public ThiSinh() { }
 
-        String DiaChi {  get; set; }
-
-        String Username {  get; set; }
+        // Constructor đầy đủ (nếu cần)
+        public ThiSinh(int maThiSinh, string hoTenThiSinh, DateTime ngaySinh, char gioiTinh, string diaChi, string username)
+        {
+            MaThiSinh = maThiSinh;
+            HoTenThiSinh = hoTenThiSinh;
+            NgaySinh = ngaySinh;
+            GioiTinh = gioiTinh;
+            DiaChi = diaChi;
+            Username = username;
+        }
     }
 }

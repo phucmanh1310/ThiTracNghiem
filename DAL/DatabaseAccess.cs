@@ -60,6 +60,80 @@ namespace DAL
             }
             return (false, false, null); // Không tìm thấy tài khoản
         }
+        public static bool AddTaiKhoan(TaiKhoan taiKhoan)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = @"
+            INSERT INTO TaiKhoan (Username, Password, IsAdmin)
+            VALUES (@Username, @Password, @IsAdmin)";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Username", taiKhoan.Username);
+                    cmd.Parameters.AddWithValue("@Password", taiKhoan.Password);
+                    cmd.Parameters.AddWithValue("@IsAdmin", taiKhoan.IsAdmin);
+
+                    int rows = cmd.ExecuteNonQuery(); // Thực thi lệnh
+
+                    return rows > 0; // Trả về true nếu chèn thành công
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        public static bool AddThiSinh(ThiSinh thiSinh, TaiKhoan taiKhoan)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                SqlTransaction transaction = null; // Tạo transaction để đảm bảo tính toàn vẹn dữ liệu
+                try
+                {
+                    conn.Open();
+                    transaction = conn.BeginTransaction();
+
+                    // 1. Thêm tài khoản vào bảng TaiKhoan
+                    string queryTaiKhoan = @"
+            INSERT INTO TaiKhoan (Username, Password, IsAdmin)
+            VALUES (@Username, @Password, @IsAdmin)";
+                    SqlCommand cmdTaiKhoan = new SqlCommand(queryTaiKhoan, conn, transaction);
+                    cmdTaiKhoan.Parameters.AddWithValue("@Username", taiKhoan.Username);
+                    cmdTaiKhoan.Parameters.AddWithValue("@Password", taiKhoan.Password);
+                    cmdTaiKhoan.Parameters.AddWithValue("@IsAdmin", taiKhoan.IsAdmin);
+                    cmdTaiKhoan.ExecuteNonQuery();
+
+                    // 2. Thêm thông tin thí sinh vào bảng ThiSinh
+                    string queryThiSinh = @"
+            INSERT INTO ThiSinh (HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, Username)
+            VALUES (@HoTenThiSinh, @NgaySinh, @GioiTinh, @DiaChi, @Username)";
+                    SqlCommand cmdThiSinh = new SqlCommand(queryThiSinh, conn, transaction);
+                    cmdThiSinh.Parameters.AddWithValue("@HoTenThiSinh", thiSinh.HoTenThiSinh);
+                    cmdThiSinh.Parameters.AddWithValue("@NgaySinh", thiSinh.NgaySinh.ToString("yyyy-MM-dd"));
+                    cmdThiSinh.Parameters.AddWithValue("@GioiTinh", thiSinh.GioiTinh);
+                    cmdThiSinh.Parameters.AddWithValue("@DiaChi", thiSinh.DiaChi);
+                    cmdThiSinh.Parameters.AddWithValue("@Username", taiKhoan.Username);
+                    cmdThiSinh.ExecuteNonQuery();
+
+                    // Commit transaction
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction?.Rollback(); // Rollback nếu có lỗi
+                    Console.WriteLine($"Lỗi: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
 
     }
 }
