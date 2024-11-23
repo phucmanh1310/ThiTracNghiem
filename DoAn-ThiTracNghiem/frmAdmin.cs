@@ -17,9 +17,16 @@ namespace DoAn_ThiTracNghiem
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void picThemCauHoi_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void picThongTinThiSinh_Click(object sender, EventArgs e)
+        {
+            frmAllInformation frm = new frmAllInformation();
+            frm.ShowDialog();
+            this.Close();
         }
     }
 }

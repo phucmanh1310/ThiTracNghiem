@@ -60,34 +60,6 @@ namespace DAL
             }
             return (false, false, null); // Không tìm thấy tài khoản
         }
-        public static bool AddTaiKhoan(TaiKhoan taiKhoan)
-        {
-            using (SqlConnection conn = SqlConnectionData.Connect())
-            {
-                try
-                {
-                    conn.Open();
-
-                    string query = @"
-            INSERT INTO TaiKhoan (Username, Password, IsAdmin)
-            VALUES (@Username, @Password, @IsAdmin)";
-
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Username", taiKhoan.Username);
-                    cmd.Parameters.AddWithValue("@Password", taiKhoan.Password);
-                    cmd.Parameters.AddWithValue("@IsAdmin", taiKhoan.IsAdmin);
-
-                    int rows = cmd.ExecuteNonQuery(); // Thực thi lệnh
-
-                    return rows > 0; // Trả về true nếu chèn thành công
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Lỗi: {ex.Message}");
-                    return false;
-                }
-            }
-        }
 
         public static bool AddThiSinh(ThiSinh thiSinh, TaiKhoan taiKhoan)
         {
@@ -133,6 +105,8 @@ namespace DAL
                 }
             }
         }
+
+
 
 
     }

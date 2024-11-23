@@ -36,6 +36,7 @@
             btnLogin = new Button();
             btnSignUp = new Button();
             btnThoat = new Button();
+            CheckBoxHien = new CheckBox();
             SuspendLayout();
             // 
             // lblTitle
@@ -81,6 +82,7 @@
             // 
             txtPassword.Location = new Point(54, 195);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(253, 27);
             txtPassword.TabIndex = 4;
             // 
@@ -124,11 +126,23 @@
             btnThoat.UseVisualStyleBackColor = false;
             btnThoat.Click += btnThoat_Click;
             // 
+            // CheckBoxHien
+            // 
+            CheckBoxHien.AutoSize = true;
+            CheckBoxHien.Location = new Point(300, 309);
+            CheckBoxHien.Name = "CheckBoxHien";
+            CheckBoxHien.Size = new Size(67, 24);
+            CheckBoxHien.TabIndex = 8;
+            CheckBoxHien.Text = "HIỆN";
+            CheckBoxHien.UseVisualStyleBackColor = true;
+            CheckBoxHien.CheckedChanged += CheckBoxHien_CheckedChanged;
+            // 
             // frmLogin
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(363, 412);
+            ClientSize = new Size(376, 412);
+            Controls.Add(CheckBoxHien);
             Controls.Add(btnThoat);
             Controls.Add(btnSignUp);
             Controls.Add(btnLogin);
@@ -158,5 +172,6 @@
         private Button btnLogin;
         private Button btnSignUp;
         private Button btnThoat;
+        private CheckBox CheckBoxHien;
     }
 }

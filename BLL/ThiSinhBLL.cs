@@ -23,5 +23,15 @@ namespace BLL
             // Gọi phương thức addThiSinh từ DAL
             return thiSinhAccess.addThiSinh(thiSinh, taiKhoan);
         }
+        // Lấy tất cả thí sinh
+        public List<ThiSinh> GetAllThiSinh()
+        {
+
+            return thiSinhAccess.GetAllThiSinh();
+        }
+        public List<ThiSinh> TraCuuThiSinh(String thisinh)
+        {
+            return thiSinhAccess.TraCuuThiSinh(thisinh);
+        }
     }
 }
