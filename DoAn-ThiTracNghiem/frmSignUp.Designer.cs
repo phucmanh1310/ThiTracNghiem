@@ -134,6 +134,7 @@
             txtPassword.ForeColor = SystemColors.GrayText;
             txtPassword.Location = new Point(52, 270);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(287, 30);
             txtPassword.TabIndex = 9;
             // 
@@ -142,6 +143,7 @@
             txtPasswordAgain.ForeColor = SystemColors.GrayText;
             txtPasswordAgain.Location = new Point(52, 355);
             txtPasswordAgain.Name = "txtPasswordAgain";
+            txtPasswordAgain.PasswordChar = '*';
             txtPasswordAgain.Size = new Size(287, 30);
             txtPasswordAgain.TabIndex = 10;
             // 

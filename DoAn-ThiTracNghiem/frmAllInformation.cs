@@ -27,15 +27,14 @@ namespace DoAn_ThiTracNghiem
         }
         private void ShowAllInformation()
         {
-            lvInformation.Columns.Clear();
-            // Add columns to the ListView
-            lvInformation.Columns.Add("Mã Thí Sinh", 100);
-            lvInformation.Columns.Add("Họ và Tên", 250);
-            lvInformation.Columns.Add("Ngày Sinh", 200);
-            lvInformation.Columns.Add("Giới Tính", 100);
-            lvInformation.Columns.Add("Địa Chỉ", 200);
-            lvInformation.Columns.Add("Tên Đăng Nhập", 150);
-            lvInformation.Columns.Add("Mật Khẩu", 100);
+            // Add columns to the ListView code giấy
+            //lvInformation.Columns.Add("Mã Thí Sinh", 100);
+            //lvInformation.Columns.Add("Họ và Tên", 250);
+            //lvInformation.Columns.Add("Ngày Sinh", 200);
+            //lvInformation.Columns.Add("Giới Tính", 100);
+            //lvInformation.Columns.Add("Địa Chỉ", 200);
+            //lvInformation.Columns.Add("Tên Đăng Nhập", 150);
+            //lvInformation.Columns.Add("Mật Khẩu", 100);
 
             // Lấy danh sách thí sinh từ BLL
             ThiSinhBLL thiSinhBLL = new ThiSinhBLL();
@@ -103,7 +102,7 @@ namespace DoAn_ThiTracNghiem
 
         private void btnSearchInfo_Click(object sender, EventArgs e)
         {
-            String SinhVienCanTim = txtSearchInfo.Text.Trim();       
+            String SinhVienCanTim = txtSearchInfo.Text.Trim();
             if (string.IsNullOrEmpty(SinhVienCanTim))
             {
                 MessageBox.Show("Vui lòng nhập họ và tên thí sinh cần tìm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -138,7 +137,7 @@ namespace DoAn_ThiTracNghiem
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -146,10 +145,90 @@ namespace DoAn_ThiTracNghiem
 
         private void btnRefreshInfo_Click(object sender, EventArgs e)
         {
-            lvInformation.Clear();
+            lvInformation.Items.Clear(); // Chỉ xóa dữ liệu (Items), giữ lại cột
             ShowAllInformation();
             txtSearchInfo.Clear();
-            
+
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String hoTen = txtHoTen.Text;
+                String diaChi = txtDiaChi.Text;
+                String Username = txtUsername.Text;
+                String Password = txtPsssword.Text;
+                DateTime ngaySinh = dateTimePicker1.Value;
+                string gioiTinhText = cbbGioiTinh.SelectedItem?.ToString(); // Lấy giá trị từ ComboBox
+                if (gioiTinhText == null)
+                {
+                    MessageBox.Show("Vui lòng chọn giới tính!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                char gioiTinh = gioiTinhText == "Nam" ? 'M' : 'F'; // Chuyển đổi sang ký tự
+                TaiKhoan tk = new TaiKhoan
+                {
+                    Username = Username,
+                    Password = Password,
+                    IsAdmin = false
+                };
+                ThiSinh ts = new ThiSinh
+                {
+                    Username = Username,
+                    HoTenThiSinh = hoTen,
+                    DiaChi = diaChi,
+                    NgaySinh = ngaySinh,
+                    GioiTinh = gioiTinh
+                };
+                //thêm thí sinh qua lớp bll
+                ThiSinhBLL tsBLL = new ThiSinhBLL();
+                if (tsBLL.AddThiSinh(ts, tk))
+                {
+                    MessageBox.Show($"Tạo tài khoản mới cho thí sinh {hoTen} Thành công");
+                    lvInformation.Items.Clear(); // Xóa danh sách hiện tại
+                    ShowAllInformation();        // Hiển thị danh sách cập nhật
+                }
+                else
+                {
+                    MessageBox.Show("Đăng ký thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                String Username = txtUsername.Text;
+                TaiKhoanBLL tkBLL = new TaiKhoanBLL();
+                bool tontai = tkBLL.CheckUsername(Username);
+                if (tontai)
+                {
+                    MessageBox.Show("Bạn có thể dùng tên đăng nhập này!", "Tên đăng nhập hợp lệ!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Tên đăng nhập đã tồn tại!\nMời bạn nhập tên đăng nhập khác!", "Tồn tại tên đăng nhập!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtUsername.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi kiểm tra tên đăng nhập!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
