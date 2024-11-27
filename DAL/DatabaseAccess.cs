@@ -61,7 +61,7 @@ namespace DAL
             return (false, false, null); // Không tìm thấy tài khoản
         }
 
-        public static bool AddThiSinh(ThiSinh thiSinh, TaiKhoan taiKhoan)
+        public static int AddThiSinh(ThiSinh thiSinh, TaiKhoan taiKhoan)
         {
             using (SqlConnection conn = SqlConnectionData.Connect())
             {
@@ -84,24 +84,27 @@ namespace DAL
                     // 2. Thêm thông tin thí sinh vào bảng ThiSinh
                     string queryThiSinh = @"
             INSERT INTO ThiSinh (HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, Username)
-            VALUES (@HoTenThiSinh, @NgaySinh, @GioiTinh, @DiaChi, @Username)";
+            VALUES (@HoTenThiSinh, @NgaySinh, @GioiTinh, @DiaChi, @Username);
+            SELECT SCOPE_IDENTITY();"; // Lấy ID tự động tạo ra
+
                     SqlCommand cmdThiSinh = new SqlCommand(queryThiSinh, conn, transaction);
                     cmdThiSinh.Parameters.AddWithValue("@HoTenThiSinh", thiSinh.HoTenThiSinh);
                     cmdThiSinh.Parameters.AddWithValue("@NgaySinh", thiSinh.NgaySinh.ToString("yyyy-MM-dd"));
                     cmdThiSinh.Parameters.AddWithValue("@GioiTinh", thiSinh.GioiTinh);
                     cmdThiSinh.Parameters.AddWithValue("@DiaChi", thiSinh.DiaChi);
                     cmdThiSinh.Parameters.AddWithValue("@Username", taiKhoan.Username);
-                    cmdThiSinh.ExecuteNonQuery();
 
                     // Commit transaction
                     transaction.Commit();
-                    return true;
+                    object result = cmdThiSinh.ExecuteScalar(); // Lấy ID tự động tạo
+                    return result != null ? Convert.ToInt32(result) : -1;
+
                 }
                 catch (Exception ex)
                 {
                     transaction?.Rollback(); // Rollback nếu có lỗi
                     Console.WriteLine($"Lỗi: {ex.Message}");
-                    return false;
+                    return -1;
                 }
             }
         }

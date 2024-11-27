@@ -87,18 +87,61 @@ namespace DoAn_ThiTracNghiem
 
         private void lvInformation_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Kiểm tra xem có ít nhất một item được chọn trong ListView
             if (lvInformation.SelectedItems.Count > 0)
             {
-                // Lấy username của thí sinh được chọn
-                string username = lvInformation.SelectedItems[0].SubItems[5].Text; // Cột chứa username
+                // Xóa các item trong ComboBox Giới tính
+                cbbGioiTinh.Items.Clear();
+                cbbGioiTinh.Items.Add("Nam");
+                cbbGioiTinh.Items.Add("Nữ");
 
-                // Truy vấn mật khẩu
-                string password = GetPasswordByUsername(username);
+                // Lấy thông tin từ dòng được chọn và gán vào các điều khiển trên form
+                var selectedItem = lvInformation.SelectedItems[0]; // Lấy item được chọn
 
-                // Hiển thị mật khẩu (hoặc xử lý theo yêu cầu)
-                MessageBox.Show($"Mật khẩu của tài khoản {username} là: {password}", "Thông tin mật khẩu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Cập nhật TextBox cho họ tên
+                txtHoTen.Text = selectedItem.SubItems[1].Text;
+
+                // Chuyển đổi ngày sinh từ ListView thành DateTime và gán vào DateTimePicker
+                DateTime ngaySinh;
+                string ngaySinhString = selectedItem.SubItems[2].Text;  // Lấy giá trị ngày sinh từ ListView
+                if (DateTime.TryParseExact(ngaySinhString, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out ngaySinh))
+                {
+                    dateTimePicker1.Value = ngaySinh; // Nếu chuyển đổi thành công, gán vào DateTimePicker
+                }
+                else
+                {
+                    // Nếu không chuyển đổi được, thông báo lỗi hoặc giữ giá trị mặc định
+                    MessageBox.Show("Ngày sinh không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Cập nhật ComboBox giới tính dựa trên giá trị trong ListView
+                string gioiTinh = selectedItem.SubItems[3].Text;
+                if (gioiTinh == "Nam")
+                {
+                    cbbGioiTinh.SelectedItem = "Nam"; // Chọn "Nam" nếu dữ liệu là Nam
+                }
+                else if (gioiTinh == "Nữ")
+                {
+                    cbbGioiTinh.SelectedItem = "Nữ"; // Chọn "Nữ" nếu dữ liệu là Nữ
+                }
+                else
+                {
+                    cbbGioiTinh.SelectedItem = null; // Nếu không có dữ liệu hợp lệ, đặt ComboBox thành null
+                }
+
+                // Cập nhật TextBox cho địa chỉ
+                txtDiaChi.Text = selectedItem.SubItems[4].Text;
+
+                // Cập nhật TextBox cho username
+                txtUsername.Text = selectedItem.SubItems[5].Text;
+                txtPsssword.Text = selectedItem.SubItems[6].Text;
+                btnThem.Visible = false;
+                txtUsername.ReadOnly = true;
+                button1.Visible = false;
             }
         }
+
+
 
         private void btnSearchInfo_Click(object sender, EventArgs e)
         {
@@ -142,7 +185,30 @@ namespace DoAn_ThiTracNghiem
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void txtHien_Click_1(object sender, EventArgs e)
+        {
+            if (lvInformation.SelectedItems.Count > 0)
+            {
+                // Lấy username từ mục được chọn
+                string username = lvInformation.SelectedItems[0].SubItems[5].Text;
 
+                // Lấy mật khẩu từ cơ sở dữ liệu
+                string password = GetPasswordByUsername(username);
+
+                // Hiển thị mật khẩu
+                MessageBox.Show($"Mật khẩu của tài khoản {username} là: {password}",
+                                "Hiển Thị Mật Khẩu",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một thí sinh trong danh sách!",
+                                "Thông Báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
+        }
         private void btnRefreshInfo_Click(object sender, EventArgs e)
         {
             lvInformation.Items.Clear(); // Chỉ xóa dữ liệu (Items), giữ lại cột
@@ -183,9 +249,10 @@ namespace DoAn_ThiTracNghiem
                 };
                 //thêm thí sinh qua lớp bll
                 ThiSinhBLL tsBLL = new ThiSinhBLL();
-                if (tsBLL.AddThiSinh(ts, tk))
+                int maThiSinh = tsBLL.AddThiSinh(ts, tk);
+                if (maThiSinh > 0)
                 {
-                    MessageBox.Show($"Tạo tài khoản mới cho thí sinh {hoTen} Thành công");
+                    MessageBox.Show($"Tạo tài khoản mới cho thí sinh {hoTen} Thành công, mã thí sinh: {maThiSinh}");
                     lvInformation.Items.Clear(); // Xóa danh sách hiện tại
                     ShowAllInformation();        // Hiển thị danh sách cập nhật
                 }
@@ -228,7 +295,132 @@ namespace DoAn_ThiTracNghiem
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (lvInformation.SelectedItems.Count > 0)
+                {
+                    int maThiSinh = int.Parse(lvInformation.SelectedItems[0].SubItems[0].Text);
 
+                    // Xóa thí sinh qua BLL
+                    ThiSinhBLL tsBLL = new ThiSinhBLL();
+                    bool isDeleted = tsBLL.DeleteThiSinh(maThiSinh);
+
+                    if (isDeleted)
+                    {
+                        MessageBox.Show("Xóa thí sinh thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Đặt lại trạng thái giao diện
+                        ResetFormState();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa thí sinh thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một thí sinh trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        // Hàm đặt lại trạng thái giao diện
+        private void ResetFormState()
+        {
+            // Xóa danh sách ListView hiện tại
+            lvInformation.Items.Clear();
+
+            // Hiển thị lại danh sách cập nhật
+            ShowAllInformation();
+
+            // Xóa dữ liệu trong các trường nhập liệu
+            txtHoTen.Clear();
+            txtDiaChi.Clear();
+            txtUsername.Clear();
+            txtPsssword.Clear();
+            cbbGioiTinh.SelectedIndex = -1; // Đặt lại ComboBox về trạng thái không chọn gì
+            dateTimePicker1.Value = DateTime.Now; // Đặt lại ngày về hôm nay
+
+            // Đặt lại trạng thái các nút
+            btnThem.Visible = true; // Nếu có nút thêm, đặt nó hiển thị
+        }
+        //cập nhật thông tin thí sinh
+        private void btnCapNhat_Click(object sender, EventArgs e)
+       {        
+            try
+            {
+                // Lấy thông tin từ các điều khiển trong form
+                if (lvInformation.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn thí sinh cần cập nhật!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int maThiSinh = int.Parse(lvInformation.SelectedItems[0].SubItems[0].Text);
+                String hoTen = txtHoTen.Text;
+                String diaChi = txtDiaChi.Text;
+                String Username = txtUsername.Text;
+                String Password = txtPsssword.Text;
+                DateTime ngaySinh = dateTimePicker1.Value;
+
+                string gioiTinhText = cbbGioiTinh.SelectedItem?.ToString();
+                if (gioiTinhText == null)
+                {
+                    MessageBox.Show("Vui lòng chọn giới tính!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                char gioiTinh = gioiTinhText == "Nam" ? 'M' : 'F';
+
+                // Kiểm tra tính hợp lệ của dữ liệu đầu vào
+                if (string.IsNullOrEmpty(hoTen) || string.IsNullOrEmpty(diaChi) || string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Tạo đối tượng tài khoản mới
+                TaiKhoan tk = new TaiKhoan
+                {
+                    Username = Username,
+                    Password = Password,
+                    IsAdmin = false  // Hoặc gán giá trị cho trường này nếu có
+                };
+
+                // Tạo đối tượng thí sinh mới
+                ThiSinh ts = new ThiSinh
+                {
+                    Username = Username,
+                    HoTenThiSinh = hoTen,
+                    DiaChi = diaChi,
+                    NgaySinh = ngaySinh,
+                    GioiTinh = gioiTinh
+                };
+
+                // Gọi phương thức cập nhật của lớp BLL
+                ThiSinhBLL tsBLL = new ThiSinhBLL();
+                bool result = tsBLL.UpdateThiSinhAndAccount(maThiSinh, hoTen, ngaySinh, gioiTinh, diaChi, Username, Password);
+
+                // Kiểm tra kết quả cập nhật
+                if (result)
+                {
+                    MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ResetFormState();
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật thất bại! Vui lòng kiểm tra lại thông tin.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
     }
 }

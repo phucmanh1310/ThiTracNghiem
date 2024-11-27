@@ -26,7 +26,14 @@ namespace DoAn_ThiTracNghiem
         {
             frmAllInformation frm = new frmAllInformation();
             frm.ShowDialog();
-            this.Close();
+        
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            frnAdminKetQuaThi frm = new frnAdminKetQuaThi();
+            frm.ShowDialog();
+           
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAllInformation));
             groupBox2 = new GroupBox();
+            txtHien = new Button();
             groupBox3 = new GroupBox();
             button1 = new Button();
             label7 = new Label();
@@ -68,6 +69,7 @@
             // 
             groupBox2.AccessibleRole = AccessibleRole.None;
             groupBox2.AutoSize = true;
+            groupBox2.Controls.Add(txtHien);
             groupBox2.Controls.Add(groupBox3);
             groupBox2.Controls.Add(lvInformation);
             groupBox2.Controls.Add(lblThongTin);
@@ -84,6 +86,20 @@
             groupBox2.TabIndex = 8;
             groupBox2.TabStop = false;
             groupBox2.Text = "DANH SÁCH THÍ SINH";
+            // 
+            // txtHien
+            // 
+            txtHien.BackColor = SystemColors.MenuHighlight;
+            txtHien.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtHien.ForeColor = Color.GhostWhite;
+            txtHien.Location = new Point(969, 58);
+            txtHien.Margin = new Padding(4, 5, 4, 5);
+            txtHien.Name = "txtHien";
+            txtHien.Size = new Size(79, 41);
+            txtHien.TabIndex = 10;
+            txtHien.Text = "Hiện";
+            txtHien.UseVisualStyleBackColor = false;
+            txtHien.Click += txtHien_Click_1;
             // 
             // groupBox3
             // 
@@ -239,6 +255,7 @@
             btnCapNhat.TabIndex = 2;
             btnCapNhat.Text = "Cập nhật";
             btnCapNhat.UseVisualStyleBackColor = true;
+            btnCapNhat.Click += btnCapNhat_Click;
             // 
             // btnThem
             // 
@@ -329,10 +346,10 @@
             btnRefreshInfo.BackgroundImageLayout = ImageLayout.Zoom;
             btnRefreshInfo.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRefreshInfo.ForeColor = Color.MediumAquamarine;
-            btnRefreshInfo.Location = new Point(983, 58);
+            btnRefreshInfo.Location = new Point(1056, 57);
             btnRefreshInfo.Margin = new Padding(4, 5, 4, 5);
             btnRefreshInfo.Name = "btnRefreshInfo";
-            btnRefreshInfo.Size = new Size(37, 42);
+            btnRefreshInfo.Size = new Size(45, 42);
             btnRefreshInfo.TabIndex = 3;
             btnRefreshInfo.UseVisualStyleBackColor = true;
             btnRefreshInfo.Click += btnRefreshInfo_Click;
@@ -345,7 +362,7 @@
             btnSearchInfo.Location = new Point(856, 58);
             btnSearchInfo.Margin = new Padding(4, 5, 4, 5);
             btnSearchInfo.Name = "btnSearchInfo";
-            btnSearchInfo.Size = new Size(119, 41);
+            btnSearchInfo.Size = new Size(105, 41);
             btnSearchInfo.TabIndex = 2;
             btnSearchInfo.Text = "Tìm kiếm";
             btnSearchInfo.UseVisualStyleBackColor = false;
@@ -413,5 +430,6 @@
         private ColumnHeader Username;
         private ColumnHeader MatKhau;
         private Button button1;
+        private Button txtHien;
     }
 }

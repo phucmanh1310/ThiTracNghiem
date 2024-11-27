@@ -12,7 +12,7 @@ namespace BLL
     {
         ThiSinhAccesss thiSinhAccess = new ThiSinhAccesss();
 
-        public bool AddThiSinh(ThiSinh thiSinh, TaiKhoan taiKhoan)
+        public int AddThiSinh(ThiSinh thiSinh, TaiKhoan taiKhoan)
         {
             // Kiểm tra dữ liệu đầu vào
             if (string.IsNullOrWhiteSpace(thiSinh.HoTenThiSinh) || string.IsNullOrWhiteSpace(taiKhoan.Username))
@@ -32,6 +32,14 @@ namespace BLL
         public List<ThiSinh> TraCuuThiSinh(String thisinh)
         {
             return thiSinhAccess.TraCuuThiSinh(thisinh);
+        }
+        public bool DeleteThiSinh (int mathisinh)
+        {
+            return thiSinhAccess.DeleteThiSinh(mathisinh);        
+        }
+        public bool UpdateThiSinhAndAccount(int maThiSinh, string hoTenMoi, DateTime ngaySinhMoi, char gioiTinhMoi, string diaChiMoi, string usernameMoi, String passwordMoi)
+        {
+            return thiSinhAccess.UpdateThiSinhAndAccount(maThiSinh,hoTenMoi, ngaySinhMoi,gioiTinhMoi, diaChiMoi, usernameMoi, passwordMoi);
         }
     }
 }

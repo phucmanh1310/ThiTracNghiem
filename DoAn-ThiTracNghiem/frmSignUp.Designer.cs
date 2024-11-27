@@ -245,7 +245,7 @@
             Name = "frmSignUp";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmSignUp";
-            FormClosed += frmSignUp_FormClosed;
+
             Load += frmSignUp_Load;
             ResumeLayout(false);
             PerformLayout();

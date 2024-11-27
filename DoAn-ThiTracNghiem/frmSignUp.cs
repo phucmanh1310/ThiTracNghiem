@@ -19,7 +19,7 @@ namespace DoAn_ThiTracNghiem
         {
             InitializeComponent();
         }
-        private void frmSignUp_FormClosed(object sender, FormClosedEventArgs e)
+      /*  private void frmSignUp_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (MessageBox.Show("Bạn chắc chắn muốn thoát đăng ký chứ?", "Thoát đăng ký?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
             {
@@ -31,7 +31,7 @@ namespace DoAn_ThiTracNghiem
                 frm.Show();
             }
         }
-
+*/
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -83,9 +83,10 @@ namespace DoAn_ThiTracNghiem
 
                 // Thêm thí sinh qua lớp BLL
                 ThiSinhBLL bll = new ThiSinhBLL();
-                if (bll.AddThiSinh(newThiSinh, taiKhoan))
+                int maThiSinh = bll.AddThiSinh(newThiSinh, taiKhoan);
+                if (maThiSinh > 0)
                 {
-                    MessageBox.Show("Đăng ký thành công! Tiến hành đăng nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Đăng ký thành công, mã thí sinh{maThiSinh} ! Tiến hành đăng nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Đóng form hiện tại
                     this.Close();
 
