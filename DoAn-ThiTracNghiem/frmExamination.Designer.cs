@@ -28,84 +28,85 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             groupBox1 = new GroupBox();
-            label3 = new Label();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            lableTime = new Label();
+            txtMaSo = new TextBox();
+            txtHoTen = new TextBox();
             label2 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            btnNext = new Button();
+            btnPrevious = new Button();
+            btnSubmit = new Button();
             label8 = new Label();
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
-            pictureBox1 = new PictureBox();
+            pictureBoxCauHoi = new PictureBox();
             checkBox4 = new CheckBox();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
-            label4 = new Label();
+            lbCauHoi = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCauHoi).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(textBox2);
-            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(lableTime);
+            groupBox1.Controls.Add(txtMaSo);
+            groupBox1.Controls.Add(txtHoTen);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
             groupBox1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.RoyalBlue;
             groupBox1.Location = new Point(26, 31);
-            groupBox1.Margin = new Padding(4, 4, 4, 4);
+            groupBox1.Margin = new Padding(4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4, 4, 4, 4);
-            groupBox1.Size = new Size(934, 154);
+            groupBox1.Padding = new Padding(4);
+            groupBox1.Size = new Size(859, 154);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN";
-            groupBox1.Enter += groupBox1_Enter;
             // 
-            // label3
+            // lableTime
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.Red;
-            label3.Location = new Point(796, 61);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(109, 46);
-            label3.TabIndex = 4;
-            label3.Text = "15:00";
+            lableTime.AutoSize = true;
+            lableTime.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lableTime.ForeColor = Color.Red;
+            lableTime.Location = new Point(704, 63);
+            lableTime.Margin = new Padding(4, 0, 4, 0);
+            lableTime.Name = "lableTime";
+            lableTime.Size = new Size(109, 46);
+            lableTime.TabIndex = 4;
+            lableTime.Text = "15:00";
             // 
-            // textBox2
+            // txtMaSo
             // 
-            textBox2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox2.Location = new Point(96, 51);
-            textBox2.Margin = new Padding(4, 4, 4, 4);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(222, 27);
-            textBox2.TabIndex = 3;
-            textBox2.Text = "Mã số";
-            textBox2.TextAlign = HorizontalAlignment.Center;
-            textBox2.UseWaitCursor = true;
+            txtMaSo.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMaSo.Location = new Point(96, 51);
+            txtMaSo.Margin = new Padding(4);
+            txtMaSo.Name = "txtMaSo";
+            txtMaSo.Size = new Size(222, 27);
+            txtMaSo.TabIndex = 3;
+            txtMaSo.Text = "Mã số";
+            txtMaSo.TextAlign = HorizontalAlignment.Center;
+            txtMaSo.UseWaitCursor = true;
             // 
-            // textBox1
+            // txtHoTen
             // 
-            textBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(96, 98);
-            textBox1.Margin = new Padding(4, 4, 4, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(222, 27);
-            textBox1.TabIndex = 2;
-            textBox1.Text = "Họ tên";
-            textBox1.TextAlign = HorizontalAlignment.Center;
+            txtHoTen.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtHoTen.Location = new Point(96, 98);
+            txtHoTen.Margin = new Padding(4);
+            txtHoTen.Name = "txtHoTen";
+            txtHoTen.Size = new Size(222, 27);
+            txtHoTen.TabIndex = 2;
+            txtHoTen.Text = "Họ tên";
+            txtHoTen.TextAlign = HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -117,7 +118,6 @@
             label2.Size = new Size(56, 20);
             label2.TabIndex = 1;
             label2.Text = "Họ tên";
-            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -132,59 +132,62 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(button3);
-            groupBox2.Controls.Add(button2);
-            groupBox2.Controls.Add(button1);
+            groupBox2.Controls.Add(btnNext);
+            groupBox2.Controls.Add(btnPrevious);
+            groupBox2.Controls.Add(btnSubmit);
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(label7);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(pictureBox1);
+            groupBox2.Controls.Add(pictureBoxCauHoi);
             groupBox2.Controls.Add(checkBox4);
             groupBox2.Controls.Add(checkBox3);
             groupBox2.Controls.Add(checkBox2);
             groupBox2.Controls.Add(checkBox1);
-            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(lbCauHoi);
             groupBox2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.RoyalBlue;
             groupBox2.Location = new Point(26, 224);
-            groupBox2.Margin = new Padding(4, 4, 4, 4);
+            groupBox2.Margin = new Padding(4);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(4, 4, 4, 4);
-            groupBox2.Size = new Size(934, 582);
+            groupBox2.Padding = new Padding(4);
+            groupBox2.Size = new Size(859, 582);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "CÂU HỎI";
             // 
-            // button3
+            // btnNext
             // 
-            button3.Location = new Point(873, 528);
-            button3.Margin = new Padding(2, 2, 2, 2);
-            button3.Name = "button3";
-            button3.Size = new Size(38, 39);
-            button3.TabIndex = 12;
-            button3.Text = ">";
-            button3.UseVisualStyleBackColor = true;
+            btnNext.Location = new Point(763, 528);
+            btnNext.Margin = new Padding(2);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(38, 39);
+            btnNext.TabIndex = 12;
+            btnNext.Text = ">";
+            btnNext.UseVisualStyleBackColor = true;
+            btnNext.Click += btnNext_Click;
             // 
-            // button2
+            // btnPrevious
             // 
-            button2.Location = new Point(822, 528);
-            button2.Margin = new Padding(2, 2, 2, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(38, 39);
-            button2.TabIndex = 11;
-            button2.Text = "<";
-            button2.UseVisualStyleBackColor = true;
+            btnPrevious.Location = new Point(714, 528);
+            btnPrevious.Margin = new Padding(2);
+            btnPrevious.Name = "btnPrevious";
+            btnPrevious.Size = new Size(38, 39);
+            btnPrevious.TabIndex = 11;
+            btnPrevious.Text = "<";
+            btnPrevious.UseVisualStyleBackColor = true;
+            btnPrevious.Click += btnPrevious_Click;
             // 
-            // button1
+            // btnSubmit
             // 
-            button1.Location = new Point(394, 527);
-            button1.Margin = new Padding(2, 2, 2, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(177, 41);
-            button1.TabIndex = 10;
-            button1.Text = "NỘP BÀI";
-            button1.UseVisualStyleBackColor = true;
+            btnSubmit.Location = new Point(330, 527);
+            btnSubmit.Margin = new Padding(2);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(177, 41);
+            btnSubmit.TabIndex = 10;
+            btnSubmit.Text = "NỘP BÀI";
+            btnSubmit.UseVisualStyleBackColor = true;
+            btnSubmit.Click += btnSubmit_Click;
             // 
             // label8
             // 
@@ -197,7 +200,6 @@
             label8.Size = new Size(90, 28);
             label8.TabIndex = 9;
             label8.Text = "Đáp án 4";
-            label8.Click += label8_Click;
             // 
             // label7
             // 
@@ -222,10 +224,9 @@
             label6.Size = new Size(90, 28);
             label6.TabIndex = 7;
             label6.Text = "Đáp án 2";
-            label6.Click += label6_Click;
             // 
             // label5
-            // 
+            //
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
             label5.ForeColor = Color.Black;
@@ -235,17 +236,15 @@
             label5.Size = new Size(90, 28);
             label5.TabIndex = 6;
             label5.Text = "Đáp án 1";
-            label5.Click += label5_Click;
             // 
-            // pictureBox1
+            // pictureBoxCauHoi
             // 
-            pictureBox1.Location = new Point(476, 121);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(374, 231);
-            pictureBox1.TabIndex = 5;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            pictureBoxCauHoi.Location = new Point(427, 127);
+            pictureBoxCauHoi.Margin = new Padding(4);
+            pictureBoxCauHoi.Name = "pictureBoxCauHoi";
+            pictureBoxCauHoi.Size = new Size(374, 231);
+            pictureBoxCauHoi.TabIndex = 5;
+            pictureBoxCauHoi.TabStop = false;
             // 
             // checkBox4
             // 
@@ -253,7 +252,7 @@
             checkBox4.Font = new Font("Segoe UI", 12F);
             checkBox4.ForeColor = Color.Black;
             checkBox4.Location = new Point(36, 402);
-            checkBox4.Margin = new Padding(4, 4, 4, 4);
+            checkBox4.Margin = new Padding(4);
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(18, 17);
             checkBox4.TabIndex = 4;
@@ -265,7 +264,7 @@
             checkBox3.Font = new Font("Segoe UI", 12F);
             checkBox3.ForeColor = Color.Black;
             checkBox3.Location = new Point(36, 317);
-            checkBox3.Margin = new Padding(4, 4, 4, 4);
+            checkBox3.Margin = new Padding(4);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(18, 17);
             checkBox3.TabIndex = 3;
@@ -277,7 +276,7 @@
             checkBox2.Font = new Font("Segoe UI", 12F);
             checkBox2.ForeColor = Color.Black;
             checkBox2.Location = new Point(36, 229);
-            checkBox2.Margin = new Padding(4, 4, 4, 4);
+            checkBox2.Margin = new Padding(4);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(18, 17);
             checkBox2.TabIndex = 2;
@@ -289,39 +288,44 @@
             checkBox1.Font = new Font("Segoe UI", 12F);
             checkBox1.ForeColor = Color.Black;
             checkBox1.Location = new Point(36, 133);
-            checkBox1.Margin = new Padding(4, 4, 4, 4);
+            checkBox1.Margin = new Padding(4);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(18, 17);
             checkBox1.TabIndex = 1;
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // lbCauHoi
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.Black;
-            label4.Location = new Point(8, 54);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(111, 32);
-            label4.TabIndex = 0;
-            label4.Text = "Câu hỏi?";
+            lbCauHoi.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCauHoi.ForeColor = Color.Black;
+            lbCauHoi.Location = new Point(36, 58);
+            lbCauHoi.Margin = new Padding(4, 0, 4, 0);
+            lbCauHoi.Name = "lbCauHoi";
+            lbCauHoi.Size = new Size(92, 28);
+            lbCauHoi.TabIndex = 0;
+            lbCauHoi.Text = "Câu hỏi?";
+            // 
+            // timer1
+            // 
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
             // 
             // frmExamination
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1057, 822);
+            ClientSize = new Size(1168, 822);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "frmExamination";
             Text = "frmExamination";
+            Load += frmExamination_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCauHoi).EndInit();
             ResumeLayout(false);
         }
 
@@ -329,23 +333,24 @@
 
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox txtMaSo;
+        private TextBox txtHoTen;
         private Label label2;
         private Label label1;
-        private Label label3;
-        private Label label4;
+        private Label lableTime;
+        private Label lbCauHoi;
         private CheckBox checkBox4;
         private CheckBox checkBox3;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
-        private PictureBox pictureBox1;
+        private PictureBox pictureBoxCauHoi;
         private Label label8;
         private Label label7;
         private Label label6;
         private Label label5;
-        private Button button1;
-        private Button button3;
-        private Button button2;
+        private Button btnSubmit;
+        private Button btnNext;
+        private Button btnPrevious;
+        private System.Windows.Forms.Timer timer1;
     }
 }

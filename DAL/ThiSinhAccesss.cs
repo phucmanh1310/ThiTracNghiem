@@ -171,7 +171,31 @@ namespace DAL
             }
         }
 
+        public ThiSinh GetThiSinh(string username)
+        {
+            ThiSinh thisinh = null;
+            string query = "SELECT MaThiSinh, HoTenThiSinh FROM ThiSinh WHERE Username = @Username";
+            using (SqlConnection con = SqlConnectionData.Connect())
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Username", username);
 
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    thisinh = new ThiSinh
+                    {
+                        MaThiSinh = Convert.ToInt32(reader["MaThiSinh"]),
+                        HoTenThiSinh = reader["HoTenThiSinh"].ToString()
+                    };
+                }
+            }
+
+            return thisinh;
+        }
 
     }
+
 }
+

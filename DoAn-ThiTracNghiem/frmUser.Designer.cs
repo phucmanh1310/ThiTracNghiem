@@ -1,4 +1,6 @@
-﻿namespace DoAn_ThiTracNghiem
+﻿using System.Windows.Forms;
+
+namespace DoAn_ThiTracNghiem
 {
     partial class frmUser
     {
@@ -54,6 +56,7 @@
             picExamination.SizeMode = PictureBoxSizeMode.Zoom;
             picExamination.TabIndex = 0;
             picExamination.TabStop = false;
+            picExamination.Click += picExamination_Click;
             // 
             // lblTitle
             // 
@@ -105,7 +108,6 @@
             picDocument.SizeMode = PictureBoxSizeMode.Zoom;
             picDocument.TabIndex = 4;
             picDocument.TabStop = false;
-            picDocument.Click += picDocument_Click;
             // 
             // lblThongTin
             // 
