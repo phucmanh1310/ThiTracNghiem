@@ -350,7 +350,7 @@ namespace DoAn_ThiTracNghiem
         }
         //cập nhật thông tin thí sinh
         private void btnCapNhat_Click(object sender, EventArgs e)
-       {        
+        {
             try
             {
                 // Lấy thông tin từ các điều khiển trong form
@@ -420,7 +420,35 @@ namespace DoAn_ThiTracNghiem
                 MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnXemDiem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvInformation.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn một thí sinh để xem kết quả.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                // Lấy MaThiSinh của thí sinh đã chọn
+                int maThiSinh = int.Parse(lvInformation.SelectedItems[0].SubItems[0].Text);
 
+                // Mở form mới và truyền MaThiSinh
+                frmAdminKetQuaThi frmKetQuaChiTiet = new frmAdminKetQuaThi(maThiSinh);
+                frmKetQuaChiTiet.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void frmAllInformation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (MessageBox.Show("Bạn chắc chắn muốn thoát chương trình chứ?", "Thoát chương trình?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                Dispose();
+            }
+        }
     }
 }

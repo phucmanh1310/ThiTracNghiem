@@ -32,6 +32,7 @@
             groupBox2 = new GroupBox();
             txtHien = new Button();
             groupBox3 = new GroupBox();
+            btnXemDiem = new Button();
             button1 = new Button();
             label7 = new Label();
             label6 = new Label();
@@ -82,7 +83,7 @@
             groupBox2.Margin = new Padding(4, 5, 4, 5);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(4, 5, 4, 5);
-            groupBox2.Size = new Size(1120, 885);
+            groupBox2.Size = new Size(1120, 928);
             groupBox2.TabIndex = 8;
             groupBox2.TabStop = false;
             groupBox2.Text = "DANH SÁCH THÍ SINH";
@@ -103,6 +104,7 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(btnXemDiem);
             groupBox3.Controls.Add(button1);
             groupBox3.Controls.Add(label7);
             groupBox3.Controls.Add(label6);
@@ -124,10 +126,20 @@
             groupBox3.ForeColor = Color.Black;
             groupBox3.Location = new Point(4, 548);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(1102, 294);
+            groupBox3.Size = new Size(1102, 337);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "Hành động";
+            // 
+            // btnXemDiem
+            // 
+            btnXemDiem.Location = new Point(386, 262);
+            btnXemDiem.Name = "btnXemDiem";
+            btnXemDiem.Size = new Size(397, 65);
+            btnXemDiem.TabIndex = 18;
+            btnXemDiem.Text = "XEM KẾT QUẢ THI CỦA THÍ SINH NÀY";
+            btnXemDiem.UseVisualStyleBackColor = true;
+            btnXemDiem.Click += btnXemDiem_Click;
             // 
             // button1
             // 
@@ -161,7 +173,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(503, 26);
+            label5.Location = new Point(433, 26);
             label5.Name = "label5";
             label5.Size = new Size(350, 38);
             label5.TabIndex = 14;
@@ -381,7 +393,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1135, 871);
+            ClientSize = new Size(1135, 901);
             Controls.Add(groupBox2);
             Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
@@ -389,6 +401,7 @@
             Name = "frmAllInformation";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CÁC THÔNG TIN NGƯỜI DÙNG";
+            FormClosed += frmAllInformation_FormClosed;
             Load += frmAllInformation_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
@@ -431,5 +444,6 @@
         private ColumnHeader MatKhau;
         private Button button1;
         private Button txtHien;
+        private Button btnXemDiem;
     }
 }

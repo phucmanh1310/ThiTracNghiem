@@ -19,7 +19,8 @@ namespace DoAn_ThiTracNghiem
 
         private void picThemCauHoi_Click(object sender, EventArgs e)
         {
-
+            frmAddQuestion frm = new frmAddQuestion();
+            frm.ShowDialog();
         }
 
         private void picThongTinThiSinh_Click(object sender, EventArgs e)
@@ -27,13 +28,6 @@ namespace DoAn_ThiTracNghiem
             frmAllInformation frm = new frmAllInformation();
             frm.ShowDialog();
         
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            frnAdminKetQuaThi frm = new frnAdminKetQuaThi();
-            frm.ShowDialog();
-           
         }
     }
 }

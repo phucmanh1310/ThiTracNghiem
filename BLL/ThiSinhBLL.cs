@@ -29,6 +29,11 @@ namespace BLL
 
             return thiSinhAccess.GetAllThiSinh();
         }
+        //lấy họ tên thí sinh
+        public String GetHoTenTS(int maThiSinh)
+        {
+            return thiSinhAccess.GetHoTenThiSinh(maThiSinh);
+        }
         public List<ThiSinh> TraCuuThiSinh(String thisinh)
         {
             return thiSinhAccess.TraCuuThiSinh(thisinh);

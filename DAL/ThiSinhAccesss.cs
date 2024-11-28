@@ -47,6 +47,24 @@ namespace DAL
             }
             return list;
         }
+        public String GetHoTenThiSinh(int maThiSinh)
+        {
+            string hoTenThiSinh = null;  // Khởi tạo biến để lưu trữ kết quả
+            string query = "SELECT HoTenThiSinh FROM ThiSinh WHERE MaThiSinh = @maThiSinh";
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@maThiSinh", maThiSinh);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())  // Kiểm tra xem có dữ liệu trả về hay không
+                {
+                    hoTenThiSinh = reader["HoTenThiSinh"].ToString();  // Lưu trữ kết quả vào biến
+                }
+                conn.Close();
+            }
+            return hoTenThiSinh;
+        }
         //-------------------------------
         public List<ThiSinh> TraCuuThiSinh(String hoTenThiSinh)
         {

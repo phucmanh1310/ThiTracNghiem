@@ -17,6 +17,9 @@ namespace DoAn_ThiTracNghiem
             InitializeComponent();
         }
 
+        private void picDocument_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
