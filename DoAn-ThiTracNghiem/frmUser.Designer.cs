@@ -32,15 +32,15 @@
             picExamination = new PictureBox();
             lblTitle = new Label();
             grpBoxFeature = new GroupBox();
-            lblLuyenThi = new Label();
-            lblThongTin = new Label();
-            pictureBox1 = new PictureBox();
             lblTaiLieu = new Label();
             picDocument = new PictureBox();
+            lblThongTin = new Label();
+            pictureBox1 = new PictureBox();
+            lblLuyenThi = new Label();
             ((System.ComponentModel.ISupportInitialize)picExamination).BeginInit();
             grpBoxFeature.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picDocument).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // picExamination
@@ -54,6 +54,7 @@
             picExamination.SizeMode = PictureBoxSizeMode.Zoom;
             picExamination.TabIndex = 0;
             picExamination.TabStop = false;
+            picExamination.Click += picExamination_Click;
             // 
             // lblTitle
             // 
@@ -83,16 +84,28 @@
             grpBoxFeature.TabStop = false;
             grpBoxFeature.Text = "Giao diện thí sinh";
             // 
-            // lblLuyenThi
+            // lblTaiLieu
             // 
-            lblLuyenThi.AutoSize = true;
-            lblLuyenThi.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLuyenThi.ForeColor = SystemColors.ActiveCaptionText;
-            lblLuyenThi.Location = new Point(365, 279);
-            lblLuyenThi.Name = "lblLuyenThi";
-            lblLuyenThi.Size = new Size(152, 31);
-            lblLuyenThi.TabIndex = 1;
-            lblLuyenThi.Text = "LÀM BÀI THI";
+            lblTaiLieu.AutoSize = true;
+            lblTaiLieu.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTaiLieu.ForeColor = SystemColors.ActiveCaptionText;
+            lblTaiLieu.Location = new Point(74, 536);
+            lblTaiLieu.Name = "lblTaiLieu";
+            lblTaiLieu.Size = new Size(250, 31);
+            lblTaiLieu.TabIndex = 5;
+            lblTaiLieu.Text = "TÀI LIỆU THAM KHẢO";
+            // 
+            // picDocument
+            // 
+            picDocument.Cursor = Cursors.Hand;
+            picDocument.ErrorImage = null;
+            picDocument.Image = (Image)resources.GetObject("picDocument.Image");
+            picDocument.Location = new Point(72, 302);
+            picDocument.Name = "picDocument";
+            picDocument.Size = new Size(252, 220);
+            picDocument.SizeMode = PictureBoxSizeMode.Zoom;
+            picDocument.TabIndex = 4;
+            picDocument.TabStop = false;
             // 
             // lblThongTin
             // 
@@ -117,28 +130,16 @@
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
-            // lblTaiLieu
+            // lblLuyenThi
             // 
-            lblTaiLieu.AutoSize = true;
-            lblTaiLieu.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTaiLieu.ForeColor = SystemColors.ActiveCaptionText;
-            lblTaiLieu.Location = new Point(74, 536);
-            lblTaiLieu.Name = "lblTaiLieu";
-            lblTaiLieu.Size = new Size(250, 31);
-            lblTaiLieu.TabIndex = 5;
-            lblTaiLieu.Text = "TÀI LIỆU THAM KHẢO";
-            // 
-            // picDocument
-            // 
-            picDocument.Cursor = Cursors.Hand;
-            picDocument.ErrorImage = null;
-            picDocument.Image = (Image)resources.GetObject("picDocument.Image");
-            picDocument.Location = new Point(72, 302);
-            picDocument.Name = "picDocument";
-            picDocument.Size = new Size(252, 220);
-            picDocument.SizeMode = PictureBoxSizeMode.Zoom;
-            picDocument.TabIndex = 4;
-            picDocument.TabStop = false;
+            lblLuyenThi.AutoSize = true;
+            lblLuyenThi.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLuyenThi.ForeColor = SystemColors.ActiveCaptionText;
+            lblLuyenThi.Location = new Point(365, 279);
+            lblLuyenThi.Name = "lblLuyenThi";
+            lblLuyenThi.Size = new Size(152, 31);
+            lblLuyenThi.TabIndex = 1;
+            lblLuyenThi.Text = "LÀM BÀI THI";
             // 
             // frmUser
             // 
@@ -153,8 +154,8 @@
             ((System.ComponentModel.ISupportInitialize)picExamination).EndInit();
             grpBoxFeature.ResumeLayout(false);
             grpBoxFeature.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picDocument).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

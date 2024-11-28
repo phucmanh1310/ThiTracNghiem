@@ -41,5 +41,10 @@ namespace BLL
         {
             return thiSinhAccess.UpdateThiSinhAndAccount(maThiSinh,hoTenMoi, ngaySinhMoi,gioiTinhMoi, diaChiMoi, usernameMoi, passwordMoi);
         }
+
+        public ThiSinh GetThiSinh(string username)
+        {
+            return thiSinhAccess.GetThiSinh(username);
+        }
     }
 }

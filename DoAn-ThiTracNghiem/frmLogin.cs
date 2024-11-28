@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DTO;
 using BLL;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 namespace DoAn_ThiTracNghiem
 {
     public partial class frmLogin : Form
     {
         TaiKhoan taikhoan = new TaiKhoan();
         TaiKhoanBLL tkBLL = new TaiKhoanBLL();
+        private string username;
         public frmLogin()
         {
             InitializeComponent();
@@ -67,7 +69,7 @@ namespace DoAn_ThiTracNghiem
                 else
                 {
                     // Chuyển sang frmUser
-                    frmUser userForm = new frmUser();
+                    frmUser userForm = new frmUser(loginResult.username);
                     this.Hide();
                     userForm.ShowDialog();
                 }
