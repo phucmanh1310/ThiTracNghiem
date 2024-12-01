@@ -174,21 +174,17 @@ namespace DAL
 
         public ThiSinh GetThiSinh(string username)
         {
-<<<<<<< HEAD
-=======
             ThiSinh thisinh = null;
             string query = "SELECT MaThiSinh, HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, Username FROM ThiSinh WHERE Username = @Username";
             using (SqlConnection con = SqlConnectionData.Connect())
->>>>>>> bff2b0d2641fb95f0ba218d349e0bc388e7065c3
             {
-                ThiSinh thisinh = null;
-                string query = "SELECT MaThiSinh, HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, Username FROM ThiSinh WHERE Username = @Username";
-                using (SqlConnection con = SqlConnectionData.Connect())
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Username", username);
+
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-<<<<<<< HEAD
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@Username", username);
-=======
                     thisinh = new ThiSinh
                     {
                         MaThiSinh = Convert.ToInt32(reader["MaThiSinh"]),
@@ -200,27 +196,10 @@ namespace DAL
                     };
                 }
             }
->>>>>>> bff2b0d2641fb95f0ba218d349e0bc388e7065c3
 
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        thisinh = new ThiSinh
-                        {
-                            MaThiSinh = Convert.ToInt32(reader["MaThiSinh"]),
-                            HoTenThiSinh = reader["HoTenThiSinh"].ToString(),
-                            NgaySinh = Convert.ToDateTime(reader["NgaySinh"]),
-                            GioiTinh = Convert.ToChar(reader["GioiTinh"]),
-                            DiaChi = reader["DiaChi"].ToString(),
-                            Username = reader["Username"].ToString()
-                        };
-                    }
-                }
-
-                return thisinh;
-            }
+            return thisinh;
         }
+
 
     }
 
