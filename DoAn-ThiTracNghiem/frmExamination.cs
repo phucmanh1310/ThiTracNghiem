@@ -41,23 +41,50 @@ namespace DoAn_ThiTracNghiem
             ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
             txtMaSo.Text = thiSinh.MaThiSinh.ToString();
             txtHoTen.Text = thiSinh.HoTenThiSinh;
-
-
-
-
         }
 
         private void HienThiCauHoi()
         {
             List<CauHoi> listCauHoi = cauHoiBBL.GetCauHoi();
-            if (listCauHoi.Count == 0) return;
 
             CauHoi cauHoi = listCauHoi[cauHoiHienTai];
             lbCauHoi.Text = $"Câu {cauHoiHienTai + 1}: {cauHoi.NDCauHoi}";
 
+            //if (!string.IsNullOrEmpty(cauHoi.HinhAnh))
+            //{
+            //    string imagePath = Path.Combine(Application.StartupPath, "Images", cauHoi.HinhAnh);
+
+            //}
+
+            List<DapAn> listDapAn = dapAnBBL.GetDapAn(cauHoi.MaCauHoi);
+            radioButton1.Visible = radioButton2.Visible = radioButton3.Visible = radioButton4.Visible = false;
+            RadioButton[] radioButton = { radioButton1, radioButton2, radioButton3, radioButton4 };
+            for (int i = 0; i < listDapAn.Count; i++)
+            {
+                radioButton[i].Text = listDapAn[i].NDCauTraLoi;
+                radioButton[i].Tag = listDapAn[i].MaCauTraLoi; // Lưu mã câu trả lời trong Tag
+                radioButton[i].Visible = true;
+
+            }
+        }
+
+        private void ButtonCauHoi_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            int index = int.Parse(btn.Name.Replace("btnCau", "")) - 1; // Lấy số từ tên button
+            cauHoiHienTai = index;
+            HienThiCauHoi();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn chắc chắn nộp bài chứ?", "Nộp bài!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                Submit();
+            }
+        }
+
+        void Submit()
         {
             timer1.Stop();
         }
@@ -72,6 +99,8 @@ namespace DoAn_ThiTracNghiem
             else
             {
                 timer1.Stop();
+                MessageBox.Show("Phần thi đã hết giờ!", "Hết giờ!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Submit();
             }
         }
 
@@ -84,14 +113,20 @@ namespace DoAn_ThiTracNghiem
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            cauHoiHienTai--;
-            HienThiCauHoi();
+            if (cauHoiHienTai > 0)
+            {
+                cauHoiHienTai--;
+                HienThiCauHoi();
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            cauHoiHienTai++;
-            HienThiCauHoi();
+            if (cauHoiHienTai < 24) // Kiểm tra không vượt quá số câu hỏi
+            {
+                cauHoiHienTai++;
+                HienThiCauHoi();
+            }
         }
     }
 }

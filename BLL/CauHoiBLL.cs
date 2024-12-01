@@ -16,7 +16,5 @@ namespace BLL
         {
             return chAccess.GetCauHoi();
         }
-
-
     }
 }

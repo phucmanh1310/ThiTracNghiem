@@ -46,10 +46,8 @@
             cbxAnwer4 = new CheckBox();
             picImage = new PictureBox();
             groupBox1 = new GroupBox();
-            rdoQuestionType3 = new RadioButton();
-            rdoQuestionType2 = new RadioButton();
-            rdoQuestionType1 = new RadioButton();
             openFileDialog = new OpenFileDialog();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)picImage).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -245,9 +243,7 @@
             // groupBox1
             // 
             groupBox1.BackColor = SystemColors.Control;
-            groupBox1.Controls.Add(rdoQuestionType3);
-            groupBox1.Controls.Add(rdoQuestionType2);
-            groupBox1.Controls.Add(rdoQuestionType1);
+            groupBox1.Controls.Add(comboBox1);
             groupBox1.Font = new Font("Segoe UI", 11.75F, FontStyle.Bold);
             groupBox1.ForeColor = Color.MidnightBlue;
             groupBox1.Location = new Point(29, 154);
@@ -258,49 +254,17 @@
             groupBox1.Text = "Loại Câu Hỏi :";
             groupBox1.Enter += groupBox1_Enter;
             // 
-            // rdoQuestionType3
-            // 
-            rdoQuestionType3.AutoSize = true;
-            rdoQuestionType3.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            rdoQuestionType3.ForeColor = Color.RoyalBlue;
-            rdoQuestionType3.Location = new Point(6, 135);
-            rdoQuestionType3.Name = "rdoQuestionType3";
-            rdoQuestionType3.Size = new Size(104, 34);
-            rdoQuestionType3.TabIndex = 24;
-            rdoQuestionType3.TabStop = true;
-            rdoQuestionType3.Text = "Sa hình";
-            rdoQuestionType3.UseVisualStyleBackColor = true;
-            // 
-            // rdoQuestionType2
-            // 
-            rdoQuestionType2.AutoSize = true;
-            rdoQuestionType2.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            rdoQuestionType2.ForeColor = Color.RoyalBlue;
-            rdoQuestionType2.Location = new Point(6, 87);
-            rdoQuestionType2.Name = "rdoQuestionType2";
-            rdoQuestionType2.Size = new Size(119, 34);
-            rdoQuestionType2.TabIndex = 23;
-            rdoQuestionType2.TabStop = true;
-            rdoQuestionType2.Text = "Biển báo";
-            rdoQuestionType2.UseVisualStyleBackColor = true;
-            // 
-            // rdoQuestionType1
-            // 
-            rdoQuestionType1.AutoSize = true;
-            rdoQuestionType1.BackColor = SystemColors.Control;
-            rdoQuestionType1.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            rdoQuestionType1.ForeColor = Color.RoyalBlue;
-            rdoQuestionType1.Location = new Point(6, 42);
-            rdoQuestionType1.Name = "rdoQuestionType1";
-            rdoQuestionType1.Size = new Size(243, 34);
-            rdoQuestionType1.TabIndex = 22;
-            rdoQuestionType1.TabStop = true;
-            rdoQuestionType1.Text = "Giao thông đường bộ";
-            rdoQuestionType1.UseVisualStyleBackColor = false;
-            // 
             // openFileDialog
             // 
             openFileDialog.FileName = "openFileDialog";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(5, 55);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(242, 36);
+            comboBox1.TabIndex = 0;
             // 
             // frmAddQuestion
             // 
@@ -334,7 +298,6 @@
             Text = "THÊM CÂU HỎI";
             ((System.ComponentModel.ISupportInitialize)picImage).EndInit();
             groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -358,10 +321,8 @@
         private System.Windows.Forms.CheckBox cbxAnwer4;
         private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rdoQuestionType3;
-        private System.Windows.Forms.RadioButton rdoQuestionType2;
-        private System.Windows.Forms.RadioButton rdoQuestionType1;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         protected internal Label lblQuestion;
+        private ComboBox comboBox1;
     }
 }

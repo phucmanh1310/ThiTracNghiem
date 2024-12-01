@@ -35,7 +35,7 @@ namespace DoAn_ThiTracNghiem
             //lvInformation.Columns.Add("Địa Chỉ", 200);
             //lvInformation.Columns.Add("Tên Đăng Nhập", 150);
             //lvInformation.Columns.Add("Mật Khẩu", 100);
-
+            btnXemDiem.Visible = false;
             // Lấy danh sách thí sinh từ BLL
             ThiSinhBLL thiSinhBLL = new ThiSinhBLL();
             List<ThiSinh> list = thiSinhBLL.GetAllThiSinh();
@@ -137,7 +137,7 @@ namespace DoAn_ThiTracNghiem
                 txtPsssword.Text = selectedItem.SubItems[6].Text;
                 btnThem.Visible = false;
                 txtUsername.ReadOnly = true;
-                button1.Visible = false;
+                btnXemDiem.Visible = true;
             }
         }
 
@@ -211,11 +211,49 @@ namespace DoAn_ThiTracNghiem
         }
         private void btnRefreshInfo_Click(object sender, EventArgs e)
         {
-            lvInformation.Items.Clear(); // Chỉ xóa dữ liệu (Items), giữ lại cột
-            ShowAllInformation();
-            txtSearchInfo.Clear();
+            try
+            {
+                // 1. Xóa tất cả các mục trong ListView
+                lvInformation.Items.Clear();
 
+                // 2. Hiển thị lại danh sách thí sinh
+                ShowAllInformation();
+
+                // 3. Xóa dữ liệu trong các TextBox và ComboBox
+                txtHoTen.Clear();
+                txtDiaChi.Clear();
+                txtUsername.Clear();
+                txtPsssword.Clear();
+
+                // Đặt lại ComboBox giới tính về null hoặc giá trị mặc định
+                cbbGioiTinh.SelectedItem = null;
+
+                // Đặt lại DateTimePicker về giá trị mặc định (ngày hiện tại)
+                dateTimePicker1.Value = DateTime.Now;
+
+                // 4. Đảm bảo các nút hiển thị đúng trạng thái:
+                // Hiển thị lại nút "Thêm"
+                btnThem.Visible = true;
+
+                // Ẩn nút "Xem Điểm" và các nút không cần thiết khi chưa chọn thí sinh
+                btnXemDiem.Visible = false;
+
+                // Đảm bảo không có item nào được chọn trong ListView
+                lvInformation.SelectedItems.Clear();
+
+                // 5. Đảm bảo rằng txtUsername có thể nhập lại
+                txtUsername.ReadOnly = false; // Đảm bảo rằng txtUsername không phải readonly
+                txtUsername.Enabled = true;   // Đảm bảo rằng txtUsername không bị disabled
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
+
+
 
         private void btnThem_Click(object sender, EventArgs e)
         {
@@ -329,25 +367,24 @@ namespace DoAn_ThiTracNghiem
         }
 
         // Hàm đặt lại trạng thái giao diện
+        // ResetFormState (có thể có trong mã của bạn)
         private void ResetFormState()
         {
-            // Xóa danh sách ListView hiện tại
+            // Chỉ xóa danh sách ListView, không xóa TextBox
             lvInformation.Items.Clear();
 
-            // Hiển thị lại danh sách cập nhật
+            // Hiển thị lại danh sách thí sinh
             ShowAllInformation();
 
-            // Xóa dữ liệu trong các trường nhập liệu
-            txtHoTen.Clear();
-            txtDiaChi.Clear();
-            txtUsername.Clear();
-            txtPsssword.Clear();
-            cbbGioiTinh.SelectedIndex = -1; // Đặt lại ComboBox về trạng thái không chọn gì
-            dateTimePicker1.Value = DateTime.Now; // Đặt lại ngày về hôm nay
+            // Để lại các TextBox, ComboBox, DateTimePicker như cũ
+            // Không xóa các trường thông tin
+            // Đảm bảo ComboBox không bị reset nếu bạn muốn giữ giá trị đã chọn
+            // Đảm bảo các TextBox không bị xóa, và DateTimePicker vẫn giữ ngày đã chọn
 
-            // Đặt lại trạng thái các nút
-            btnThem.Visible = true; // Nếu có nút thêm, đặt nó hiển thị
+            // Đảm bảo nút thêm hiển thị lại
+            btnThem.Visible = true;
         }
+
         //cập nhật thông tin thí sinh
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
@@ -443,11 +480,20 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
-        private void frmAllInformation_FormClosed(object sender, FormClosedEventArgs e)
+     
+
+        private void frmAllInformation_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Bạn chắc chắn muốn thoát chương trình chứ?", "Thoát chương trình?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            // Hiển thị hộp thoại xác nhận khi người dùng muốn thoát
+            DialogResult result = MessageBox.Show("Bạn chắc chắn muốn thoát chương trình chứ?",
+                                                  "Thoát chương trình?",
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Exclamation);
+
+            // Nếu người dùng chọn Yes, form sẽ được đóng
+            if (result == DialogResult.No)
             {
-                Dispose();
+                e.Cancel = true; // Hủy hành động đóng form nếu chọn No
             }
         }
     }

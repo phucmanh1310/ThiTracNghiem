@@ -70,7 +70,8 @@ namespace DAL
         {
             List<ThiSinh> List = new List<ThiSinh>();
             string query = "SELECT MaThiSinh, HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, username " +
-                  "FROM ThiSinh WHERE LOWER(HoTenThiSinh) LIKE LOWER(@hoTenThiSinh)";// hàm like cho phép tìm gần đúng 
+                            "FROM ThiSinh " +
+                            "WHERE HoTenThiSinh COLLATE Latin1_General_CI_AI LIKE LOWER(@hoTenThiSinh)";// hàm like cho phép tìm gần đúng 
             using (SqlConnection conn = SqlConnectionData.Connect())
             {
                 SqlCommand cmd = new SqlCommand(query, conn);            
@@ -173,26 +174,52 @@ namespace DAL
 
         public ThiSinh GetThiSinh(string username)
         {
+<<<<<<< HEAD
+=======
             ThiSinh thisinh = null;
-            string query = "SELECT MaThiSinh, HoTenThiSinh FROM ThiSinh WHERE Username = @Username";
+            string query = "SELECT MaThiSinh, HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, Username FROM ThiSinh WHERE Username = @Username";
             using (SqlConnection con = SqlConnectionData.Connect())
+>>>>>>> bff2b0d2641fb95f0ba218d349e0bc388e7065c3
             {
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Username", username);
-
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
+                ThiSinh thisinh = null;
+                string query = "SELECT MaThiSinh, HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, Username FROM ThiSinh WHERE Username = @Username";
+                using (SqlConnection con = SqlConnectionData.Connect())
                 {
+<<<<<<< HEAD
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Username", username);
+=======
                     thisinh = new ThiSinh
                     {
                         MaThiSinh = Convert.ToInt32(reader["MaThiSinh"]),
-                        HoTenThiSinh = reader["HoTenThiSinh"].ToString()
+                        HoTenThiSinh = reader["HoTenThiSinh"].ToString(),
+                        NgaySinh = Convert.ToDateTime(reader["NgaySinh"]),
+                        GioiTinh = Convert.ToChar(reader["GioiTinh"]),
+                        DiaChi = reader["DiaChi"].ToString(),
+                        Username = reader["Username"].ToString()
                     };
                 }
             }
+>>>>>>> bff2b0d2641fb95f0ba218d349e0bc388e7065c3
 
-            return thisinh;
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        thisinh = new ThiSinh
+                        {
+                            MaThiSinh = Convert.ToInt32(reader["MaThiSinh"]),
+                            HoTenThiSinh = reader["HoTenThiSinh"].ToString(),
+                            NgaySinh = Convert.ToDateTime(reader["NgaySinh"]),
+                            GioiTinh = Convert.ToChar(reader["GioiTinh"]),
+                            DiaChi = reader["DiaChi"].ToString(),
+                            Username = reader["Username"].ToString()
+                        };
+                    }
+                }
+
+                return thisinh;
+            }
         }
 
     }
