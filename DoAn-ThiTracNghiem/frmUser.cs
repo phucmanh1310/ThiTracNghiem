@@ -27,5 +27,12 @@ namespace DoAn_ThiTracNghiem
             this.Hide();
             examination.ShowDialog();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            frmInformationAndHistory frm = new frmInformationAndHistory(username);
+            this.Hide();
+            frm.ShowDialog();
+        }
     }
 }

@@ -174,7 +174,7 @@ namespace DAL
         public ThiSinh GetThiSinh(string username)
         {
             ThiSinh thisinh = null;
-            string query = "SELECT MaThiSinh, HoTenThiSinh FROM ThiSinh WHERE Username = @Username";
+            string query = "SELECT MaThiSinh, HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, Username FROM ThiSinh WHERE Username = @Username";
             using (SqlConnection con = SqlConnectionData.Connect())
             {
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -187,7 +187,11 @@ namespace DAL
                     thisinh = new ThiSinh
                     {
                         MaThiSinh = Convert.ToInt32(reader["MaThiSinh"]),
-                        HoTenThiSinh = reader["HoTenThiSinh"].ToString()
+                        HoTenThiSinh = reader["HoTenThiSinh"].ToString(),
+                        NgaySinh = Convert.ToDateTime(reader["NgaySinh"]),
+                        GioiTinh = Convert.ToChar(reader["GioiTinh"]),
+                        DiaChi = reader["DiaChi"].ToString(),
+                        Username = reader["Username"].ToString()
                     };
                 }
             }

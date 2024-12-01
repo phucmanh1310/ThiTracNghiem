@@ -12,30 +12,27 @@ namespace DAL
     {
         public List<CauHoi> GetCauHoi()
         {
-            List<CauHoi> listCauHoi = new List<CauHoi>();
-
-            string query = "SELECT * FROM CauHoi";
-
+            List<CauHoi> danhSachCauHoi = new List<CauHoi>();
             using (SqlConnection conn = SqlConnectionData.Connect())
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                string query = "SELECT * FROM CauHoi";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    CauHoi cauHoi = new CauHoi(
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        CauHoi cauHoi = new CauHoi(
                             reader["MaCauHoi"].ToString(),
                             reader["NDCauHoi"].ToString(),
-                            Convert.ToInt16(reader["MaPhan"]),
-                            reader["HinhAnh"].ToString()
+                            short.Parse(reader["MaPhan"].ToString()),
+                            reader["HinhAnh"] == DBNull.Value ? null : reader["HinhAnh"].ToString()
                         );
-
-                    listCauHoi.Add(cauHoi);
+                        danhSachCauHoi.Add(cauHoi);
+                    }
                 }
-                reader.Close();
             }
-            return listCauHoi;
+            return danhSachCauHoi;
         }
 
     }
