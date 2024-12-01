@@ -70,7 +70,8 @@ namespace DAL
         {
             List<ThiSinh> List = new List<ThiSinh>();
             string query = "SELECT MaThiSinh, HoTenThiSinh, NgaySinh, GioiTinh, DiaChi, username " +
-                  "FROM ThiSinh WHERE LOWER(HoTenThiSinh) LIKE LOWER(@hoTenThiSinh)";// hàm like cho phép tìm gần đúng 
+                            "FROM ThiSinh " +
+                            "WHERE HoTenThiSinh COLLATE Latin1_General_CI_AI LIKE LOWER(@hoTenThiSinh)";// hàm like cho phép tìm gần đúng 
             using (SqlConnection conn = SqlConnectionData.Connect())
             {
                 SqlCommand cmd = new SqlCommand(query, conn);            
@@ -198,6 +199,7 @@ namespace DAL
 
             return thisinh;
         }
+
 
     }
 

@@ -158,6 +158,7 @@
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Đăng Nhập";
+            FormClosing += frmLogin_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
