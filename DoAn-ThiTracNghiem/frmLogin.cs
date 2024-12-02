@@ -95,20 +95,5 @@ namespace DoAn_ThiTracNghiem
                 txtPassword.PasswordChar = '*';
             }
         }
-
-        private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Hiển thị hộp thoại xác nhận khi người dùng muốn thoát
-            DialogResult result = MessageBox.Show("Bạn chắc chắn muốn thoát chương trình chứ?",
-                                                  "Thoát chương trình?",
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Exclamation);
-
-            // Nếu người dùng chọn Yes, form sẽ được đóng
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true; // Hủy hành động đóng form nếu chọn No
-            }
-        }
     }
 }

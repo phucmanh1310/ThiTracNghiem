@@ -401,7 +401,7 @@
             Name = "frmAllInformation";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CÁC THÔNG TIN NGƯỜI DÙNG";
-            FormClosing += frmAllInformation_FormClosing_1;
+            FormClosed += frmAllInformation_FormClosed;
             Load += frmAllInformation_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
