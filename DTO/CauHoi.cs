@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class CauHoi
+    public class CauHoi 
     {
         public string MaCauHoi { get; set; }
         public string NDCauHoi { get; set; }
         public short MaPhan { get; set; }
-        public string? HinhAnh { get; set; } // Giá trị có thể null
+        public Byte[]? HinhAnh { get; set; } // Giá trị có thể null
 
-        public CauHoi(string maCauHoi, string ndCauHoi, short maPhan, string hinhAnh = null)
+        public CauHoi(string maCauHoi, string ndCauHoi, short maPhan, Byte[] hinhAnh)
         {
             MaCauHoi = maCauHoi;
             NDCauHoi = ndCauHoi;
             MaPhan = maPhan;
             HinhAnh = hinhAnh;
+        }
+        public CauHoi(int maPhanDB,String ndCauHoi,String dapAnDung)
+        {
+            
         }
 
     }
