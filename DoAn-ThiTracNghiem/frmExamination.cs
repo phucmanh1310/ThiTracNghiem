@@ -50,11 +50,16 @@ namespace DoAn_ThiTracNghiem
             CauHoi cauHoi = listCauHoi[cauHoiHienTai];
             lbCauHoi.Text = $"Câu {cauHoiHienTai + 1}: {cauHoi.NDCauHoi}";
 
-            //if (!string.IsNullOrEmpty(cauHoi.HinhAnh))
-            //{
-            //    string imagePath = Path.Combine(Application.StartupPath, "Images", cauHoi.HinhAnh);
+            if (!string.IsNullOrEmpty(cauHoi.HinhAnh))
+            {
+                string imagePath = cauHoi.HinhAnh; // Lấy đường dẫn đầy đủ từ database
+                pictureBoxCauHoi.Image = Image.FromFile(imagePath); // Hiển thị ảnh
+            }
+            else
+            {
+                pictureBoxCauHoi.Image = null; // Xóa ảnh nếu không có
+            }
 
-            //}
 
             List<DapAn> listDapAn = dapAnBBL.GetDapAn(cauHoi.MaCauHoi);
             radioButton1.Visible = radioButton2.Visible = radioButton3.Visible = radioButton4.Visible = false;
