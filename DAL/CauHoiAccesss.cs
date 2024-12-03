@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace DAL
 {
@@ -23,11 +25,18 @@ namespace DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        CauHoi cauHoi = new CauHoi(
+                        string hinhAnh = reader["HinhAnh"] == DBNull.Value ? null : reader["HinhAnh"].ToString();
+                        if (!string.IsNullOrEmpty(hinhAnh))
+                        {
+                            // Sử dụng Directory.GetCurrentDirectory hoặc AppContext.BaseDirectory
+                            hinhAnh = Path.Combine(AppContext.BaseDirectory, hinhAnh);
+                        }
+
+                         CauHoi cauHoi = new CauHoi(
                             Convert.ToInt32(reader["MaCauHoi"]),
                             reader["NDCauHoi"].ToString(),
                             short.Parse(reader["MaPhan"].ToString()),
-                            reader["HinhAnh"] == DBNull.Value ? null : reader["HinhAnh"].ToString()
+                            hinhAnh
                         );
                         danhSachCauHoi.Add(cauHoi);
                     }
@@ -54,8 +63,12 @@ namespace DAL
                 }
                 else
                 {
-                    command.Parameters.Add("@HinhAnh", SqlDbType.NVarChar).Value = cauHoi.HinhAnh;
+                    // Chỉ lưu đường dẫn tương đối
+                    string startupPath = AppContext.BaseDirectory;
+                    string relativePath = cauHoi.HinhAnh.Replace(startupPath + "\\", "");
+                    command.Parameters.Add("@HinhAnh", SqlDbType.NVarChar).Value = relativePath;
                 }
+
 
                 connection.Open();
                 return (int)command.ExecuteScalar(); // Trả về mã câu hỏi vừa được thêm

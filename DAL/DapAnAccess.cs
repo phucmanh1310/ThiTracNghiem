@@ -10,7 +10,7 @@ namespace DAL
 {
     public class DapAnAccesss : DatabaseAccess
     {
-        public List<DapAn> GetDapAn(string maCauHoi)
+        public List<DapAn> GetDapAn(int maCauHoi)
         {
             List<DapAn> danhSachDapAn = new List<DapAn>();
             using (SqlConnection conn = SqlConnectionData.Connect())
@@ -36,7 +36,7 @@ namespace DAL
             return danhSachDapAn;
         }
 
-        public bool IsCorrectAnswer(string maCauHoi, int maCauTraLoi)
+        public bool IsCorrectAnswer(int maCauHoi, int maCauTraLoi)
         {
             using (SqlConnection conn = SqlConnectionData.Connect())
             {

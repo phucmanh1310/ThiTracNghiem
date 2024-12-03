@@ -324,6 +324,7 @@
             lvCauHoi.UseCompatibleStateImageBehavior = false;
             lvCauHoi.View = View.Details;
             lvCauHoi.ItemSelectionChanged += lvCauHoi_ItemSelectionChanged;
+
             // 
             // TenPhan
             // 

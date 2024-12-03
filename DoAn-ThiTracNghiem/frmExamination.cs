@@ -12,19 +12,11 @@ namespace DoAn_ThiTracNghiem
     {
         private int timeleft;
         private string username;
-<<<<<<< HEAD
-        ThiSinhBLL thiSinhBBL = new ThiSinhBLL();
-        CauHoiBLL cauHoiBBL = new CauHoiBLL();
-        DapAnBBL dapAnBBL = new DapAnBBL();
-        private int cauHoiHienTai = 0;
-
-=======
         private int currentQuestionIndex = 0;
-        private Dictionary<string, int> userAnswers = new Dictionary<string, int>();
->>>>>>> 4f8b548c32caf88c6de9fc013838d2a6912a3a72
+        private Dictionary<int, int> userAnswers = new Dictionary<int, int>();
 
         private ThiSinhBLL thiSinhBBL = new ThiSinhBLL();
-        private CauHoiBBL cauHoiBBL = new CauHoiBBL();
+        private CauHoiBLL cauHoiBBL = new CauHoiBLL();
         private DapAnBBL dapAnBBL = new DapAnBBL();
         private KetQuaBLL ketQuaBLL = new KetQuaBLL();
 
@@ -67,43 +59,41 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
-        private void DisplayAnswerChoices(string maCauHoi)
+        private void DisplayAnswerChoices(int maCauHoi)
         {
             var listDapAn = dapAnBBL.GetDapAn(maCauHoi);
             RadioButton[] radioButtons = { radioButton1, radioButton2, radioButton3, radioButton4 };
 
-<<<<<<< HEAD
-            List<DapAn> listDapAn = dapAnBBL.GetDapAn(cauHoi.MaCauHoi.ToString());
-            radioButton1.Visible = radioButton2.Visible = radioButton3.Visible = radioButton4.Visible = false;
-            RadioButton[] radioButton = { radioButton1, radioButton2, radioButton3, radioButton4 };
-=======
->>>>>>> 4f8b548c32caf88c6de9fc013838d2a6912a3a72
             for (int i = 0; i < listDapAn.Count; i++)
             {
                 var answer = listDapAn[i];
                 radioButtons[i].Text = answer.NDCauTraLoi;
                 radioButtons[i].Tag = answer.MaCauTraLoi;
                 radioButtons[i].Visible = true;
-                radioButtons[i].Checked = userAnswers.ContainsKey(currentQuestionIndex.ToString()) && userAnswers[currentQuestionIndex.ToString()] == (int)radioButtons[i].Tag;
+
+                // Kiểm tra nếu đã chọn câu trả lời trước đó
+                radioButtons[i].Checked = userAnswers.ContainsKey(maCauHoi) && userAnswers[maCauHoi] == (int)radioButtons[i].Tag;
+
+                // Xử lý sự kiện CheckedChanged
                 radioButtons[i].CheckedChanged -= RadioButton_CheckedChanged;
                 radioButtons[i].CheckedChanged += RadioButton_CheckedChanged;
             }
 
+            // Ẩn các radio button không sử dụng
             for (int i = listDapAn.Count; i < radioButtons.Length; i++)
             {
                 radioButtons[i].Visible = false;
             }
         }
-
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             var radioButton = sender as RadioButton;
             if (radioButton.Checked)
             {
-                userAnswers[currentQuestionIndex.ToString()] = (int)radioButton.Tag;
+                // Thêm hoặc cập nhật câu trả lời của người dùng
+                userAnswers[currentQuestionIndex] = (int)radioButton.Tag;
             }
         }
-
         private void ButtonCauHoi_Click(object sender, EventArgs e)
         {
             var btn = sender as Button;
@@ -119,56 +109,51 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
-        private void Submit()
+      private void Submit()
+{
+    timer1.Stop();
+
+    var listCauHoi = cauHoiBBL.GetCauHoi();
+    int score = 0;
+
+    foreach (var cauHoi in listCauHoi)
+    {
+        if (userAnswers.ContainsKey(cauHoi.MaCauHoi))
         {
-            timer1.Stop();
-
-            // Tính điểm
-            var listCauHoi = cauHoiBBL.GetCauHoi();
-            int score = 0;
-
-            foreach (var cauHoi in listCauHoi)
+            var selectedAnswer = userAnswers[cauHoi.MaCauHoi];
+            if (dapAnBBL.IsCorrectAnswer(cauHoi.MaCauHoi, selectedAnswer))
             {
-                if (userAnswers.ContainsKey(cauHoi.MaCauHoi))
-                {
-                    var selectedAnswer = userAnswers[cauHoi.MaCauHoi];
-                    if (dapAnBBL.IsCorrectAnswer(cauHoi.MaCauHoi, selectedAnswer))
-                    {
-                        score++;
-                    }
-                }
+                score++;
             }
-
-            // Lấy thông tin thí sinh và lần thi hiện tại
-            ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
-            int lanThi = ketQuaBLL.GetLanThi(thiSinh.MaThiSinh);
-
-            // Tạo đối tượng kết quả
-            KetQua ketQua = new KetQua
-            {
-                LanThi = lanThi + 1, // Tăng lần thi lên 1
-                KetQuaThi = $"{score}/{listCauHoi.Count}", // Điểm số dạng x/y
-                MaThiSinh = thiSinh.MaThiSinh,
-                ThoiGian = 15 * 60 - timeleft // Tính thời gian đã làm bài
-            };
-
-            // Lưu kết quả thi
-            bool isSaved = ketQuaBLL.LuuKetQua(ketQua);
-
-            if (isSaved)
-            {
-                MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
-                                "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("Đã xảy ra lỗi trong quá trình lưu kết quả. Vui lòng thử lại.",
-                                "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // Đóng form hoặc trở về giao diện chính
-            this.Close();
         }
+    }
+
+    ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
+    int lanThi = ketQuaBLL.GetLanThi(thiSinh.MaThiSinh);
+
+    KetQua ketQua = new KetQua
+    {
+        LanThi = lanThi + 1,
+        KetQuaThi = $"{score}/{listCauHoi.Count}",
+        MaThiSinh = thiSinh.MaThiSinh,
+        ThoiGian = 15 * 60 - timeleft
+    };
+
+    bool isSaved = ketQuaBLL.LuuKetQua(ketQua);
+
+    if (isSaved)
+    {
+        MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
+                        "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+    else
+    {
+        MessageBox.Show("Đã xảy ra lỗi trong quá trình lưu kết quả. Vui lòng thử lại.",
+                        "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+
+    this.Close();
+}
 
 
         private void timer1_Tick(object sender, EventArgs e)
