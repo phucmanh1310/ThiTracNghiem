@@ -17,12 +17,12 @@ namespace DoAn_ThiTracNghiem
 {
     public partial class frmAddQuestion : Form
     {
-        private readonly CauHoiBBL questionBLL;
+        private readonly CauHoiBLL CauHoiBLL;
         private readonly PhanBLL phanBLL;
         public frmAddQuestion()
         {
             InitializeComponent();
-            questionBLL = new CauHoiBBL();
+            CauHoiBLL = new CauHoiBLL();
             phanBLL = new PhanBLL();
         }
         private void frmAddQuestion_Load(object sender, EventArgs e)
@@ -31,23 +31,25 @@ namespace DoAn_ThiTracNghiem
         }
         private void LoadCauHoiToListView(int maPhan)
         {
-            List<Tuple<string, string, string>> listCauHoi = questionBLL.GetCauHoiByMaPhan(maPhan);
+            List<Tuple<string, int, string, string>> listCauHoi = CauHoiBLL.GetCauHoiByMaPhan(maPhan);
 
             // Xóa dữ liệu cũ
             lvCauHoi.Items.Clear();
             if (lvCauHoi.Columns.Count == 0)
             {
-                lvCauHoi.Columns.Add("Mã phần", 100); // Adjust column headers if necessary
-                lvCauHoi.Columns.Add("Câu hỏi", 300);
-                lvCauHoi.Columns.Add("Đáp án đúng", 200);
+                lvCauHoi.Columns.Add("Mã phần", 80);
+                lvCauHoi.Columns.Add("Mã câu hỏi", 80);
+                lvCauHoi.Columns.Add("Câu hỏi", 200);
+                lvCauHoi.Columns.Add("Đáp án đúng", 150);
             }
 
             // Duyệt qua danh sách và thêm vào ListView
             foreach (var cauHoi in listCauHoi)
             {
-                ListViewItem item = new ListViewItem(cauHoi.Item1); 
-                item.SubItems.Add(cauHoi.Item2); // Nội dung câu hỏi
-                item.SubItems.Add(cauHoi.Item3); // Câu trả lời đúng
+                ListViewItem item = new ListViewItem(cauHoi.Item1);
+                item.SubItems.Add(cauHoi.Item2.ToString()); // Nội dung câu hỏi
+                item.SubItems.Add(cauHoi.Item3); // Nội dung câu hỏi
+                item.SubItems.Add(cauHoi.Item4); // Câu trả lời đúng
 
                 lvCauHoi.Items.Add(item);
             }
@@ -137,18 +139,35 @@ namespace DoAn_ThiTracNghiem
 
             // Xử lý hình ảnh nếu có, chuyển hình ảnh thành chuỗi base64
             string hinhAnhBase64 = null;
+            string imagePath = null;
             if (picImage.Image != null)
             {
+                string fileName = Path.GetFileName(picImage.Tag.ToString());
+                string folderPath = Path.Combine(Application.StartupPath, "Images");
+
+                // Tạo thư mục nếu không tồn tại
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                imagePath = Path.Combine(folderPath, fileName);
+
+                // Sao chép hình ảnh vào thư mục
+                picImage.Image.Save(imagePath);
+
+                // Chuyển hình ảnh thành base64
                 using (MemoryStream ms = new MemoryStream())
                 {
                     picImage.Image.Save(ms, picImage.Image.RawFormat);
                     byte[] imageBytes = ms.ToArray();
-                    hinhAnhBase64 = Convert.ToBase64String(imageBytes); // Chuyển đổi thành chuỗi base64
+                    hinhAnhBase64 = Convert.ToBase64String(imageBytes);
                 }
             }
 
+
             // Tạo đối tượng câu hỏi với HinhAnh dưới dạng base64
-            CauHoi cauHoi = new CauHoi(null, ndCauHoi, maPhan, hinhAnhBase64);
+            CauHoi cauHoi = new CauHoi(ndCauHoi, maPhan, imagePath);
 
             // Tạo danh sách đáp án
             List<DapAn> dapAns = new List<DapAn>
@@ -175,7 +194,7 @@ namespace DoAn_ThiTracNghiem
             // Gọi BLL để xử lý
             try
             {
-                questionBLL.AddQuestionAndAnswers(cauHoi, dapAns);
+                CauHoiBLL.AddQuestionAndAnswers(cauHoi, dapAns);
                 MessageBox.Show("Thêm câu hỏi thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Reset giao diện
@@ -240,6 +259,77 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
+        private void lvCauHoi_ItemSelectionChanged(object sender, EventArgs e)
+        {
+            if (lvCauHoi.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lvCauHoi.SelectedItems[0];
 
+                // Lấy mã câu hỏi từ cột thứ hai
+                String maCauHoi = (selectedItem.SubItems[1]).Text;
+
+                try
+                {
+                    // Lấy thông tin câu hỏi từ database dựa trên mã câu hỏi
+                    var chiTietCauHoi = CauHoiBLL.GetCauHoiChiTietById(int.Parse(maCauHoi));
+                    //in ra thông tin câu hỏi
+                    txtQuestion.Text = chiTietCauHoi.NDCauHoi;
+                    // Kiểm tra nếu có đường dẫn hình ảnh
+                    if (!string.IsNullOrEmpty(chiTietCauHoi.HinhAnh))
+                    {
+                        string imagePath = chiTietCauHoi.HinhAnh;
+
+                        // Kiểm tra xem đường dẫn có hợp lệ không (có thể là đường dẫn đầy đủ hoặc tương đối)
+                        if (File.Exists(imagePath))
+                        {
+                            picImage.Image = Image.FromFile(imagePath);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy hình ảnh.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            picImage.Image = null;
+                        }
+                    }
+                    else
+                    {
+                        picImage.Image = null;
+                    }
+
+
+
+                    // Ẩn nút thêm câu hỏi
+                    btnAddQuestion.Visible = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi tải hình ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        //f5 lại tất cả sự kiện
+
+        private void ResetForm_in()
+        {
+            txtQuestion.Clear();
+            txtAnswer1.Clear();
+            txtAnswer2.Clear();
+            txtAnswer3.Clear();
+            txtAnswer4.Clear();
+            picImage.Image = null;
+            cbxAnswer1.Checked = false;
+            cbxAnswer2.Checked = false;
+            cbxAnswer3.Checked = false;
+            cbxAnswer4.Checked = false;
+            txtAnswer1.BackColor = Color.White;
+            txtAnswer2.BackColor = Color.White;
+            txtAnswer3.BackColor = Color.White;
+            txtAnswer4.BackColor = Color.White;
+            btnAddQuestion.Visible = true; // Hiển thị lại nút
+        }
+
+        private void btnTaiLai_Click(object sender, EventArgs e)
+        {
+            ResetForm_in();
+        }
     }
 }

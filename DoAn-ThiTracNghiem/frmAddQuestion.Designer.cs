@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddQuestion));
             txtQuestion = new TextBox();
             lblQuestion = new Label();
             lblAnswer1 = new Label();
@@ -53,11 +54,13 @@
             openFileDialog = new OpenFileDialog();
             lvCauHoi = new ListView();
             TenPhan = new ColumnHeader();
+            maCauHoi = new ColumnHeader();
             NoiDung = new ColumnHeader();
             DapAn = new ColumnHeader();
             label2 = new Label();
             btnSua = new Button();
             btnXoa = new Button();
+            btnTaiLai = new Button();
             ((System.ComponentModel.ISupportInitialize)picImage).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -313,23 +316,29 @@
             // 
             // lvCauHoi
             // 
-            lvCauHoi.Columns.AddRange(new ColumnHeader[] { TenPhan, NoiDung, DapAn });
+            lvCauHoi.Columns.AddRange(new ColumnHeader[] { TenPhan, maCauHoi, NoiDung, DapAn });
             lvCauHoi.Location = new Point(9, 9);
             lvCauHoi.Name = "lvCauHoi";
-            lvCauHoi.Size = new Size(469, 694);
+            lvCauHoi.Size = new Size(481, 694);
             lvCauHoi.TabIndex = 23;
             lvCauHoi.UseCompatibleStateImageBehavior = false;
             lvCauHoi.View = View.Details;
+            lvCauHoi.ItemSelectionChanged += lvCauHoi_ItemSelectionChanged;
             // 
             // TenPhan
             // 
             TenPhan.Text = "Loại Câu Hỏi";
             TenPhan.Width = 100;
             // 
+            // maCauHoi
+            // 
+            maCauHoi.Text = "Mã Câu Hỏi";
+            maCauHoi.Width = 90;
+            // 
             // NoiDung
             // 
             NoiDung.Text = "Nội Dung";
-            NoiDung.Width = 200;
+            NoiDung.Width = 190;
             // 
             // DapAn
             // 
@@ -374,11 +383,23 @@
             btnXoa.Text = "XÓA CÂU HỎI";
             btnXoa.UseVisualStyleBackColor = false;
             // 
+            // btnTaiLai
+            // 
+            btnTaiLai.BackgroundImage = (Image)resources.GetObject("btnTaiLai.BackgroundImage");
+            btnTaiLai.BackgroundImageLayout = ImageLayout.Zoom;
+            btnTaiLai.Location = new Point(1291, 701);
+            btnTaiLai.Name = "btnTaiLai";
+            btnTaiLai.Size = new Size(44, 29);
+            btnTaiLai.TabIndex = 27;
+            btnTaiLai.UseVisualStyleBackColor = true;
+            btnTaiLai.Click += btnTaiLai_Click;
+            // 
             // frmAddQuestion
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1373, 744);
+            Controls.Add(btnTaiLai);
             Controls.Add(btnXoa);
             Controls.Add(btnSua);
             Controls.Add(label2);
@@ -447,5 +468,7 @@
         private ColumnHeader NoiDung;
         private ColumnHeader DapAn;
         protected internal Label label3;
+        private ColumnHeader maCauHoi;
+        private Button btnTaiLai;
     }
 }

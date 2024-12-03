@@ -9,7 +9,7 @@ using DTO;
 
 namespace BLL
 {
-    public class CauHoiBBL
+    public class CauHoiBLL
     {
         CauHoiAccesss chAccess = new CauHoiAccesss();
 
@@ -29,9 +29,13 @@ namespace BLL
                 chAccess.AddDapAn(dapAn);
             }
         }
-        public List<Tuple<string, string, string>> GetCauHoiByMaPhan(int maPhan)
+        public List<Tuple<string,int, string, string>> GetCauHoiByMaPhan(int maPhan)
         {
             return chAccess.GetCauHoiByMaPhan(maPhan);
+        }
+        public CauHoi GetCauHoiChiTietById(int maCauHoi)
+        {
+            return chAccess.GetCauHoiChiTietById(maCauHoi);
         }
     }
 

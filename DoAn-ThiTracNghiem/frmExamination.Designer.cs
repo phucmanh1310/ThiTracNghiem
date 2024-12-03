@@ -57,7 +57,7 @@
             btnCau25 = new Button();
             btnCau21 = new Button();
             btnCau17 = new Button();
-            button18 = new Button();
+            btnCau18 = new Button();
             btnCau19 = new Button();
             btnCau20 = new Button();
             btnCau16 = new Button();
@@ -309,7 +309,7 @@
             groupBox3.Controls.Add(btnCau25);
             groupBox3.Controls.Add(btnCau21);
             groupBox3.Controls.Add(btnCau17);
-            groupBox3.Controls.Add(button18);
+            groupBox3.Controls.Add(btnCau18);
             groupBox3.Controls.Add(btnCau19);
             groupBox3.Controls.Add(btnCau20);
             groupBox3.Controls.Add(btnCau16);
@@ -420,15 +420,15 @@
             btnCau17.UseVisualStyleBackColor = true;
             btnCau17.Click += ButtonCauHoi_Click;
             // 
-            // button18
+            // btnCau18
             // 
-            button18.Location = new Point(91, 144);
-            button18.Name = "button18";
-            button18.Size = new Size(33, 33);
-            button18.TabIndex = 18;
-            button18.Text = "18";
-            button18.UseVisualStyleBackColor = true;
-            button18.Click += ButtonCauHoi_Click;
+            btnCau18.Location = new Point(91, 144);
+            btnCau18.Name = "btnCau18";
+            btnCau18.Size = new Size(33, 33);
+            btnCau18.TabIndex = 18;
+            btnCau18.Text = "18";
+            btnCau18.UseVisualStyleBackColor = true;
+            btnCau18.Click += ButtonCauHoi_Click;
             // 
             // btnCau19
             // 
@@ -635,7 +635,7 @@
         private Button btnCau25;
         private Button btnCau21;
         private Button btnCau17;
-        private Button button18;
+        private Button btnCau18;
         private Button btnCau19;
         private Button btnCau20;
         private Button btnCau16;

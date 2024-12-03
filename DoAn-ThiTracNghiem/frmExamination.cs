@@ -19,7 +19,7 @@ namespace DoAn_ThiTracNghiem
         private int timeleft;
         private string username;
         ThiSinhBLL thiSinhBBL = new ThiSinhBLL();
-        CauHoiBBL cauHoiBBL = new CauHoiBBL();
+        CauHoiBLL cauHoiBBL = new CauHoiBLL();
         DapAnBBL dapAnBBL = new DapAnBBL();
         private int cauHoiHienTai = 0;
 
@@ -61,7 +61,7 @@ namespace DoAn_ThiTracNghiem
             }
 
 
-            List<DapAn> listDapAn = dapAnBBL.GetDapAn(cauHoi.MaCauHoi);
+            List<DapAn> listDapAn = dapAnBBL.GetDapAn(cauHoi.MaCauHoi.ToString());
             radioButton1.Visible = radioButton2.Visible = radioButton3.Visible = radioButton4.Visible = false;
             RadioButton[] radioButton = { radioButton1, radioButton2, radioButton3, radioButton4 };
             for (int i = 0; i < listDapAn.Count; i++)

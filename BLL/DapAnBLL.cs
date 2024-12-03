@@ -15,5 +15,10 @@ namespace BLL
         {
             return daAccesss.GetDapAn(maCauHoi);
         }
+
+        public bool IsCorrectAnswer(string maCauHoi, int maCauTraLoi)
+        {
+            return daAccesss.IsCorrectAnswer(maCauHoi, maCauTraLoi);
+        }
     }
 }

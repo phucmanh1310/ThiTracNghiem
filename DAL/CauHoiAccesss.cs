@@ -24,7 +24,7 @@ namespace DAL
                     while (reader.Read())
                     {
                         CauHoi cauHoi = new CauHoi(
-                            reader["MaCauHoi"].ToString(),
+                            Convert.ToInt32(reader["MaCauHoi"]),
                             reader["NDCauHoi"].ToString(),
                             short.Parse(reader["MaPhan"].ToString()),
                             reader["HinhAnh"] == DBNull.Value ? null : reader["HinhAnh"].ToString()
@@ -78,12 +78,12 @@ namespace DAL
             }
         }
         //Viết phương thức để lấy danh sách câu hỏi theo MaPhan:
-        public List<Tuple<string, string, string>> GetCauHoiByMaPhan(int maPhan)
+        public List<Tuple<string,int, string, string>> GetCauHoiByMaPhan(int maPhan)
         {
-            List<Tuple<string, string, string>> listCauHoi = new List<Tuple<string, string, string>>();
+            List<Tuple<string, int, string, string>> listCauHoi = new List<Tuple<string, int, string, string>>();
 
             string query = @"
-                SELECT P.TenPhan, CH.NDCauHoi, DA.NDCauTraLoi AS DapAnDung
+                SELECT P.TenPhan, CH.MaCauHoi ,CH.NDCauHoi, DA.NDCauTraLoi AS DapAnDung
                 FROM CauHoi CH
                 JOIN Phan P ON CH.MaPhan = P.MaPhan
                 JOIN DapAn DA ON CH.MaCauHoi = DA.MaCauHoi
@@ -100,17 +100,40 @@ namespace DAL
                 while (reader.Read())
                 {
                     // Đọc dữ liệu
-                    String tenPhan = reader["TenPhan"].ToString(); // Đọc MaPhan là int
+                    String tenPhan = reader["TenPhan"].ToString();
+                    int maCauHoi = Convert.ToInt32(reader["MaCauHoi"]);
                     string ndCauHoi = reader["NDCauHoi"].ToString();
                     string dapAnDung = reader["DapAnDung"].ToString();
 
                     // Thêm vào danh sách tạm thời
-                    listCauHoi.Add(new Tuple<string, string, string>(tenPhan, ndCauHoi, dapAnDung));
+                    listCauHoi.Add(new Tuple<string, int, string, string>(tenPhan, maCauHoi, ndCauHoi, dapAnDung));
                 }
                 reader.Close();
             }
 
             return listCauHoi;
+        }
+        //phương thức lấy thông tin câu hỏi bằng mã câu hỏi
+        public CauHoi GetCauHoiChiTietById(int maCauHoi)
+        {
+            CauHoi cauhoi = null;
+            string query = "Select NDCauHoi, HinhAnh from CauHoi where MaCauHoi = @maCauHoi";
+            using (SqlConnection con = SqlConnectionData.Connect())
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.Add("@maCauHoi", SqlDbType.Int).Value = maCauHoi;
+                con.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    string ndCauHoi = reader["NDCauHoi"].ToString();
+                    string hinhAnh = reader["HinhAnh"].ToString();
+
+                    cauhoi = new CauHoi(ndCauHoi, hinhAnh);
+                }
+            }
+            return cauhoi;
         }
 
 
