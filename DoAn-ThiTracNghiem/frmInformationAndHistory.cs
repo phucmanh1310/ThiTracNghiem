@@ -23,13 +23,13 @@ namespace DoAn_ThiTracNghiem
         {
             InitializeComponent();
             this.username = username;
-            
+
         }
 
         private void frmInformationAndHistory_Load(object sender, EventArgs e)
         {
             radioNam.Visible = false;
-            radioNu.Visible = false;    
+            radioNu.Visible = false;
             dtpNgaySinh.Visible = false;
 
             ThiSinh thiSinh = tsBBL.GetThiSinh(username);
@@ -50,6 +50,18 @@ namespace DoAn_ThiTracNghiem
         private void txtNgaySinh_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+
+            string currentPassword = txtCurrentPassword.Text;
+            string newPassword = txtNewPassword.Text;
+            string confirmPassword = txtConfirmPassword.Text;
+
+            string result = tkBBL.DoiMatKhau(username, currentPassword, newPassword, confirmPassword);
+
+            MessageBox.Show(result);
         }
     }
 }

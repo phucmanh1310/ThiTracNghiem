@@ -22,5 +22,15 @@ namespace BLL
             // Nếu cần xử lý thêm logic, thực hiện ở đây
             return ketQuaDAL.getKetQuaThi(maThiSinh);
         }
+
+        public bool LuuKetQua(KetQua ketQua)
+        {
+            return ketQuaDAL.LuuKetQua(ketQua);
+        }
+
+        public int GetLanThi(int maThiSinh)
+        {
+            return ketQuaDAL.GetLanThi(maThiSinh);
+        }
     }
 }

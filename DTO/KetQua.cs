@@ -8,7 +8,7 @@ namespace DTO
 {
     public class KetQua
     {
-        public int STT {  get; set; }
+        public int MaKetQua {  get; set; }
 
         public int LanThi { get; set; }
 

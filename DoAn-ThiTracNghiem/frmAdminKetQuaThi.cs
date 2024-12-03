@@ -62,7 +62,7 @@ namespace DoAn_ThiTracNghiem
                 if (ketQua != null)
                 {
                     // Hiển thị thông tin chi tiết
-                    txtSTT.Text = ketQua.STT.ToString();
+                    txtSTT.Text = ketQua.MaKetQua.ToString();
                     txtThoiGian.Text = ketQua.ThoiGian.ToString();
                     txtKetQua.Text = ketQua.KetQuaThi;
 

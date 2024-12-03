@@ -37,5 +37,33 @@ namespace DAL
             }
         }
 
+        public bool KiemTraMatKhau(string username, string password)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                conn.Open ();
+                string query = "SELECT COUNT(*) FROM TaiKhoan WHERE Username = @Username AND Password = @Password";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@Password", password);
+                
+                int result = (int)cmd.ExecuteScalar();
+                return result > 0;
+            }
         }
+
+        public bool CapNhatMatKhau(string username, string newPassword)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                conn.Open();
+                string query = "UPDATE TaiKhoan SET Password = @NewPassword WHERE Username = @Username";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@NewPassword", newPassword);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
+    }
 }

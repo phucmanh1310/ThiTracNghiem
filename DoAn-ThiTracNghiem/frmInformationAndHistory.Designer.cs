@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            txtDiaChi = new TextBox();
             txtGioiTinh = new TextBox();
             dtpNgaySinh = new DateTimePicker();
             txtNgaySinh = new TextBox();
@@ -45,14 +46,13 @@
             groupBox2 = new GroupBox();
             dataGridView1 = new DataGridView();
             groupBox3 = new GroupBox();
-            button2 = new Button();
-            textBox8 = new TextBox();
-            textBox7 = new TextBox();
+            btnChangePassword = new Button();
+            txtConfirmPassword = new TextBox();
+            txtNewPassword = new TextBox();
             label8 = new Label();
             label7 = new Label();
-            textBox6 = new TextBox();
+            txtCurrentPassword = new TextBox();
             label6 = new Label();
-            txtDiaChi = new TextBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -85,6 +85,17 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN";
+            // 
+            // txtDiaChi
+            // 
+            txtDiaChi.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDiaChi.Location = new Point(151, 132);
+            txtDiaChi.Margin = new Padding(2);
+            txtDiaChi.Name = "txtDiaChi";
+            txtDiaChi.Size = new Size(267, 24);
+            txtDiaChi.TabIndex = 23;
+            txtDiaChi.Text = "Địa chỉ";
+            txtDiaChi.TextAlign = HorizontalAlignment.Center;
             // 
             // txtGioiTinh
             // 
@@ -260,12 +271,12 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(button2);
-            groupBox3.Controls.Add(textBox8);
-            groupBox3.Controls.Add(textBox7);
+            groupBox3.Controls.Add(btnChangePassword);
+            groupBox3.Controls.Add(txtConfirmPassword);
+            groupBox3.Controls.Add(txtNewPassword);
             groupBox3.Controls.Add(label8);
             groupBox3.Controls.Add(label7);
-            groupBox3.Controls.Add(textBox6);
+            groupBox3.Controls.Add(txtCurrentPassword);
             groupBox3.Controls.Add(label6);
             groupBox3.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox3.ForeColor = Color.RoyalBlue;
@@ -278,36 +289,37 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "THAY ĐỔI MẬT KHẨU";
             // 
-            // button2
+            // btnChangePassword
             // 
-            button2.BackColor = Color.RoyalBlue;
-            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(911, 73);
-            button2.Margin = new Padding(2);
-            button2.Name = "button2";
-            button2.Size = new Size(143, 37);
-            button2.TabIndex = 16;
-            button2.Text = "ĐỔI MẬT KHẨU";
-            button2.UseVisualStyleBackColor = false;
+            btnChangePassword.BackColor = Color.RoyalBlue;
+            btnChangePassword.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnChangePassword.ForeColor = Color.White;
+            btnChangePassword.Location = new Point(911, 73);
+            btnChangePassword.Margin = new Padding(2);
+            btnChangePassword.Name = "btnChangePassword";
+            btnChangePassword.Size = new Size(143, 37);
+            btnChangePassword.TabIndex = 16;
+            btnChangePassword.Text = "ĐỔI MẬT KHẨU";
+            btnChangePassword.UseVisualStyleBackColor = false;
+            btnChangePassword.Click += btnChangePassword_Click;
             // 
-            // textBox8
+            // txtConfirmPassword
             // 
-            textBox8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox8.Location = new Point(702, 102);
-            textBox8.Margin = new Padding(2);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(190, 34);
-            textBox8.TabIndex = 20;
+            txtConfirmPassword.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            txtConfirmPassword.Location = new Point(702, 102);
+            txtConfirmPassword.Margin = new Padding(2);
+            txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.Size = new Size(190, 27);
+            txtConfirmPassword.TabIndex = 20;
             // 
-            // textBox7
+            // txtNewPassword
             // 
-            textBox7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox7.Location = new Point(702, 47);
-            textBox7.Margin = new Padding(2);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(190, 34);
-            textBox7.TabIndex = 19;
+            txtNewPassword.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            txtNewPassword.Location = new Point(702, 47);
+            txtNewPassword.Margin = new Padding(2);
+            txtNewPassword.Name = "txtNewPassword";
+            txtNewPassword.Size = new Size(190, 27);
+            txtNewPassword.TabIndex = 19;
             // 
             // label8
             // 
@@ -331,14 +343,14 @@
             label7.TabIndex = 16;
             label7.Text = "Mật khẩu mới";
             // 
-            // textBox6
+            // txtCurrentPassword
             // 
-            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox6.Location = new Point(151, 73);
-            textBox6.Margin = new Padding(2);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(190, 34);
-            textBox6.TabIndex = 17;
+            txtCurrentPassword.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            txtCurrentPassword.Location = new Point(151, 73);
+            txtCurrentPassword.Margin = new Padding(2);
+            txtCurrentPassword.Name = "txtCurrentPassword";
+            txtCurrentPassword.Size = new Size(190, 27);
+            txtCurrentPassword.TabIndex = 17;
             // 
             // label6
             // 
@@ -350,17 +362,6 @@
             label6.Size = new Size(79, 40);
             label6.TabIndex = 16;
             label6.Text = "Mật khẩu \r\nhiện tại";
-            // 
-            // txtDiaChi
-            // 
-            txtDiaChi.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtDiaChi.Location = new Point(151, 132);
-            txtDiaChi.Margin = new Padding(2);
-            txtDiaChi.Name = "txtDiaChi";
-            txtDiaChi.Size = new Size(267, 24);
-            txtDiaChi.TabIndex = 23;
-            txtDiaChi.Text = "Địa chỉ";
-            txtDiaChi.TextAlign = HorizontalAlignment.Center;
             // 
             // frmInformationAndHistory
             // 
@@ -401,13 +402,13 @@
         private RadioButton radioNam;
         private Button btnSuaThongTin;
         private Label label6;
-        private TextBox textBox6;
+        private TextBox txtCurrentPassword;
         private Label label8;
         private Label label7;
         private DataGridView dataGridView1;
-        private Button button2;
-        private TextBox textBox8;
-        private TextBox textBox7;
+        private Button btnChangePassword;
+        private TextBox txtConfirmPassword;
+        private TextBox txtNewPassword;
         private TextBox txtNgaySinh;
         private RadioButton radioNu;
         private TextBox txtDiaChi;

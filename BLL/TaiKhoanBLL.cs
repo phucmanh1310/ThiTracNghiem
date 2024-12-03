@@ -35,5 +35,32 @@ namespace BLL
             return !tkAccess.IsUsernameExist(username); // Hợp lệ nếu tên đăng nhập chưa tồn tại
         }
 
+        public string DoiMatKhau(string username, string currentPassword, string newPassword, string confirmPassword)
+        {
+            if(!tkAccess.KiemTraMatKhau(username,currentPassword))
+            {
+                return "Mật khẩu hiện tại không đúng";
+            }
+
+            if(newPassword != confirmPassword)
+            {
+                return "Mật khẩu mới và xác nhận mật khẩu không khớp.";
+            }
+
+            if (newPassword.Length < 8)
+            {
+                return "Mật khẩu mới phải có ít nhất 8 ký tự.";
+            }
+
+            if(!tkAccess.CapNhatMatKhau(username, newPassword))
+            {
+                return "Đổi mật khẩu thất bại.";
+            }
+            else
+            {
+                return "Đổi mật khẩu thành công.";
+            }
+        }
+
     }
 }
