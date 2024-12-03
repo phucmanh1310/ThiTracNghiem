@@ -11,9 +11,17 @@ namespace BLL
     public class DapAnBBL
     {
         DapAnAccesss daAccesss = new DapAnAccesss();
-        public List<DapAn> GetDapAn(string maCauHoi)
+        public List<DapAn> GetDapAn(int maCauHoi)
         {
             return daAccesss.GetDapAn(maCauHoi);
         }
+<<<<<<< Updated upstream
+=======
+
+        public bool IsCorrectAnswer(int maCauHoi, int maCauTraLoi)
+        {
+            return daAccesss.IsCorrectAnswer(maCauHoi, maCauTraLoi);
+        }
+>>>>>>> Stashed changes
     }
 }

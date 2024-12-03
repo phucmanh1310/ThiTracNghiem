@@ -144,6 +144,7 @@ namespace DoAn_ThiTracNghiem
                 MessageBox.Show("Mã phần không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+<<<<<<< Updated upstream
             // Xử lý hình ảnh nếu có
             Byte[] hinhAnh = null;
             if (picImage.Image != null)
@@ -153,11 +154,64 @@ namespace DoAn_ThiTracNghiem
                     picImage.Image.Save(ms, picImage.Image.RawFormat);
                     hinhAnh = ms.ToArray();
                 }
+=======
+
+            /*      // Xử lý hình ảnh nếu có, chuyển hình ảnh thành chuỗi base64
+                  string hinhAnhBase64 = null;
+                  string imagePath = null;
+                  if (picImage.Image != null)
+                  {
+                      string fileName = Path.GetFileName(picImage.Tag.ToString());
+                      string folderPath = Path.Combine(Application.StartupPath, "Images");
+
+                      // Tạo thư mục nếu không tồn tại
+                      if (!Directory.Exists(folderPath))
+                      {
+                          Directory.CreateDirectory(folderPath);
+                      }
+
+                      imagePath = Path.Combine(folderPath, fileName);
+
+                      // Sao chép hình ảnh vào thư mục
+                      picImage.Image.Save(imagePath);
+
+                      // Chuyển hình ảnh thành base64
+                      using (MemoryStream ms = new MemoryStream())
+                      {
+                          picImage.Image.Save(ms, picImage.Image.RawFormat);
+                          byte[] imageBytes = ms.ToArray();
+                          hinhAnhBase64 = Convert.ToBase64String(imageBytes);
+                      }
+                  }*/
+            string relativePath = null; // Đường dẫn tương đối
+            if (picImage.Image != null)
+            {
+                string fileName = Path.GetFileName(picImage.Tag.ToString());
+                string folderPath = Path.Combine(Application.StartupPath, "Images");
+
+                // Tạo thư mục nếu không tồn tại
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                string absolutePath = Path.Combine(folderPath, fileName);
+                relativePath = Path.Combine("Images", fileName); // Đường dẫn tương đối
+
+                // Sao chép ảnh vào thư mục
+                picImage.Image.Save(absolutePath);
+>>>>>>> Stashed changes
             }
             // Tạo đối tượng câu hỏi với HinhAnh là null nếu không có ảnh
             CauHoi cauHoi = new CauHoi(null, ndCauHoi, maPhan, hinhAnh);
 
 
+<<<<<<< Updated upstream
+=======
+            // Tạo đối tượng câu hỏi với HinhAnh dưới dạng base64
+            CauHoi cauHoi = new CauHoi(ndCauHoi, maPhan, relativePath);
+
+>>>>>>> Stashed changes
             // Tạo danh sách đáp án
             List<DapAn> dapAns = new List<DapAn>
             {
@@ -267,7 +321,73 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
+<<<<<<< Updated upstream
 
 
+=======
+        private void lvCauHoi_ItemSelectionChanged(object sender, EventArgs e)
+        {
+            if (lvCauHoi.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lvCauHoi.SelectedItems[0];
+
+                // Lấy mã câu hỏi từ cột thứ hai
+                String maCauHoi = (selectedItem.SubItems[1]).Text;
+
+                try
+                {
+                    // Lấy thông tin câu hỏi từ database dựa trên mã câu hỏi
+                    var chiTietCauHoi = CauHoiBLL.GetCauHoiChiTietById(int.Parse(maCauHoi));
+                    //in ra thông tin câu hỏi
+                    txtQuestion.Text = chiTietCauHoi.NDCauHoi;
+                    // Kiểm tra nếu có đường dẫn hình ảnh
+                    if (!string.IsNullOrEmpty(chiTietCauHoi.HinhAnh) && File.Exists(chiTietCauHoi.HinhAnh))
+                    {
+                        picImage.Image = Image.FromFile(chiTietCauHoi.HinhAnh);
+                        picImage.Tag = chiTietCauHoi.HinhAnh; // Lưu lại đường dẫn để xử lý khi lưu hoặc sửa
+                    }
+                    else
+                    {
+                        picImage.Image = null; // Không có hình ảnh
+                    }
+
+
+
+
+                    // Ẩn nút thêm câu hỏi
+                    btnAddQuestion.Visible = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi tải hình ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        //f5 lại tất cả sự kiện
+
+        private void ResetForm_in()
+        {
+            txtQuestion.Clear();
+            txtAnswer1.Clear();
+            txtAnswer2.Clear();
+            txtAnswer3.Clear();
+            txtAnswer4.Clear();
+            picImage.Image = null;
+            cbxAnswer1.Checked = false;
+            cbxAnswer2.Checked = false;
+            cbxAnswer3.Checked = false;
+            cbxAnswer4.Checked = false;
+            txtAnswer1.BackColor = Color.White;
+            txtAnswer2.BackColor = Color.White;
+            txtAnswer3.BackColor = Color.White;
+            txtAnswer4.BackColor = Color.White;
+            btnAddQuestion.Visible = true; // Hiển thị lại nút
+        }
+
+        private void btnTaiLai_Click(object sender, EventArgs e)
+        {
+            ResetForm_in();
+        }
+>>>>>>> Stashed changes
     }
 }

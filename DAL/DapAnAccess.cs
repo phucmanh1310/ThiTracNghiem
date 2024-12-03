@@ -10,7 +10,7 @@ namespace DAL
 {
     public class DapAnAccesss : DatabaseAccess
     {
-        public List<DapAn> GetDapAn(string maCauHoi)
+        public List<DapAn> GetDapAn(int maCauHoi)
         {
             List<DapAn> danhSachDapAn = new List<DapAn>();
             using (SqlConnection conn = SqlConnectionData.Connect())
@@ -35,6 +35,38 @@ namespace DAL
             }
             return danhSachDapAn;
         }
+<<<<<<< Updated upstream
     
+=======
+
+        public bool IsCorrectAnswer(int maCauHoi, int maCauTraLoi)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Truy vấn kiểm tra đáp án
+                    string query = "SELECT DungSai FROM DapAn WHERE MaCauHoi = @MaCauHoi AND MaCauTraLoi = @MaCauTraLoi";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaCauHoi", maCauHoi);
+                        cmd.Parameters.AddWithValue("@MaCauTraLoi", maCauTraLoi);
+
+                        var result = cmd.ExecuteScalar();
+                        return result != null && Convert.ToBoolean(result); // Trả về true nếu đúng
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    return false; // Trả về false nếu xảy ra lỗi
+                }
+            }
+        }
+
+
+>>>>>>> Stashed changes
     }
 }
