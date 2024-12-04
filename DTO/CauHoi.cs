@@ -13,7 +13,7 @@ namespace DTO
         public short MaPhan { get; set; }
         public string? HinhAnh { get; set; } // Giá trị có thể null
 
-        public CauHoi() { } // Constructor mặc định
+        public List<DapAn> dapAns { get; set; } = new List<DapAn>();
 
         public CauHoi(int maCauHoi, string ndCauHoi, short maPhan, string hinhAnh = null)
         {

@@ -8,15 +8,9 @@ namespace DTO
 {
     public class ChiTietKetQua
     {
-        public int MaKetQua { get; set; }        // Mã kết quả
-        public string MaCauHoi { get; set; }    // Mã câu hỏi (nchar(3))
-        public int? MaCauTraLoi { get; set; }   // Mã câu trả lời (nullable)
-        
-        public ChiTietKetQua(int maKetQua, string maCauHoi, int? maCauTraLoi, int thoiGianConLai, int maThiSinh, bool trangThai)
-        {
-            MaKetQua = maKetQua;
-            MaCauHoi = maCauHoi;
-            MaCauTraLoi = maCauTraLoi;
-        }
+        public int MaChiTietKetQua { get; set; } // ID duy nhất cho mỗi chi tiết kết quả
+        public int MaKetQua { get; set; } // ID của kết quả (FK)
+        public int MaCauHoi { get; set; } // ID của câu hỏi (FK)
+        public int? MaCauTraLoi { get; set; } // ID của đáp án đã chọn (FK)
     }
 }

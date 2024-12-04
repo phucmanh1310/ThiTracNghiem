@@ -23,9 +23,9 @@ namespace BLL
             return ketQuaDAL.getKetQuaThi(maThiSinh);
         }
 
-        public bool LuuKetQua(KetQua ketQua)
+        public bool LuuKetQua(KetQua ketQua, Dictionary<int, int?> DapAnDaChon)
         {
-            return ketQuaDAL.LuuKetQua(ketQua);
+            return ketQuaDAL.LuuKetQua(ketQua, DapAnDaChon);
         }
 
         public int GetLanThi(int maThiSinh)

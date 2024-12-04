@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using BLL;
 using DTO;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace DoAn_ThiTracNghiem
 {
@@ -12,18 +11,21 @@ namespace DoAn_ThiTracNghiem
     {
         private int timeleft;
         private string username;
-        private int currentQuestionIndex = 0;
-        private Dictionary<int, int> userAnswers = new Dictionary<int, int>();
+        private int CauHoiHienTai = 0;
+        public Dictionary<int, int?> DapAnDaChon = new Dictionary<int, int?>();
+        
 
         private ThiSinhBLL thiSinhBBL = new ThiSinhBLL();
         private CauHoiBLL cauHoiBBL = new CauHoiBLL();
         private DapAnBBL dapAnBBL = new DapAnBBL();
         private KetQuaBLL ketQuaBLL = new KetQuaBLL();
+        private List<CauHoi> listCauHoi;
 
         public frmExamination(string username)
         {
             InitializeComponent();
             this.username = username;
+            listCauHoi = cauHoiBBL.GetCauHoi();
             HienThiCauHoi();
         }
 
@@ -36,18 +38,15 @@ namespace DoAn_ThiTracNghiem
             ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
             txtMaSo.Text = thiSinh.MaThiSinh.ToString();
             txtHoTen.Text = thiSinh.HoTenThiSinh;
+
+            // Đăng ký sự kiện CheckedChanged chỉ một lần
+            radioButton1.CheckedChanged += RadioButton_CheckedChanged;
+            radioButton2.CheckedChanged += RadioButton_CheckedChanged;
+            radioButton3.CheckedChanged += RadioButton_CheckedChanged;
+            radioButton4.CheckedChanged += RadioButton_CheckedChanged;
         }
 
-        private void HienThiCauHoi()
-        {
-            var listCauHoi = cauHoiBBL.GetCauHoi();
-            var currentQuestion = listCauHoi[currentQuestionIndex];
-            lbCauHoi.Text = $"Câu {currentQuestionIndex + 1}: {currentQuestion.NDCauHoi}";
-            DisplayQuestionImage(currentQuestion.HinhAnh);
-            DisplayAnswerChoices(currentQuestion.MaCauHoi);
-        }
-
-        private void DisplayQuestionImage(string imagePath)
+        private void HienThiHinhAnh(string imagePath)
         {
             if (!string.IsNullOrEmpty(imagePath))
             {
@@ -59,46 +58,81 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
-        private void DisplayAnswerChoices(int maCauHoi)
+        private void HienThiCauHoi()
+        {
+            var cauHoiHienTai = listCauHoi[CauHoiHienTai];
+            lbCauHoi.Text = $"Câu {CauHoiHienTai + 1}: {cauHoiHienTai.NDCauHoi}";
+            HienThiHinhAnh(cauHoiHienTai.HinhAnh);
+            HienThiDapAn(cauHoiHienTai.MaCauHoi);
+        }
+
+        private void HienThiDapAn(int maCauHoi)
         {
             var listDapAn = dapAnBBL.GetDapAn(maCauHoi);
             RadioButton[] radioButtons = { radioButton1, radioButton2, radioButton3, radioButton4 };
 
-            for (int i = 0; i < listDapAn.Count; i++)
+            // Đặt lại trạng thái cho tất cả RadioButton về "unchecked"
+            foreach (var radioButton in radioButtons)
             {
-                var answer = listDapAn[i];
-                radioButtons[i].Text = answer.NDCauTraLoi;
-                radioButtons[i].Tag = answer.MaCauTraLoi;
-                radioButtons[i].Visible = true;
-
-                // Kiểm tra nếu đã chọn câu trả lời trước đó
-                radioButtons[i].Checked = userAnswers.ContainsKey(maCauHoi) && userAnswers[maCauHoi] == (int)radioButtons[i].Tag;
-
-                // Xử lý sự kiện CheckedChanged
-                radioButtons[i].CheckedChanged -= RadioButton_CheckedChanged;
-                radioButtons[i].CheckedChanged += RadioButton_CheckedChanged;
+                radioButton.Checked = false;
             }
 
-            // Ẩn các radio button không sử dụng
+            // Cập nhật các đáp án vào RadioButton
+            for (int i = 0; i < listDapAn.Count; i++)
+            {
+                radioButtons[i].Text = listDapAn[i].NDCauTraLoi;
+                radioButtons[i].Tag = listDapAn[i].MaCauTraLoi;
+
+                // Nếu người dùng đã trả lời câu hỏi này, đánh dấu đáp án đã chọn
+                if (DapAnDaChon.ContainsKey(maCauHoi) && DapAnDaChon[maCauHoi] == listDapAn[i].MaCauTraLoi)
+                {
+                    radioButtons[i].Checked = true; // Đánh dấu RadioButton đã được chọn
+                }
+            }
+
+            // Ẩn các radio button không sử dụng (nếu ít hơn 4 đáp án)
             for (int i = listDapAn.Count; i < radioButtons.Length; i++)
             {
                 radioButtons[i].Visible = false;
             }
         }
+
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            var radioButton = sender as RadioButton;
-            if (radioButton.Checked)
+            var selectedRadio = (RadioButton)sender;
+            int maCauTraLoi = (int)selectedRadio.Tag;
+            int maCauHoi = listCauHoi[CauHoiHienTai].MaCauHoi;
+
+            // Lưu đáp án vào DapAnDaChon khi người dùng thay đổi lựa chọn
+            if (selectedRadio.Checked)
             {
-                // Thêm hoặc cập nhật câu trả lời của người dùng
-                userAnswers[currentQuestionIndex] = (int)radioButton.Tag;
+                DapAnDaChon[maCauHoi] = maCauTraLoi;
             }
         }
+
         private void ButtonCauHoi_Click(object sender, EventArgs e)
         {
             var btn = sender as Button;
-            currentQuestionIndex = int.Parse(btn.Name.Replace("btnCau", "")) - 1;
+            CauHoiHienTai = int.Parse(btn.Name.Replace("btnCau", "")) - 1;
             HienThiCauHoi();
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            if (CauHoiHienTai > 0)
+            {
+                CauHoiHienTai--;
+                HienThiCauHoi();
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (CauHoiHienTai < listCauHoi.Count - 1) // Kiểm tra không vượt quá số câu hỏi
+            {
+                CauHoiHienTai++;
+                HienThiCauHoi();
+            }
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -109,52 +143,56 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
-      private void Submit()
-{
-    timer1.Stop();
-
-    var listCauHoi = cauHoiBBL.GetCauHoi();
-    int score = 0;
-
-    foreach (var cauHoi in listCauHoi)
-    {
-        if (userAnswers.ContainsKey(cauHoi.MaCauHoi))
+        private void Submit()
         {
-            var selectedAnswer = userAnswers[cauHoi.MaCauHoi];
-            if (dapAnBBL.IsCorrectAnswer(cauHoi.MaCauHoi, selectedAnswer))
+            timer1.Stop();
+
+            // Tính điểm
+            var listCauHoi = cauHoiBBL.GetCauHoi();
+            int score = 0;
+
+            foreach (var cauHoi in listCauHoi)
             {
-                score++;
+                if (DapAnDaChon.ContainsKey(cauHoi.MaCauHoi))
+                {
+                    var selectedAnswer = DapAnDaChon[cauHoi.MaCauHoi];
+                    if (dapAnBBL.IsCorrectAnswer(cauHoi.MaCauHoi, selectedAnswer.Value))
+                    {
+                        score++;
+                    }
+                }
             }
+
+            // Lấy thông tin thí sinh và lần thi hiện tại
+            ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
+            int lanThi = ketQuaBLL.GetLanThi(thiSinh.MaThiSinh);
+
+            // Tạo đối tượng kết quả
+            KetQua ketQua = new KetQua
+            {
+                LanThi = lanThi + 1, // Tăng lần thi lên 1
+                KetQuaThi = $"{score}/{listCauHoi.Count}", // Điểm số dạng x/y
+                MaThiSinh = thiSinh.MaThiSinh,
+                ThoiGian = 15 * 60 - timeleft // Tính thời gian đã làm bài
+            };
+
+            // Lưu kết quả thi
+            bool isSaved = ketQuaBLL.LuuKetQua(ketQua, DapAnDaChon);
+
+            if (isSaved)
+            {
+                MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
+                                "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi trong quá trình lưu kết quả. Vui lòng thử lại.",
+                                "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // Đóng form hoặc trở về giao diện chính
+            this.Close();
         }
-    }
-
-    ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
-    int lanThi = ketQuaBLL.GetLanThi(thiSinh.MaThiSinh);
-
-    KetQua ketQua = new KetQua
-    {
-        LanThi = lanThi + 1,
-        KetQuaThi = $"{score}/{listCauHoi.Count}",
-        MaThiSinh = thiSinh.MaThiSinh,
-        ThoiGian = 15 * 60 - timeleft
-    };
-
-    bool isSaved = ketQuaBLL.LuuKetQua(ketQua);
-
-    if (isSaved)
-    {
-        MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
-                        "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-    }
-    else
-    {
-        MessageBox.Show("Đã xảy ra lỗi trong quá trình lưu kết quả. Vui lòng thử lại.",
-                        "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    }
-
-    this.Close();
-}
-
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -176,24 +214,6 @@ namespace DoAn_ThiTracNghiem
             int minutes = seconds / 60;
             int remainingSeconds = seconds % 60;
             return $"{minutes:D2}:{remainingSeconds:D2}";
-        }
-
-        private void btnPrevious_Click(object sender, EventArgs e)
-        {
-            if (currentQuestionIndex > 0)
-            {
-                currentQuestionIndex--;
-                HienThiCauHoi();
-            }
-        }
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            if (currentQuestionIndex < 24) // Kiểm tra không vượt quá số câu hỏi
-            {
-                currentQuestionIndex++;
-                HienThiCauHoi();
-            }
         }
     }
 }
