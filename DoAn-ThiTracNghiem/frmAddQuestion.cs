@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using BLL;
 using DAL;
 using DTO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace DoAn_ThiTracNghiem
@@ -100,6 +101,7 @@ namespace DoAn_ThiTracNghiem
                 cbbLoaiCauHoi_Sua.DataSource = loaiCauHoiList;
                 cbbLoaiCauHoi_Sua.DisplayMember = "TenPhan"; // Hiển thị tên loại
                 cbbLoaiCauHoi_Sua.ValueMember = "MaPhan";   // Giá trị dùng cho việc truy vấn
+
                 // Chọn giá trị mặc định
                 if (cbbLoaiCauHoi_Sua.Items.Count > 0)
                 {
@@ -152,13 +154,13 @@ namespace DoAn_ThiTracNghiem
                 return;
             }
 
-        /*    // Kiểm tra ComboBox loại câu hỏi
-            if (cbbLoaiCauHoi_Sua.SelectedIndex == -1 || cbbLoaiCauHoi_Sua.SelectedValue == null)
-            {
-                MessageBox.Show("Vui lòng chọn loại câu hỏi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-*/
+            /*    // Kiểm tra ComboBox loại câu hỏi
+                if (cbbLoaiCauHoi_Sua.SelectedIndex == -1 || cbbLoaiCauHoi_Sua.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn loại câu hỏi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+    */
             // Lấy mã phần từ ComboBox
             short maPhan;
             if (!short.TryParse(cbbLoaiCauHoi_Sua.SelectedValue.ToString(), out maPhan))
@@ -275,6 +277,8 @@ namespace DoAn_ThiTracNghiem
             {
                 // Lấy đối tượng Phan từ SelectedItem
                 Phan selectedPhan = cbbLoaiCauHoi.SelectedItem as Phan;
+                // Cập nhật cbbLoaiCauHoi_Sua với giá trị tương ứng
+                cbbLoaiCauHoi_Sua.SelectedValue = cbbLoaiCauHoi.SelectedValue;
 
                 if (selectedPhan != null)
                 {
@@ -294,7 +298,6 @@ namespace DoAn_ThiTracNghiem
             if (lvCauHoi.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = lvCauHoi.SelectedItems[0];
-
                 // Lấy mã câu hỏi từ cột thứ hai
                 int maCauHoi = int.Parse((selectedItem.SubItems[1]).Text);
 
@@ -461,5 +464,6 @@ namespace DoAn_ThiTracNghiem
             ResetForm_in();
         }
 
+   
     }
 }
