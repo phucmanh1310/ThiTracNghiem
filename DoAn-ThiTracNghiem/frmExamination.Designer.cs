@@ -73,16 +73,17 @@
             btnCau4 = new Button();
             btnCau5 = new Button();
             btnCau1 = new Button();
+            groupBox4 = new GroupBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             pnlDapAn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCauHoi).BeginInit();
             groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(lableTime);
             groupBox1.Controls.Add(txtMaSo);
             groupBox1.Controls.Add(txtHoTen);
             groupBox1.Controls.Add(label2);
@@ -93,7 +94,7 @@
             groupBox1.Margin = new Padding(4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(4);
-            groupBox1.Size = new Size(886, 154);
+            groupBox1.Size = new Size(383, 154);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN";
@@ -103,7 +104,7 @@
             lableTime.AutoSize = true;
             lableTime.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lableTime.ForeColor = Color.Red;
-            lableTime.Location = new Point(754, 64);
+            lableTime.Location = new Point(142, 54);
             lableTime.Margin = new Padding(4, 0, 4, 0);
             lableTime.Name = "lableTime";
             lableTime.Size = new Size(109, 46);
@@ -240,23 +241,25 @@
             // 
             // btnNext
             // 
-            btnNext.Location = new Point(754, 480);
+            btnNext.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNext.Location = new Point(743, 483);
             btnNext.Margin = new Padding(2);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(38, 39);
+            btnNext.Size = new Size(110, 35);
             btnNext.TabIndex = 12;
-            btnNext.Text = ">";
+            btnNext.Text = "Câu sau";
             btnNext.UseVisualStyleBackColor = true;
             btnNext.Click += btnNext_Click;
             // 
             // btnPrevious
             // 
-            btnPrevious.Location = new Point(691, 480);
+            btnPrevious.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPrevious.Location = new Point(36, 484);
             btnPrevious.Margin = new Padding(2);
             btnPrevious.Name = "btnPrevious";
-            btnPrevious.Size = new Size(38, 38);
+            btnPrevious.Size = new Size(102, 38);
             btnPrevious.TabIndex = 11;
-            btnPrevious.Text = "<";
+            btnPrevious.Text = "Câu trước";
             btnPrevious.UseVisualStyleBackColor = true;
             btnPrevious.Click += btnPrevious_Click;
             // 
@@ -325,15 +328,17 @@
             groupBox3.Controls.Add(btnCau4);
             groupBox3.Controls.Add(btnCau5);
             groupBox3.Controls.Add(btnCau1);
+            groupBox3.ForeColor = Color.CornflowerBlue;
             groupBox3.Location = new Point(919, 183);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(215, 228);
+            groupBox3.Size = new Size(215, 357);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
+            groupBox3.Text = "ĐÁP ÁN";
             // 
             // btnCau22
             // 
-            btnCau22.Location = new Point(52, 183);
+            btnCau22.Location = new Point(52, 283);
             btnCau22.Name = "btnCau22";
             btnCau22.Size = new Size(33, 33);
             btnCau22.TabIndex = 24;
@@ -343,7 +348,7 @@
             // 
             // btnCau23
             // 
-            btnCau23.Location = new Point(91, 183);
+            btnCau23.Location = new Point(91, 283);
             btnCau23.Name = "btnCau23";
             btnCau23.Size = new Size(33, 33);
             btnCau23.TabIndex = 23;
@@ -353,7 +358,7 @@
             // 
             // btnCau24
             // 
-            btnCau24.Location = new Point(130, 183);
+            btnCau24.Location = new Point(130, 283);
             btnCau24.Name = "btnCau24";
             btnCau24.Size = new Size(33, 33);
             btnCau24.TabIndex = 22;
@@ -363,7 +368,7 @@
             // 
             // btnCau8
             // 
-            btnCau8.Location = new Point(91, 66);
+            btnCau8.Location = new Point(91, 113);
             btnCau8.Name = "btnCau8";
             btnCau8.Size = new Size(33, 33);
             btnCau8.TabIndex = 5;
@@ -373,7 +378,7 @@
             // 
             // btnCau6
             // 
-            btnCau6.Location = new Point(13, 66);
+            btnCau6.Location = new Point(13, 113);
             btnCau6.Name = "btnCau6";
             btnCau6.Size = new Size(33, 33);
             btnCau6.TabIndex = 9;
@@ -383,7 +388,7 @@
             // 
             // btnCau3
             // 
-            btnCau3.Location = new Point(91, 27);
+            btnCau3.Location = new Point(91, 64);
             btnCau3.Name = "btnCau3";
             btnCau3.Size = new Size(33, 33);
             btnCau3.TabIndex = 2;
@@ -392,7 +397,7 @@
             // 
             // btnCau25
             // 
-            btnCau25.Location = new Point(169, 183);
+            btnCau25.Location = new Point(169, 283);
             btnCau25.Name = "btnCau25";
             btnCau25.Size = new Size(33, 33);
             btnCau25.TabIndex = 21;
@@ -402,7 +407,7 @@
             // 
             // btnCau21
             // 
-            btnCau21.Location = new Point(13, 183);
+            btnCau21.Location = new Point(13, 283);
             btnCau21.Name = "btnCau21";
             btnCau21.Size = new Size(33, 33);
             btnCau21.TabIndex = 20;
@@ -412,7 +417,7 @@
             // 
             // btnCau17
             // 
-            btnCau17.Location = new Point(52, 144);
+            btnCau17.Location = new Point(52, 231);
             btnCau17.Name = "btnCau17";
             btnCau17.Size = new Size(33, 33);
             btnCau17.TabIndex = 19;
@@ -422,7 +427,7 @@
             // 
             // btnCau18
             // 
-            btnCau18.Location = new Point(91, 144);
+            btnCau18.Location = new Point(91, 231);
             btnCau18.Name = "btnCau18";
             btnCau18.Size = new Size(33, 33);
             btnCau18.TabIndex = 18;
@@ -432,7 +437,7 @@
             // 
             // btnCau19
             // 
-            btnCau19.Location = new Point(130, 144);
+            btnCau19.Location = new Point(130, 231);
             btnCau19.Name = "btnCau19";
             btnCau19.Size = new Size(33, 33);
             btnCau19.TabIndex = 17;
@@ -442,7 +447,7 @@
             // 
             // btnCau20
             // 
-            btnCau20.Location = new Point(169, 144);
+            btnCau20.Location = new Point(169, 231);
             btnCau20.Name = "btnCau20";
             btnCau20.Size = new Size(33, 33);
             btnCau20.TabIndex = 16;
@@ -452,7 +457,7 @@
             // 
             // btnCau16
             // 
-            btnCau16.Location = new Point(13, 144);
+            btnCau16.Location = new Point(13, 231);
             btnCau16.Name = "btnCau16";
             btnCau16.Size = new Size(33, 33);
             btnCau16.TabIndex = 15;
@@ -462,7 +467,7 @@
             // 
             // btnCau12
             // 
-            btnCau12.Location = new Point(52, 105);
+            btnCau12.Location = new Point(52, 171);
             btnCau12.Name = "btnCau12";
             btnCau12.Size = new Size(33, 33);
             btnCau12.TabIndex = 14;
@@ -472,7 +477,7 @@
             // 
             // btnCau13
             // 
-            btnCau13.Location = new Point(91, 105);
+            btnCau13.Location = new Point(91, 171);
             btnCau13.Name = "btnCau13";
             btnCau13.Size = new Size(33, 33);
             btnCau13.TabIndex = 13;
@@ -482,7 +487,7 @@
             // 
             // btnCau14
             // 
-            btnCau14.Location = new Point(130, 105);
+            btnCau14.Location = new Point(130, 171);
             btnCau14.Name = "btnCau14";
             btnCau14.Size = new Size(33, 33);
             btnCau14.TabIndex = 12;
@@ -492,7 +497,7 @@
             // 
             // btnCau15
             // 
-            btnCau15.Location = new Point(169, 105);
+            btnCau15.Location = new Point(169, 171);
             btnCau15.Name = "btnCau15";
             btnCau15.Size = new Size(33, 33);
             btnCau15.TabIndex = 11;
@@ -502,7 +507,7 @@
             // 
             // btnCau11
             // 
-            btnCau11.Location = new Point(13, 105);
+            btnCau11.Location = new Point(13, 171);
             btnCau11.Name = "btnCau11";
             btnCau11.Size = new Size(33, 33);
             btnCau11.TabIndex = 10;
@@ -512,7 +517,7 @@
             // 
             // btnCau7
             // 
-            btnCau7.Location = new Point(52, 66);
+            btnCau7.Location = new Point(52, 113);
             btnCau7.Name = "btnCau7";
             btnCau7.Size = new Size(33, 33);
             btnCau7.TabIndex = 8;
@@ -522,7 +527,7 @@
             // 
             // btnCau9
             // 
-            btnCau9.Location = new Point(130, 66);
+            btnCau9.Location = new Point(130, 113);
             btnCau9.Name = "btnCau9";
             btnCau9.Size = new Size(33, 33);
             btnCau9.TabIndex = 7;
@@ -532,7 +537,7 @@
             // 
             // btnCau10
             // 
-            btnCau10.Location = new Point(169, 66);
+            btnCau10.Location = new Point(169, 113);
             btnCau10.Name = "btnCau10";
             btnCau10.Size = new Size(33, 33);
             btnCau10.TabIndex = 6;
@@ -542,7 +547,7 @@
             // 
             // btnCau2
             // 
-            btnCau2.Location = new Point(52, 27);
+            btnCau2.Location = new Point(52, 64);
             btnCau2.Name = "btnCau2";
             btnCau2.Size = new Size(33, 33);
             btnCau2.TabIndex = 4;
@@ -551,7 +556,7 @@
             // 
             // btnCau4
             // 
-            btnCau4.Location = new Point(130, 27);
+            btnCau4.Location = new Point(130, 64);
             btnCau4.Name = "btnCau4";
             btnCau4.Size = new Size(33, 33);
             btnCau4.TabIndex = 3;
@@ -560,7 +565,7 @@
             // 
             // btnCau5
             // 
-            btnCau5.Location = new Point(169, 27);
+            btnCau5.Location = new Point(169, 64);
             btnCau5.Name = "btnCau5";
             btnCau5.Size = new Size(33, 33);
             btnCau5.TabIndex = 1;
@@ -570,18 +575,33 @@
             // 
             // btnCau1
             // 
-            btnCau1.Location = new Point(13, 27);
+            btnCau1.Location = new Point(13, 64);
             btnCau1.Name = "btnCau1";
             btnCau1.Size = new Size(33, 33);
             btnCau1.TabIndex = 0;
             btnCau1.Text = "1";
             btnCau1.Click += ButtonCauHoi_Click;
             // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(lableTime);
+            groupBox4.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox4.ForeColor = Color.RoyalBlue;
+            groupBox4.Location = new Point(435, 13);
+            groupBox4.Margin = new Padding(4);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new Padding(4);
+            groupBox4.Size = new Size(383, 154);
+            groupBox4.TabIndex = 4;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "THỜI GIAN THI CÒN LẠI";
+            // 
             // frmExamination
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1168, 822);
+            Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -596,6 +616,8 @@
             pnlDapAn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxCauHoi).EndInit();
             groupBox3.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -651,5 +673,6 @@
         private Button btnCau4;
         private Button btnCau2;
         private Button btnCau3;
+        private GroupBox groupBox4;
     }
 }
