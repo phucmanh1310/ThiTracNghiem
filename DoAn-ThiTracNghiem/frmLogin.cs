@@ -95,5 +95,10 @@ namespace DoAn_ThiTracNghiem
                 txtPassword.PasswordChar = '*';
             }
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("Bạn vui lòng thông báo với giám thị coi thi để xin cấp lại Mật khẩu)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
