@@ -46,7 +46,6 @@
             cbxAnswer4 = new CheckBox();
             picImage = new PictureBox();
             groupBox1 = new GroupBox();
-            label3 = new Label();
             btnThemLoai = new Button();
             txtThemLoai = new TextBox();
             label1 = new Label();
@@ -61,18 +60,22 @@
             btnSua = new Button();
             btnXoa = new Button();
             btnTaiLai = new Button();
+            groupBox2 = new GroupBox();
+            label3 = new Label();
+            cbbLoaiCauHoi_Sua = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)picImage).BeginInit();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // txtQuestion
             // 
             txtQuestion.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtQuestion.ForeColor = SystemColors.GrayText;
-            txtQuestion.Location = new Point(509, 186);
+            txtQuestion.Location = new Point(2, 156);
             txtQuestion.Multiline = true;
             txtQuestion.Name = "txtQuestion";
-            txtQuestion.Size = new Size(484, 259);
+            txtQuestion.Size = new Size(484, 130);
             txtQuestion.TabIndex = 0;
             // 
             // lblQuestion
@@ -81,7 +84,7 @@
             lblQuestion.Cursor = Cursors.IBeam;
             lblQuestion.Font = new Font("Segoe UI", 11.75F, FontStyle.Bold);
             lblQuestion.ForeColor = Color.MidnightBlue;
-            lblQuestion.Location = new Point(509, 155);
+            lblQuestion.Location = new Point(2, 116);
             lblQuestion.Name = "lblQuestion";
             lblQuestion.Size = new Size(97, 28);
             lblQuestion.TabIndex = 1;
@@ -92,7 +95,7 @@
             lblAnswer1.AutoSize = true;
             lblAnswer1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAnswer1.ForeColor = Color.MidnightBlue;
-            lblAnswer1.Location = new Point(496, 448);
+            lblAnswer1.Location = new Point(509, 476);
             lblAnswer1.Name = "lblAnswer1";
             lblAnswer1.Size = new Size(82, 23);
             lblAnswer1.TabIndex = 3;
@@ -102,7 +105,7 @@
             // 
             txtAnswer1.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtAnswer1.ForeColor = SystemColors.GrayText;
-            txtAnswer1.Location = new Point(496, 463);
+            txtAnswer1.Location = new Point(509, 491);
             txtAnswer1.Name = "txtAnswer1";
             txtAnswer1.Size = new Size(754, 36);
             txtAnswer1.TabIndex = 2;
@@ -113,7 +116,7 @@
             btnAddQuestion.FlatAppearance.BorderSize = 0;
             btnAddQuestion.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddQuestion.ForeColor = Color.White;
-            btnAddQuestion.Location = new Point(566, 692);
+            btnAddQuestion.Location = new Point(566, 722);
             btnAddQuestion.Name = "btnAddQuestion";
             btnAddQuestion.Size = new Size(211, 40);
             btnAddQuestion.TabIndex = 5;
@@ -126,7 +129,7 @@
             lblAnswer2.AutoSize = true;
             lblAnswer2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAnswer2.ForeColor = Color.MidnightBlue;
-            lblAnswer2.Location = new Point(496, 501);
+            lblAnswer2.Location = new Point(509, 529);
             lblAnswer2.Name = "lblAnswer2";
             lblAnswer2.Size = new Size(82, 23);
             lblAnswer2.TabIndex = 7;
@@ -136,7 +139,7 @@
             // 
             txtAnswer2.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtAnswer2.ForeColor = SystemColors.GrayText;
-            txtAnswer2.Location = new Point(499, 521);
+            txtAnswer2.Location = new Point(512, 549);
             txtAnswer2.Name = "txtAnswer2";
             txtAnswer2.Size = new Size(751, 36);
             txtAnswer2.TabIndex = 6;
@@ -146,7 +149,7 @@
             lblAnswer3.AutoSize = true;
             lblAnswer3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAnswer3.ForeColor = Color.MidnightBlue;
-            lblAnswer3.Location = new Point(496, 564);
+            lblAnswer3.Location = new Point(509, 592);
             lblAnswer3.Name = "lblAnswer3";
             lblAnswer3.Size = new Size(82, 23);
             lblAnswer3.TabIndex = 11;
@@ -156,7 +159,7 @@
             // 
             txtAnswer3.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtAnswer3.ForeColor = SystemColors.GrayText;
-            txtAnswer3.Location = new Point(499, 584);
+            txtAnswer3.Location = new Point(512, 612);
             txtAnswer3.Name = "txtAnswer3";
             txtAnswer3.Size = new Size(751, 36);
             txtAnswer3.TabIndex = 10;
@@ -166,7 +169,7 @@
             lblAnswer4.AutoSize = true;
             lblAnswer4.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAnswer4.ForeColor = Color.MidnightBlue;
-            lblAnswer4.Location = new Point(496, 627);
+            lblAnswer4.Location = new Point(509, 655);
             lblAnswer4.Name = "lblAnswer4";
             lblAnswer4.Size = new Size(82, 23);
             lblAnswer4.TabIndex = 13;
@@ -176,7 +179,7 @@
             // 
             txtAnswer4.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtAnswer4.ForeColor = SystemColors.GrayText;
-            txtAnswer4.Location = new Point(499, 647);
+            txtAnswer4.Location = new Point(512, 675);
             txtAnswer4.Name = "txtAnswer4";
             txtAnswer4.Size = new Size(751, 36);
             txtAnswer4.TabIndex = 12;
@@ -186,7 +189,7 @@
             cbxAnswer1.AutoSize = true;
             cbxAnswer1.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnswer1.ForeColor = Color.RoyalBlue;
-            cbxAnswer1.Location = new Point(1261, 463);
+            cbxAnswer1.Location = new Point(1274, 491);
             cbxAnswer1.Name = "cbxAnswer1";
             cbxAnswer1.Size = new Size(87, 34);
             cbxAnswer1.TabIndex = 14;
@@ -198,7 +201,7 @@
             cbxAnswer2.AutoSize = true;
             cbxAnswer2.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnswer2.ForeColor = Color.RoyalBlue;
-            cbxAnswer2.Location = new Point(1261, 523);
+            cbxAnswer2.Location = new Point(1274, 551);
             cbxAnswer2.Name = "cbxAnswer2";
             cbxAnswer2.Size = new Size(87, 34);
             cbxAnswer2.TabIndex = 15;
@@ -210,7 +213,7 @@
             cbxAnswer3.AutoSize = true;
             cbxAnswer3.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnswer3.ForeColor = Color.RoyalBlue;
-            cbxAnswer3.Location = new Point(1261, 586);
+            cbxAnswer3.Location = new Point(1274, 614);
             cbxAnswer3.Name = "cbxAnswer3";
             cbxAnswer3.Size = new Size(87, 34);
             cbxAnswer3.TabIndex = 16;
@@ -222,7 +225,7 @@
             cbxAnswer4.AutoSize = true;
             cbxAnswer4.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxAnswer4.ForeColor = Color.RoyalBlue;
-            cbxAnswer4.Location = new Point(1261, 649);
+            cbxAnswer4.Location = new Point(1274, 677);
             cbxAnswer4.Name = "cbxAnswer4";
             cbxAnswer4.Size = new Size(87, 34);
             cbxAnswer4.TabIndex = 17;
@@ -232,7 +235,7 @@
             // picImage
             // 
             picImage.BorderStyle = BorderStyle.FixedSingle;
-            picImage.Location = new Point(1011, 186);
+            picImage.Location = new Point(504, 27);
             picImage.Name = "picImage";
             picImage.Size = new Size(338, 259);
             picImage.SizeMode = PictureBoxSizeMode.Zoom;
@@ -244,7 +247,6 @@
             // groupBox1
             // 
             groupBox1.BackColor = SystemColors.Control;
-            groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(btnThemLoai);
             groupBox1.Controls.Add(txtThemLoai);
             groupBox1.Controls.Add(label1);
@@ -257,18 +259,6 @@
             groupBox1.TabIndex = 22;
             groupBox1.TabStop = false;
             groupBox1.Text = "Loại Câu Hỏi :";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Cursor = Cursors.IBeam;
-            label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.MidnightBlue;
-            label3.Location = new Point(297, 88);
-            label3.Name = "label3";
-            label3.Size = new Size(300, 31);
-            label3.TabIndex = 26;
-            label3.Text = "CHI TIẾT DỮ LIỆU CÂU HỎI";
             // 
             // btnThemLoai
             // 
@@ -324,7 +314,6 @@
             lvCauHoi.UseCompatibleStateImageBehavior = false;
             lvCauHoi.View = View.Details;
             lvCauHoi.ItemSelectionChanged += lvCauHoi_ItemSelectionChanged;
-
             // 
             // TenPhan
             // 
@@ -364,12 +353,13 @@
             btnSua.FlatAppearance.BorderSize = 0;
             btnSua.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSua.ForeColor = Color.White;
-            btnSua.Location = new Point(806, 692);
+            btnSua.Location = new Point(806, 722);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(209, 40);
             btnSua.TabIndex = 25;
             btnSua.Text = "SỬA CÂU HỎI";
             btnSua.UseVisualStyleBackColor = false;
+            btnSua.Click += btnSua_Click;
             // 
             // btnXoa
             // 
@@ -377,36 +367,73 @@
             btnXoa.FlatAppearance.BorderSize = 0;
             btnXoa.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXoa.ForeColor = Color.White;
-            btnXoa.Location = new Point(1041, 692);
+            btnXoa.Location = new Point(1041, 722);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(209, 40);
             btnXoa.TabIndex = 26;
             btnXoa.Text = "XÓA CÂU HỎI";
             btnXoa.UseVisualStyleBackColor = false;
+            btnXoa.Click += btnXoa_Click;
             // 
             // btnTaiLai
             // 
             btnTaiLai.BackgroundImage = (Image)resources.GetObject("btnTaiLai.BackgroundImage");
             btnTaiLai.BackgroundImageLayout = ImageLayout.Zoom;
-            btnTaiLai.Location = new Point(1291, 701);
+            btnTaiLai.Location = new Point(1291, 731);
             btnTaiLai.Name = "btnTaiLai";
             btnTaiLai.Size = new Size(44, 29);
             btnTaiLai.TabIndex = 27;
             btnTaiLai.UseVisualStyleBackColor = true;
             btnTaiLai.Click += btnTaiLai_Click;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(cbbLoaiCauHoi_Sua);
+            groupBox2.Controls.Add(picImage);
+            groupBox2.Controls.Add(lblQuestion);
+            groupBox2.Controls.Add(txtQuestion);
+            groupBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox2.ForeColor = Color.MidnightBlue;
+            groupBox2.Location = new Point(507, 159);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(859, 308);
+            groupBox2.TabIndex = 28;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "CHI TIẾT DỮ LIỆU CÂU HỎI";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Cursor = Cursors.IBeam;
+            label3.Font = new Font("Segoe UI", 11.75F, FontStyle.Bold);
+            label3.ForeColor = Color.MidnightBlue;
+            label3.Location = new Point(6, 61);
+            label3.Name = "label3";
+            label3.Size = new Size(137, 28);
+            label3.TabIndex = 27;
+            label3.Text = "Loại câu hỏi :";
+            // 
+            // cbbLoaiCauHoi_Sua
+            // 
+            cbbLoaiCauHoi_Sua.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbbLoaiCauHoi_Sua.FormattingEnabled = true;
+            cbbLoaiCauHoi_Sua.Location = new Point(159, 58);
+            cbbLoaiCauHoi_Sua.Name = "cbbLoaiCauHoi_Sua";
+            cbbLoaiCauHoi_Sua.Size = new Size(327, 36);
+            cbbLoaiCauHoi_Sua.TabIndex = 26;
+            // 
             // frmAddQuestion
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1373, 744);
+            ClientSize = new Size(1388, 774);
             Controls.Add(btnTaiLai);
             Controls.Add(btnXoa);
             Controls.Add(btnSua);
             Controls.Add(label2);
             Controls.Add(lvCauHoi);
             Controls.Add(groupBox1);
-            Controls.Add(picImage);
             Controls.Add(cbxAnswer4);
             Controls.Add(cbxAnswer3);
             Controls.Add(cbxAnswer2);
@@ -420,8 +447,7 @@
             Controls.Add(btnAddQuestion);
             Controls.Add(lblAnswer1);
             Controls.Add(txtAnswer1);
-            Controls.Add(lblQuestion);
-            Controls.Add(txtQuestion);
+            Controls.Add(groupBox2);
             Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.HighlightText;
             MaximizeBox = false;
@@ -433,6 +459,8 @@
             ((System.ComponentModel.ISupportInitialize)picImage).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -468,8 +496,10 @@
         private ColumnHeader TenPhan;
         private ColumnHeader NoiDung;
         private ColumnHeader DapAn;
-        protected internal Label label3;
         private ColumnHeader maCauHoi;
         private Button btnTaiLai;
+        private GroupBox groupBox2;
+        protected internal Label label3;
+        private ComboBox cbbLoaiCauHoi_Sua;
     }
 }

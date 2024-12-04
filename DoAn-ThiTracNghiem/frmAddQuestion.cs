@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using BLL;
 using DAL;
 using DTO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace DoAn_ThiTracNghiem
 {
@@ -19,15 +20,18 @@ namespace DoAn_ThiTracNghiem
     {
         private readonly CauHoiBLL CauHoiBLL;
         private readonly PhanBLL phanBLL;
+        private readonly DapAnBBL dapAnBLL;
         public frmAddQuestion()
         {
             InitializeComponent();
             CauHoiBLL = new CauHoiBLL();
             phanBLL = new PhanBLL();
+            dapAnBLL = new DapAnBBL();
         }
         private void frmAddQuestion_Load(object sender, EventArgs e)
         {
             LoadLoaiCauHoi();
+            LoadLoaiCauHoi_Sua();
         }
         private void LoadCauHoiToListView(int maPhan)
         {
@@ -66,11 +70,10 @@ namespace DoAn_ThiTracNghiem
                     MessageBox.Show("Không có loại câu hỏi để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
+                //cbb hiển thị loại câu hỏi dùng hiện danh sách câu hỏi
                 cbbLoaiCauHoi.DataSource = loaiCauHoiList;
-                cbbLoaiCauHoi.DisplayMember = "TenPhan"; // Display name
-                cbbLoaiCauHoi.ValueMember = "MaPhan";   // Value (used to fetch data)
-
+                cbbLoaiCauHoi.DisplayMember = "TenPhan"; // Hiển thị tên loại
+                cbbLoaiCauHoi.ValueMember = "MaPhan";   // Giá trị dùng cho việc truy vấn
                 // Chọn giá trị mặc định
                 if (cbbLoaiCauHoi.Items.Count > 0)
                 {
@@ -82,6 +85,33 @@ namespace DoAn_ThiTracNghiem
                 MessageBox.Show($"Lỗi khi tải loại câu hỏi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void LoadLoaiCauHoi_Sua()
+        {
+            try
+            {
+                var loaiCauHoiList = phanBLL.GetAllLoaiCauHoi();
+
+                if (loaiCauHoiList == null || loaiCauHoiList.Count == 0)
+                {
+                    MessageBox.Show("Không có loại câu hỏi để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // cbb để sửa
+                cbbLoaiCauHoi_Sua.DataSource = loaiCauHoiList;
+                cbbLoaiCauHoi_Sua.DisplayMember = "TenPhan"; // Hiển thị tên loại
+                cbbLoaiCauHoi_Sua.ValueMember = "MaPhan";   // Giá trị dùng cho việc truy vấn
+                // Chọn giá trị mặc định
+                if (cbbLoaiCauHoi_Sua.Items.Count > 0)
+                {
+                    cbbLoaiCauHoi_Sua.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải loại câu hỏi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnThemLoai_Click(object sender, EventArgs e)
         {
             string newLoaiCauHoi = txtThemLoai.Text.Trim();
@@ -122,16 +152,16 @@ namespace DoAn_ThiTracNghiem
                 return;
             }
 
-            // Kiểm tra ComboBox loại câu hỏi
-            if (cbbLoaiCauHoi.SelectedIndex == -1 || cbbLoaiCauHoi.SelectedValue == null)
+        /*    // Kiểm tra ComboBox loại câu hỏi
+            if (cbbLoaiCauHoi_Sua.SelectedIndex == -1 || cbbLoaiCauHoi_Sua.SelectedValue == null)
             {
                 MessageBox.Show("Vui lòng chọn loại câu hỏi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+*/
             // Lấy mã phần từ ComboBox
             short maPhan;
-            if (!short.TryParse(cbbLoaiCauHoi.SelectedValue.ToString(), out maPhan))
+            if (!short.TryParse(cbbLoaiCauHoi_Sua.SelectedValue.ToString(), out maPhan))
             {
                 MessageBox.Show("Mã phần không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -171,19 +201,19 @@ namespace DoAn_ThiTracNghiem
 
             // Tạo danh sách đáp án
             List<DapAn> dapAns = new List<DapAn>
-    {
-        new DapAn(0, txtAnswer1.Text.Trim(), null, cbxAnswer1.Checked),
-        new DapAn(0, txtAnswer2.Text.Trim(), null, cbxAnswer2.Checked),
-        new DapAn(0, txtAnswer3.Text.Trim(), null, cbxAnswer3.Checked),
-        new DapAn(0, txtAnswer4.Text.Trim(), null, cbxAnswer4.Checked)
-    };
+            {
+                new DapAn(0, txtAnswer1.Text.Trim(), null, cbxAnswer1.Checked),
+                new DapAn(0, txtAnswer2.Text.Trim(), null, cbxAnswer2.Checked),
+                new DapAn(0, txtAnswer3.Text.Trim(), null, cbxAnswer3.Checked),
+                new DapAn(0, txtAnswer4.Text.Trim(), null, cbxAnswer4.Checked)
+            };
 
             // Kiểm tra đáp án hợp lệ
-            if (dapAns.Any(da => string.IsNullOrWhiteSpace(da.NDCauTraLoi)))
+            /*if (dapAns.Any(da => string.IsNullOrWhiteSpace(da.NDCauTraLoi)))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ các đáp án.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-            }
+            }*/
 
             if (!dapAns.Any(da => da.DungSai))
             {
@@ -266,14 +296,15 @@ namespace DoAn_ThiTracNghiem
                 ListViewItem selectedItem = lvCauHoi.SelectedItems[0];
 
                 // Lấy mã câu hỏi từ cột thứ hai
-                String maCauHoi = (selectedItem.SubItems[1]).Text;
+                int maCauHoi = int.Parse((selectedItem.SubItems[1]).Text);
 
                 try
                 {
                     // Lấy thông tin câu hỏi từ database dựa trên mã câu hỏi
-                    var chiTietCauHoi = CauHoiBLL.GetCauHoiChiTietById(int.Parse(maCauHoi));
-                    //in ra thông tin câu hỏi
+                    var chiTietCauHoi = CauHoiBLL.GetCauHoiChiTietById(maCauHoi);
+                    // In ra thông tin câu hỏi
                     txtQuestion.Text = chiTietCauHoi.NDCauHoi;
+
                     // Kiểm tra nếu có đường dẫn hình ảnh
                     if (!string.IsNullOrEmpty(chiTietCauHoi.HinhAnh))
                     {
@@ -295,7 +326,20 @@ namespace DoAn_ThiTracNghiem
                         picImage.Image = null;
                     }
 
+                    // Lấy danh sách đáp án
+                    List<DapAn> dapAnList = dapAnBLL.GetDapAn(maCauHoi);
 
+                    // Hiển thị đáp án vào các ô txtAnswer1 - txtAnswer4
+                    txtAnswer1.Text = dapAnList.Count > 0 ? dapAnList[0].NDCauTraLoi : "";
+                    txtAnswer2.Text = dapAnList.Count > 1 ? dapAnList[1].NDCauTraLoi : "";
+                    txtAnswer3.Text = dapAnList.Count > 2 ? dapAnList[2].NDCauTraLoi : "";
+                    txtAnswer4.Text = dapAnList.Count > 3 ? dapAnList[3].NDCauTraLoi : "";
+
+                    // Kiểm tra và đổi màu checkbox nếu đáp án đúng
+                    cbxAnswer1.BackColor = dapAnList.Count > 0 && dapAnList[0].DungSai ? Color.Green : Color.Transparent;
+                    cbxAnswer2.BackColor = dapAnList.Count > 1 && dapAnList[1].DungSai ? Color.Green : Color.Transparent;
+                    cbxAnswer3.BackColor = dapAnList.Count > 2 && dapAnList[2].DungSai ? Color.Green : Color.Transparent;
+                    cbxAnswer4.BackColor = dapAnList.Count > 3 && dapAnList[3].DungSai ? Color.Green : Color.Transparent;
 
                     // Ẩn nút thêm câu hỏi
                     btnAddQuestion.Visible = false;
@@ -306,29 +350,114 @@ namespace DoAn_ThiTracNghiem
                 }
             }
         }
+
         //f5 lại tất cả sự kiện
 
         private void ResetForm_in()
         {
+            // Xóa nội dung trong các TextBox
             txtQuestion.Clear();
             txtAnswer1.Clear();
             txtAnswer2.Clear();
             txtAnswer3.Clear();
             txtAnswer4.Clear();
+
+            // Xóa hình ảnh trong PictureBox
             picImage.Image = null;
+
+            // Hủy chọn các CheckBox
             cbxAnswer1.Checked = false;
             cbxAnswer2.Checked = false;
             cbxAnswer3.Checked = false;
             cbxAnswer4.Checked = false;
+
+            // Đặt lại màu nền của các TextBox về mặc định
             txtAnswer1.BackColor = Color.White;
             txtAnswer2.BackColor = Color.White;
             txtAnswer3.BackColor = Color.White;
             txtAnswer4.BackColor = Color.White;
-            btnAddQuestion.Visible = true; // Hiển thị lại nút
+
+            // Đặt lại màu nền của các CheckBox về mặc định (nếu có thay đổi)
+            cbxAnswer1.BackColor = Color.Transparent;
+            cbxAnswer2.BackColor = Color.Transparent;
+            cbxAnswer3.BackColor = Color.Transparent;
+            cbxAnswer4.BackColor = Color.Transparent;
+
+            // Hiển thị lại nút thêm câu hỏi
+            btnAddQuestion.Visible = true;
         }
+
 
         private void btnTaiLai_Click(object sender, EventArgs e)
         {
+            ResetForm_in();
+        }
+        //sửa dữ liệu
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (lvCauHoi.SelectedItems.Count > 0)
+            {
+                try
+                {
+                    // Lấy mã câu hỏi được chọn
+                    ListViewItem selectedItem = lvCauHoi.SelectedItems[0];
+                    int maCauHoi = int.Parse(selectedItem.SubItems[1].Text);
+
+                    // Lấy thông tin từ giao diện
+                    string ndCauHoi = txtQuestion.Text;
+                    int maPhan = (int)cbbLoaiCauHoi_Sua.SelectedValue;
+                    string hinhAnh = picImage.ImageLocation; // Đường dẫn hình ảnh
+                    List<DapAn> danhSachDapAn = new List<DapAn>
+                    {
+                    new DapAn { NDCauTraLoi = txtAnswer1.Text, DungSai = cbxAnswer1.Checked },
+                    new DapAn { NDCauTraLoi = txtAnswer2.Text, DungSai = cbxAnswer2.Checked },
+                    new DapAn { NDCauTraLoi = txtAnswer3.Text, DungSai = cbxAnswer3.Checked },
+                    new DapAn { NDCauTraLoi = txtAnswer4.Text, DungSai = cbxAnswer4.Checked },
+                    };
+                    if (!cbxAnswer1.Checked && !cbxAnswer2.Checked && !cbxAnswer3.Checked && !cbxAnswer4.Checked)
+                    {
+                        MessageBox.Show("Vui lòng chọn đáp án đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Gọi hàm BLL để cập nhật
+                    if (CauHoiBLL.CapNhatCauHoiVaDapAn(maCauHoi, maPhan, ndCauHoi, hinhAnh, danhSachDapAn))
+                    {
+                        MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadCauHoiToListView(maPhan);
+                        ResetForm_in();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một câu hỏi để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        //xóa dữ liệu
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (lvCauHoi.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lvCauHoi.SelectedItems[0];
+                int maCauHoi = int.Parse(selectedItem.SubItems[1].Text);  // Giả sử MaCauTraLoi nằm ở cột 0
+                if (CauHoiBLL.XoaDapAn(maCauHoi))
+                {
+                    MessageBox.Show("Đã xóa câu trả lời thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một câu hỏi để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
             ResetForm_in();
         }
 

@@ -19,31 +19,57 @@ namespace DAL
             using (SqlConnection conn = SqlConnectionData.Connect())
             {
                 conn.Open();
-                string query = "SELECT * FROM CauHoi";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        string hinhAnh = reader["HinhAnh"] == DBNull.Value ? null : reader["HinhAnh"].ToString();
-                        if (!string.IsNullOrEmpty(hinhAnh))
-                        {
-                            // Sử dụng Directory.GetCurrentDirectory hoặc AppContext.BaseDirectory
-                            hinhAnh = Path.Combine(AppContext.BaseDirectory, hinhAnh);
-                        }
+                string query = @"
+                SELECT TOP (@SoLuong) * FROM CauHoi 
+                WHERE MaPhan = @MaPhan 
+                ORDER BY NEWID()";
 
-                         CauHoi cauHoi = new CauHoi(
-                            Convert.ToInt32(reader["MaCauHoi"]),
-                            reader["NDCauHoi"].ToString(),
-                            short.Parse(reader["MaPhan"].ToString()),
-                            hinhAnh
-                        );
-                        danhSachCauHoi.Add(cauHoi);
+                // Cấu trúc đề thi
+                var deThiCauTruc = new Dictionary<int, int>
+                {
+                    { 1, 8 }, // Mã phần 1: 8 câu
+                    { 6, 1 }, // Mã phần 6: 1 câu (câu điểm liệt)
+                    { 2, 1 }, // Mã phần 2: 1 câu
+                    { 3, 1 }, // Mã phần 3: 1 câu
+                    { 4, 7 }, // Mã phần 4: 7 câu
+                    { 5, 7 }  // Mã phần 5: 7 câu
+                };
+
+                foreach (var item in deThiCauTruc)
+                {
+                    int maPhan = item.Key;
+                    int soLuong = item.Value;
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaPhan", maPhan);
+                        cmd.Parameters.AddWithValue("@SoLuong", soLuong);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string hinhAnh = reader["HinhAnh"] == DBNull.Value ? null : reader["HinhAnh"].ToString();
+                                if (!string.IsNullOrEmpty(hinhAnh))
+                                {
+                                    hinhAnh = Path.Combine(AppContext.BaseDirectory, hinhAnh);
+                                }
+
+                                CauHoi cauHoi = new CauHoi(
+                                    Convert.ToInt32(reader["MaCauHoi"]),
+                                    reader["NDCauHoi"].ToString(),
+                                    short.Parse(reader["MaPhan"].ToString()),
+                                    hinhAnh
+                                );
+                                danhSachCauHoi.Add(cauHoi);
+                            }
+                        }
                     }
                 }
             }
             return danhSachCauHoi;
         }
+
         public int AddCauHoi(CauHoi cauHoi)
         {
             using (SqlConnection connection = SqlConnectionData.Connect())
@@ -147,6 +173,94 @@ namespace DAL
                 }
             }
             return cauhoi;
+        }
+        public bool XoaDapAn(int maCauHoi)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+                try
+                {
+                    // Xóa đáp án trước
+                    string deleteDapAn = "DELETE FROM DapAn WHERE MaCauHoi = @maCauHoi";
+                    SqlCommand deleteDapAnCmd = new SqlCommand(deleteDapAn, conn, transaction);
+                    deleteDapAnCmd.Parameters.AddWithValue("@maCauHoi", maCauHoi);
+                    deleteDapAnCmd.ExecuteNonQuery();
+
+                    // Sau đó xóa câu hỏi
+                    string deleteCauHoi = "DELETE FROM CauHoi WHERE MaCauHoi = @maCauHoi";
+                    SqlCommand deleteCauHoiCmd = new SqlCommand(deleteCauHoi, conn, transaction);
+                    deleteCauHoiCmd.Parameters.AddWithValue("@maCauHoi", maCauHoi);
+                    deleteCauHoiCmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+     
+
+        public bool UpdateCauHoiAndDapAn(int maCauHoi, int maPhan, string ndCauHoi, string hinhAnh, List<DapAn> danhSachDapAn)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    // Cập nhật câu hỏi
+                    string queryCauHoi = @"
+                    UPDATE CauHoi
+                    SET NDCauHoi = @NDCauHoi, MaPhan = @MaPhan, HinhAnh = @HinhAnh
+                    WHERE MaCauHoi = @MaCauHoi";
+
+                    SqlCommand cmdCauHoi = new SqlCommand(queryCauHoi, conn, transaction);
+                    cmdCauHoi.Parameters.AddWithValue("@MaCauHoi", maCauHoi);
+                    cmdCauHoi.Parameters.AddWithValue("@NDCauHoi", ndCauHoi);
+                    cmdCauHoi.Parameters.AddWithValue("@MaPhan", maPhan);
+                    cmdCauHoi.Parameters.AddWithValue("@HinhAnh", (object)hinhAnh ?? DBNull.Value);
+
+                    cmdCauHoi.ExecuteNonQuery();
+
+                    // Xóa đáp án cũ
+                    string queryXoaDapAn = "DELETE FROM DapAn WHERE MaCauHoi = @MaCauHoi";
+                    SqlCommand cmdXoaDapAn = new SqlCommand(queryXoaDapAn, conn, transaction);
+                    cmdXoaDapAn.Parameters.AddWithValue("@MaCauHoi", maCauHoi);
+                    cmdXoaDapAn.ExecuteNonQuery();
+
+                    // Thêm các đáp án mới
+                    foreach (var dapAn in danhSachDapAn)
+                    {
+                        string queryDapAn = @"
+                    INSERT INTO DapAn (MaCauHoi, NDCauTraLoi, DungSai)
+                    VALUES (@MaCauHoi, @NDCauTraLoi, @DungSai)";
+
+                        SqlCommand cmdDapAn = new SqlCommand(queryDapAn, conn, transaction);
+                        cmdDapAn.Parameters.AddWithValue("@MaCauHoi", maCauHoi);
+                        cmdDapAn.Parameters.AddWithValue("@NDCauTraLoi", dapAn.NDCauTraLoi);
+                        cmdDapAn.Parameters.AddWithValue("@DungSai", dapAn.DungSai ? 1 : 0);
+
+                        cmdDapAn.ExecuteNonQuery();
+                    }
+
+                    // Commit transaction
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    // Rollback transaction nếu có lỗi
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
 
 

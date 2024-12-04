@@ -37,6 +37,14 @@ namespace BLL
         {
             return chAccess.GetCauHoiChiTietById(maCauHoi);
         }
+        public bool XoaDapAn(int maCauHoi)
+        {
+            return chAccess.XoaDapAn(maCauHoi);
+        }
+        public bool CapNhatCauHoiVaDapAn(int maCauHoi, int maPhan, string ndCauHoi, string hinhAnh, List<DapAn> danhSachDapAn)
+        {
+            return chAccess.UpdateCauHoiAndDapAn(maCauHoi, maPhan, ndCauHoi, hinhAnh, danhSachDapAn);
+        }
     }
 
 }

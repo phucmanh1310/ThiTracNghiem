@@ -20,5 +20,6 @@ namespace DTO
             MaCauHoi = maCauHoi;
             DungSai = dungSai;
         }
+        public DapAn() { }
     }
 }
