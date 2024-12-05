@@ -111,7 +111,7 @@
             // dtpNgaySinh
             // 
             dtpNgaySinh.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dtpNgaySinh.Location = new Point(637, 87);
+            dtpNgaySinh.Location = new Point(637, 85);
             dtpNgaySinh.Name = "dtpNgaySinh";
             dtpNgaySinh.Size = new Size(227, 27);
             dtpNgaySinh.TabIndex = 21;
@@ -204,7 +204,7 @@
             // txtMaSo
             // 
             txtMaSo.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtMaSo.Location = new Point(151, 51);
+            txtMaSo.Location = new Point(151, 47);
             txtMaSo.Margin = new Padding(2);
             txtMaSo.Name = "txtMaSo";
             txtMaSo.Size = new Size(264, 24);

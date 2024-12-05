@@ -199,6 +199,38 @@ namespace DAL
             return thisinh;
         }
 
+        public bool SuaThiSinh(ThiSinh thiSinh)
+        {
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Câu lệnh SQL để cập nhật thông tin thí sinh
+                    string query = "UPDATE ThiSinh SET HoTenThiSinh = @HoTenThiSinh, NgaySinh = @NgaySinh, GioiTinh = @GioiTinh, DiaChi = @DiaChi, Username = @Username WHERE MaThiSinh = @MaThiSinh";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    // Thêm các tham số vào câu lệnh SQL
+                    cmd.Parameters.AddWithValue("@MaThiSinh", thiSinh.MaThiSinh);
+                    cmd.Parameters.AddWithValue("@HoTenThiSinh", thiSinh.HoTenThiSinh);
+                    cmd.Parameters.AddWithValue("@NgaySinh", thiSinh.NgaySinh);
+                    cmd.Parameters.AddWithValue("@GioiTinh", thiSinh.GioiTinh);
+                    cmd.Parameters.AddWithValue("@DiaChi", thiSinh.DiaChi);
+                    cmd.Parameters.AddWithValue("@Username", thiSinh.Username);
+
+                    // Thực thi câu lệnh SQL và trả về kết quả
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false; // Trả về false nếu có lỗi
+                }
+            }
+        }
+
     }
 
 }

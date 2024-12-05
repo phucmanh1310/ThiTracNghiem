@@ -12,7 +12,7 @@ namespace DoAn_ThiTracNghiem
         private int timeleft;
         private string username;
         private int CauHoiHienTai = 0;
-        public Dictionary<int, int?> DapAnDaChon = new Dictionary<int, int?>();
+        public Dictionary<int, int?> DapAnDaChon = new Dictionary<int, int?>();//1
         
 
         private ThiSinhBLL thiSinhBBL = new ThiSinhBLL();
@@ -64,6 +64,7 @@ namespace DoAn_ThiTracNghiem
             lbCauHoi.Text = $"Câu {CauHoiHienTai + 1}: {cauHoiHienTai.NDCauHoi}";
             HienThiHinhAnh(cauHoiHienTai.HinhAnh);
             HienThiDapAn(cauHoiHienTai.MaCauHoi);
+            
         }
 
         private void HienThiDapAn(int maCauHoi)
@@ -140,6 +141,7 @@ namespace DoAn_ThiTracNghiem
             if (MessageBox.Show("Bạn chắc chắn nộp bài chứ?", "Nộp bài!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 Submit();
+
             }
         }
 
@@ -161,6 +163,7 @@ namespace DoAn_ThiTracNghiem
                         score++;
                     }
                 }
+               
             }
 
             // Lấy thông tin thí sinh và lần thi hiện tại
@@ -176,22 +179,10 @@ namespace DoAn_ThiTracNghiem
                 ThoiGian = 15 * 60 - timeleft // Tính thời gian đã làm bài
             };
 
-            // Lưu kết quả thi
-            bool isSaved = ketQuaBLL.LuuKetQua(ketQua, DapAnDaChon);
+            ketQuaBLL.LuuKetQua(ketQua, DapAnDaChon);
 
-            if (isSaved)
-            {
-                MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
-                                "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("Đã xảy ra lỗi trong quá trình lưu kết quả. Vui lòng thử lại.",
-                                "Lỗi!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // Đóng form hoặc trở về giao diện chính
-            this.Close();
+            MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
+                                "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
         }
 
         private void timer1_Tick(object sender, EventArgs e)

@@ -50,5 +50,10 @@ namespace BLL
         {
             return thiSinhAccess.GetThiSinh(username);
         }
+
+        public bool SuaThiSinh(ThiSinh thiSinh)
+        {
+            return thiSinhAccess.SuaThiSinh(thiSinh);
+        }
     }
 }

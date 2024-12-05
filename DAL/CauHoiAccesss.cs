@@ -116,6 +116,7 @@ namespace DAL
                 command.ExecuteNonQuery();
             }
         }
+
         //Viết phương thức để lấy danh sách câu hỏi theo MaPhan:
         public List<Tuple<string,int, string, string>> GetCauHoiByMaPhan(int maPhan)
         {
