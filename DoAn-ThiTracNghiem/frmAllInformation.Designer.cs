@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAllInformation));
             groupBox2 = new GroupBox();
-            txtHien = new Button();
             groupBox3 = new GroupBox();
             btnXemDiem = new Button();
             button1 = new Button();
@@ -70,7 +68,6 @@
             // 
             groupBox2.AccessibleRole = AccessibleRole.None;
             groupBox2.AutoSize = true;
-            groupBox2.Controls.Add(txtHien);
             groupBox2.Controls.Add(groupBox3);
             groupBox2.Controls.Add(lvInformation);
             groupBox2.Controls.Add(lblThongTin);
@@ -87,20 +84,6 @@
             groupBox2.TabIndex = 8;
             groupBox2.TabStop = false;
             groupBox2.Text = "DANH SÁCH THÍ SINH";
-            // 
-            // txtHien
-            // 
-            txtHien.BackColor = SystemColors.MenuHighlight;
-            txtHien.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtHien.ForeColor = Color.GhostWhite;
-            txtHien.Location = new Point(969, 58);
-            txtHien.Margin = new Padding(4, 5, 4, 5);
-            txtHien.Name = "txtHien";
-            txtHien.Size = new Size(79, 41);
-            txtHien.TabIndex = 10;
-            txtHien.Text = "Hiện";
-            txtHien.UseVisualStyleBackColor = false;
-            txtHien.Click += txtHien_Click_1;
             // 
             // groupBox3
             // 
@@ -354,16 +337,17 @@
             // 
             // btnRefreshInfo
             // 
-            btnRefreshInfo.BackgroundImage = (Image)resources.GetObject("btnRefreshInfo.BackgroundImage");
+            btnRefreshInfo.BackColor = SystemColors.ControlLightLight;
             btnRefreshInfo.BackgroundImageLayout = ImageLayout.Zoom;
             btnRefreshInfo.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRefreshInfo.ForeColor = Color.MediumAquamarine;
-            btnRefreshInfo.Location = new Point(1056, 57);
+            btnRefreshInfo.Image = Properties.Resources.icon_refresh;
+            btnRefreshInfo.Location = new Point(985, 58);
             btnRefreshInfo.Margin = new Padding(4, 5, 4, 5);
             btnRefreshInfo.Name = "btnRefreshInfo";
             btnRefreshInfo.Size = new Size(45, 42);
             btnRefreshInfo.TabIndex = 3;
-            btnRefreshInfo.UseVisualStyleBackColor = true;
+            btnRefreshInfo.UseVisualStyleBackColor = false;
             btnRefreshInfo.Click += btnRefreshInfo_Click;
             // 
             // btnSearchInfo
@@ -443,7 +427,6 @@
         private ColumnHeader Username;
         private ColumnHeader MatKhau;
         private Button button1;
-        private Button txtHien;
         private Button btnXemDiem;
     }
 }
