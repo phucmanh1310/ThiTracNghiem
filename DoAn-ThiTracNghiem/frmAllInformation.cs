@@ -56,9 +56,9 @@ namespace DoAn_ThiTracNghiem
                 // Truy xuất mật khẩu cho từng thí sinh
                 string password = GetPasswordByUsername(ts.Username);
                 // Chuyển mật khẩu thành dạng ẩn
-                string hiddenPassword = new string('*', password.Length);
+           /*     string hiddenPassword = new string('*', password.Length);*/
                 // Thêm mật khẩu ẩn vào ListView
-                item.SubItems.Add(hiddenPassword);
+                item.SubItems.Add(password);
 
 
                 lvInformation.Items.Add(item);
@@ -185,7 +185,7 @@ namespace DoAn_ThiTracNghiem
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void txtHien_Click_1(object sender, EventArgs e)
+        /*private void txtHien_Click_1(object sender, EventArgs e)
         {
             if (lvInformation.SelectedItems.Count > 0)
             {
@@ -208,7 +208,7 @@ namespace DoAn_ThiTracNghiem
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
             }
-        }
+        }*/
         private void btnRefreshInfo_Click(object sender, EventArgs e)
         {
             lvInformation.Items.Clear(); // Chỉ xóa dữ liệu (Items), giữ lại cột

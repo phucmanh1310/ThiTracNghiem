@@ -211,6 +211,7 @@
             // dtpNgaySinh
             // 
             dtpNgaySinh.CalendarFont = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtpNgaySinh.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             dtpNgaySinh.Location = new Point(496, 270);
             dtpNgaySinh.Name = "dtpNgaySinh";
             dtpNgaySinh.Size = new Size(292, 30);
@@ -245,7 +246,6 @@
             Name = "frmSignUp";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmSignUp";
-
             Load += frmSignUp_Load;
             ResumeLayout(false);
             PerformLayout();
