@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -26,11 +28,10 @@ namespace DAL
                         while (reader.Read())
                         {
                             chiTietKetQuas.Add(new ChiTietKetQua
-                            {
-                                MaChiTietKetQua = reader.GetInt32(0),
-                                MaKetQua = reader.GetInt32(1),
-                                MaCauHoi = reader.GetInt32(2),
-                                MaCauTraLoi = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3)
+                            {   
+                                MaChiTietKetQua = reader.GetInt32("MaChiTietKetQua"),
+                                MaCauHoi = reader.GetInt32("MaCauHoi"),
+                                MaCauTraLoi = reader.IsDBNull("MaCauTraLoi") ? (int?)null : reader.GetInt32(3)
                             });
                         }
                     }
@@ -39,5 +40,6 @@ namespace DAL
 
             return chiTietKetQuas;
         }
+
     }
 }

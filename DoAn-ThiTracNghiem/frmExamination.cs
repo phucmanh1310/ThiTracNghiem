@@ -26,7 +26,9 @@ namespace DoAn_ThiTracNghiem
             InitializeComponent();
             this.username = username;
             listCauHoi = cauHoiBBL.GetCauHoi();
+
             HienThiCauHoi();
+
         }
 
         private void frmExamination_Load(object sender, EventArgs e)
@@ -44,6 +46,7 @@ namespace DoAn_ThiTracNghiem
             radioButton2.CheckedChanged += RadioButton_CheckedChanged;
             radioButton3.CheckedChanged += RadioButton_CheckedChanged;
             radioButton4.CheckedChanged += RadioButton_CheckedChanged;
+
         }
 
         private void HienThiHinhAnh(string imagePath)
@@ -138,19 +141,22 @@ namespace DoAn_ThiTracNghiem
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn chắc chắn nộp bài chứ?", "Nộp bài!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            int soCauTraLoi = DapAnDaChon.Values.Count(value => value != null);
+            int soCauChuaTraLoi = 25 - soCauTraLoi;
+            if (MessageBox.Show($"Còn {soCauChuaTraLoi} câu hỏi chưa trả lời. Bạn chắc chắn nộp bài chứ?", "Nộp bài!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 Submit();
-
             }
         }
+        
 
         private void Submit()
         {
             timer1.Stop();
+            var listCauHoi = cauHoiBBL.GetCauHoi();
+
 
             // Tính điểm
-            var listCauHoi = cauHoiBBL.GetCauHoi();
             int score = 0;
 
             foreach (var cauHoi in listCauHoi)
@@ -163,7 +169,10 @@ namespace DoAn_ThiTracNghiem
                         score++;
                     }
                 }
-               
+                else
+                {
+                    DapAnDaChon[cauHoi.MaCauHoi] = null;
+                }
             }
 
             // Lấy thông tin thí sinh và lần thi hiện tại

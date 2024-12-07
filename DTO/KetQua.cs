@@ -12,7 +12,7 @@ namespace DTO
 
         public int LanThi { get; set; }
 
-        public String KetQuaThi {  get; set; }
+        public String KetQuaThi { get; set; }
 
         public int MaThiSinh {  get; set; }
 

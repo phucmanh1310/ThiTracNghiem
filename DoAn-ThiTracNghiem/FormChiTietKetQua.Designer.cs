@@ -1,6 +1,6 @@
 ﻿namespace DoAn_ThiTracNghiem
 {
-    partial class frmExamination
+    partial class FormChiTietKetQua
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            groupBox1 = new GroupBox();
-            txtMaSo = new TextBox();
-            txtHoTen = new TextBox();
-            label2 = new Label();
-            label1 = new Label();
-            lableTime = new Label();
             groupBox2 = new GroupBox();
             pnlDapAn = new FlowLayoutPanel();
             radioButton1 = new RadioButton();
@@ -43,10 +36,9 @@
             radioButton4 = new RadioButton();
             btnNext = new Button();
             btnPrevious = new Button();
-            btnSubmit = new Button();
             pictureBoxCauHoi = new PictureBox();
             lbCauHoi = new Label();
-            timer1 = new System.Windows.Forms.Timer(components);
+            btnSubmit = new Button();
             groupBox3 = new GroupBox();
             btnCau22 = new Button();
             btnCau23 = new Button();
@@ -73,100 +65,22 @@
             btnCau4 = new Button();
             btnCau5 = new Button();
             btnCau1 = new Button();
-            groupBox4 = new GroupBox();
-            groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             pnlDapAn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCauHoi).BeginInit();
             groupBox3.SuspendLayout();
-            groupBox4.SuspendLayout();
             SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(txtMaSo);
-            groupBox1.Controls.Add(txtHoTen);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.ForeColor = Color.RoyalBlue;
-            groupBox1.Location = new Point(26, 13);
-            groupBox1.Margin = new Padding(4);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4);
-            groupBox1.Size = new Size(383, 154);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "THÔNG TIN";
-            // 
-            // txtMaSo
-            // 
-            txtMaSo.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtMaSo.Location = new Point(96, 51);
-            txtMaSo.Margin = new Padding(4);
-            txtMaSo.Name = "txtMaSo";
-            txtMaSo.Size = new Size(222, 27);
-            txtMaSo.TabIndex = 3;
-            txtMaSo.Text = "Mã số";
-            txtMaSo.TextAlign = HorizontalAlignment.Center;
-            txtMaSo.UseWaitCursor = true;
-            // 
-            // txtHoTen
-            // 
-            txtHoTen.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtHoTen.Location = new Point(96, 98);
-            txtHoTen.Margin = new Padding(4);
-            txtHoTen.Name = "txtHoTen";
-            txtHoTen.Size = new Size(222, 27);
-            txtHoTen.TabIndex = 2;
-            txtHoTen.Text = "Họ tên";
-            txtHoTen.TextAlign = HorizontalAlignment.Center;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(18, 101);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(56, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Họ tên";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(18, 54);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(51, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Mã số";
-            // 
-            // lableTime
-            // 
-            lableTime.AutoSize = true;
-            lableTime.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lableTime.ForeColor = Color.Red;
-            lableTime.Location = new Point(142, 54);
-            lableTime.Margin = new Padding(4, 0, 4, 0);
-            lableTime.Name = "lableTime";
-            lableTime.Size = new Size(109, 46);
-            lableTime.TabIndex = 4;
-            lableTime.Text = "15:00";
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(pnlDapAn);
             groupBox2.Controls.Add(btnNext);
             groupBox2.Controls.Add(btnPrevious);
-            groupBox2.Controls.Add(btnSubmit);
             groupBox2.Controls.Add(pictureBoxCauHoi);
             groupBox2.Controls.Add(lbCauHoi);
             groupBox2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.RoyalBlue;
-            groupBox2.Location = new Point(26, 175);
+            groupBox2.Location = new Point(26, 1);
             groupBox2.Margin = new Padding(4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(4);
@@ -249,7 +163,6 @@
             btnNext.TabIndex = 12;
             btnNext.Text = "Câu sau";
             btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += btnNext_Click;
             // 
             // btnPrevious
             // 
@@ -261,18 +174,6 @@
             btnPrevious.TabIndex = 11;
             btnPrevious.Text = "Câu trước";
             btnPrevious.UseVisualStyleBackColor = true;
-            btnPrevious.Click += btnPrevious_Click;
-            // 
-            // btnSubmit
-            // 
-            btnSubmit.Location = new Point(347, 477);
-            btnSubmit.Margin = new Padding(2);
-            btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(177, 41);
-            btnSubmit.TabIndex = 10;
-            btnSubmit.Text = "NỘP BÀI";
-            btnSubmit.UseVisualStyleBackColor = true;
-            btnSubmit.Click += btnSubmit_Click;
             // 
             // pictureBoxCauHoi
             // 
@@ -296,10 +197,15 @@
             lbCauHoi.TabIndex = 0;
             lbCauHoi.Text = "Câu hỏi?";
             // 
-            // timer1
+            // btnSubmit
             // 
-            timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick;
+            btnSubmit.Location = new Point(996, 503);
+            btnSubmit.Margin = new Padding(2);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(138, 41);
+            btnSubmit.TabIndex = 10;
+            btnSubmit.Text = "Quay Lại";
+            btnSubmit.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -329,7 +235,7 @@
             groupBox3.Controls.Add(btnCau5);
             groupBox3.Controls.Add(btnCau1);
             groupBox3.ForeColor = Color.CornflowerBlue;
-            groupBox3.Location = new Point(919, 183);
+            groupBox3.Location = new Point(919, 9);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(215, 357);
             groupBox3.TabIndex = 2;
@@ -344,7 +250,6 @@
             btnCau22.TabIndex = 24;
             btnCau22.Text = "22";
             btnCau22.UseVisualStyleBackColor = true;
-            btnCau22.Click += ButtonCauHoi_Click;
             // 
             // btnCau23
             // 
@@ -354,7 +259,6 @@
             btnCau23.TabIndex = 23;
             btnCau23.Text = "23";
             btnCau23.UseVisualStyleBackColor = true;
-            btnCau23.Click += ButtonCauHoi_Click;
             // 
             // btnCau24
             // 
@@ -364,7 +268,6 @@
             btnCau24.TabIndex = 22;
             btnCau24.Text = "24";
             btnCau24.UseVisualStyleBackColor = true;
-            btnCau24.Click += ButtonCauHoi_Click;
             // 
             // btnCau8
             // 
@@ -374,7 +277,6 @@
             btnCau8.TabIndex = 5;
             btnCau8.Text = "8";
             btnCau8.UseVisualStyleBackColor = true;
-            btnCau8.Click += ButtonCauHoi_Click;
             // 
             // btnCau6
             // 
@@ -384,7 +286,6 @@
             btnCau6.TabIndex = 9;
             btnCau6.Text = "6";
             btnCau6.UseVisualStyleBackColor = true;
-            btnCau6.Click += ButtonCauHoi_Click;
             // 
             // btnCau3
             // 
@@ -393,7 +294,6 @@
             btnCau3.Size = new Size(33, 33);
             btnCau3.TabIndex = 2;
             btnCau3.Text = "3";
-            btnCau3.Click += ButtonCauHoi_Click;
             // 
             // btnCau25
             // 
@@ -403,7 +303,6 @@
             btnCau25.TabIndex = 21;
             btnCau25.Text = "25";
             btnCau25.UseVisualStyleBackColor = true;
-            btnCau25.Click += ButtonCauHoi_Click;
             // 
             // btnCau21
             // 
@@ -413,7 +312,6 @@
             btnCau21.TabIndex = 20;
             btnCau21.Text = "21";
             btnCau21.UseVisualStyleBackColor = true;
-            btnCau21.Click += ButtonCauHoi_Click;
             // 
             // btnCau17
             // 
@@ -423,7 +321,6 @@
             btnCau17.TabIndex = 19;
             btnCau17.Text = "17";
             btnCau17.UseVisualStyleBackColor = true;
-            btnCau17.Click += ButtonCauHoi_Click;
             // 
             // btnCau18
             // 
@@ -433,7 +330,6 @@
             btnCau18.TabIndex = 18;
             btnCau18.Text = "18";
             btnCau18.UseVisualStyleBackColor = true;
-            btnCau18.Click += ButtonCauHoi_Click;
             // 
             // btnCau19
             // 
@@ -443,7 +339,6 @@
             btnCau19.TabIndex = 17;
             btnCau19.Text = "19";
             btnCau19.UseVisualStyleBackColor = true;
-            btnCau19.Click += ButtonCauHoi_Click;
             // 
             // btnCau20
             // 
@@ -453,7 +348,6 @@
             btnCau20.TabIndex = 16;
             btnCau20.Text = "20";
             btnCau20.UseVisualStyleBackColor = true;
-            btnCau20.Click += ButtonCauHoi_Click;
             // 
             // btnCau16
             // 
@@ -463,7 +357,6 @@
             btnCau16.TabIndex = 15;
             btnCau16.Text = "16";
             btnCau16.UseVisualStyleBackColor = true;
-            btnCau16.Click += ButtonCauHoi_Click;
             // 
             // btnCau12
             // 
@@ -473,7 +366,6 @@
             btnCau12.TabIndex = 14;
             btnCau12.Text = "12";
             btnCau12.UseVisualStyleBackColor = true;
-            btnCau12.Click += ButtonCauHoi_Click;
             // 
             // btnCau13
             // 
@@ -483,7 +375,6 @@
             btnCau13.TabIndex = 13;
             btnCau13.Text = "13";
             btnCau13.UseVisualStyleBackColor = true;
-            btnCau13.Click += ButtonCauHoi_Click;
             // 
             // btnCau14
             // 
@@ -493,7 +384,6 @@
             btnCau14.TabIndex = 12;
             btnCau14.Text = "14";
             btnCau14.UseVisualStyleBackColor = true;
-            btnCau14.Click += ButtonCauHoi_Click;
             // 
             // btnCau15
             // 
@@ -503,7 +393,6 @@
             btnCau15.TabIndex = 11;
             btnCau15.Text = "15";
             btnCau15.UseVisualStyleBackColor = true;
-            btnCau15.Click += ButtonCauHoi_Click;
             // 
             // btnCau11
             // 
@@ -513,7 +402,6 @@
             btnCau11.TabIndex = 10;
             btnCau11.Text = "11";
             btnCau11.UseVisualStyleBackColor = true;
-            btnCau11.Click += ButtonCauHoi_Click;
             // 
             // btnCau7
             // 
@@ -523,7 +411,6 @@
             btnCau7.TabIndex = 8;
             btnCau7.Text = "7";
             btnCau7.UseVisualStyleBackColor = true;
-            btnCau7.Click += ButtonCauHoi_Click;
             // 
             // btnCau9
             // 
@@ -533,7 +420,6 @@
             btnCau9.TabIndex = 7;
             btnCau9.Text = "9";
             btnCau9.UseVisualStyleBackColor = true;
-            btnCau9.Click += ButtonCauHoi_Click;
             // 
             // btnCau10
             // 
@@ -543,7 +429,6 @@
             btnCau10.TabIndex = 6;
             btnCau10.Text = "10";
             btnCau10.UseVisualStyleBackColor = true;
-            btnCau10.Click += ButtonCauHoi_Click;
             // 
             // btnCau2
             // 
@@ -552,7 +437,6 @@
             btnCau2.Size = new Size(33, 33);
             btnCau2.TabIndex = 4;
             btnCau2.Text = "2";
-            btnCau2.Click += ButtonCauHoi_Click;
             // 
             // btnCau4
             // 
@@ -561,7 +445,6 @@
             btnCau4.Size = new Size(33, 33);
             btnCau4.TabIndex = 3;
             btnCau4.Text = "4";
-            btnCau4.Click += ButtonCauHoi_Click;
             // 
             // btnCau5
             // 
@@ -571,7 +454,6 @@
             btnCau5.TabIndex = 1;
             btnCau5.Text = "5";
             btnCau5.UseVisualStyleBackColor = true;
-            btnCau5.Click += ButtonCauHoi_Click;
             // 
             // btnCau1
             // 
@@ -580,62 +462,34 @@
             btnCau1.Size = new Size(33, 33);
             btnCau1.TabIndex = 0;
             btnCau1.Text = "1";
-            btnCau1.Click += ButtonCauHoi_Click;
             // 
-            // groupBox4
-            // 
-            groupBox4.Controls.Add(lableTime);
-            groupBox4.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox4.ForeColor = Color.RoyalBlue;
-            groupBox4.Location = new Point(435, 13);
-            groupBox4.Margin = new Padding(4);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new Padding(4);
-            groupBox4.Size = new Size(383, 154);
-            groupBox4.TabIndex = 4;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "THỜI GIAN THI CÒN LẠI";
-            // 
-            // frmExamination
+            // FormChiTietKetQua
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1168, 822);
-            Controls.Add(groupBox4);
+            ClientSize = new Size(1170, 586);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(btnSubmit);
             Margin = new Padding(4);
-            Name = "frmExamination";
+            Name = "FormChiTietKetQua";
             Text = "frmExamination";
-            Load += frmExamination_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            Load += FormChiTietKetQua_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             pnlDapAn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxCauHoi).EndInit();
             groupBox3.ResumeLayout(false);
-            groupBox4.ResumeLayout(false);
-            groupBox4.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private TextBox txtMaSo;
-        private TextBox txtHoTen;
-        private Label label2;
-        private Label label1;
-        private Label lableTime;
         private Label lbCauHoi;
         private PictureBox pictureBoxCauHoi;
         private Button btnSubmit;
         private Button btnNext;
         private Button btnPrevious;
-        private System.Windows.Forms.Timer timer1;
         private GroupBox groupBox3;
         private Button button1;
         private Button button6;
@@ -673,6 +527,5 @@
         private Button btnCau4;
         private Button btnCau2;
         private Button btnCau3;
-        private GroupBox groupBox4;
     }
 }

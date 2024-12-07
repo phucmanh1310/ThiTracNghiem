@@ -70,6 +70,8 @@ namespace DAL
             return danhSachCauHoi;
         }
 
+        
+
         public int AddCauHoi(CauHoi cauHoi)
         {
             using (SqlConnection connection = SqlConnectionData.Connect())

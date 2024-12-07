@@ -44,7 +44,11 @@
             label2 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
-            dataGridView1 = new DataGridView();
+            listViewKetQua = new ListView();
+            colMaKetQua = new ColumnHeader();
+            colLanThi = new ColumnHeader();
+            colKetQuaThi = new ColumnHeader();
+            colThoiGian = new ColumnHeader();
             groupBox3 = new GroupBox();
             btnChangePassword = new Button();
             txtConfirmPassword = new TextBox();
@@ -53,9 +57,9 @@
             label7 = new Label();
             txtCurrentPassword = new TextBox();
             label6 = new Label();
+            btnChiTietKetQua = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox3.SuspendLayout();
             SuspendLayout();
             // 
@@ -77,7 +81,7 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.RoyalBlue;
-            groupBox1.Location = new Point(23, 32);
+            groupBox1.Location = new Point(23, 11);
             groupBox1.Margin = new Padding(2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(2);
@@ -247,10 +251,10 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(dataGridView1);
+            groupBox2.Controls.Add(listViewKetQua);
             groupBox2.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.RoyalBlue;
-            groupBox2.Location = new Point(23, 403);
+            groupBox2.Location = new Point(23, 372);
             groupBox2.Margin = new Padding(2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(2);
@@ -259,15 +263,36 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "LỊCH SỬ CÁC LẦN THI";
             // 
-            // dataGridView1
+            // listViewKetQua
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 48);
-            dataGridView1.Margin = new Padding(2);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 82;
-            dataGridView1.Size = new Size(1066, 221);
-            dataGridView1.TabIndex = 0;
+            listViewKetQua.Columns.AddRange(new ColumnHeader[] { colMaKetQua, colLanThi, colKetQuaThi, colThoiGian });
+            listViewKetQua.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            listViewKetQua.Location = new Point(5, 48);
+            listViewKetQua.Name = "listViewKetQua";
+            listViewKetQua.Size = new Size(1085, 229);
+            listViewKetQua.TabIndex = 0;
+            listViewKetQua.UseCompatibleStateImageBehavior = false;
+            listViewKetQua.View = View.Details;
+            // 
+            // colMaKetQua
+            // 
+            colMaKetQua.Text = "Mã kết quả";
+            colMaKetQua.Width = 200;
+            // 
+            // colLanThi
+            // 
+            colLanThi.Text = "Lần thi";
+            colLanThi.Width = 200;
+            // 
+            // colKetQuaThi
+            // 
+            colKetQuaThi.Text = "Kết quả thi";
+            colKetQuaThi.Width = 200;
+            // 
+            // colThoiGian
+            // 
+            colThoiGian.Text = "Thời gian";
+            colThoiGian.Width = 200;
             // 
             // groupBox3
             // 
@@ -280,7 +305,7 @@
             groupBox3.Controls.Add(label6);
             groupBox3.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox3.ForeColor = Color.RoyalBlue;
-            groupBox3.Location = new Point(23, 226);
+            groupBox3.Location = new Point(23, 203);
             groupBox3.Margin = new Padding(2);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new Padding(2);
@@ -363,11 +388,26 @@
             label6.TabIndex = 16;
             label6.Text = "Mật khẩu \r\nhiện tại";
             // 
+            // btnChiTietKetQua
+            // 
+            btnChiTietKetQua.BackColor = Color.RoyalBlue;
+            btnChiTietKetQua.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnChiTietKetQua.ForeColor = Color.White;
+            btnChiTietKetQua.Location = new Point(467, 663);
+            btnChiTietKetQua.Margin = new Padding(2);
+            btnChiTietKetQua.Name = "btnChiTietKetQua";
+            btnChiTietKetQua.Size = new Size(229, 37);
+            btnChiTietKetQua.TabIndex = 21;
+            btnChiTietKetQua.Text = "XEM CHI TIẾT BÀI LÀM";
+            btnChiTietKetQua.UseVisualStyleBackColor = false;
+            btnChiTietKetQua.Click += btnChiTietKetQua_Click;
+            // 
             // frmInformationAndHistory
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1146, 659);
+            ClientSize = new Size(1146, 711);
+            Controls.Add(btnChiTietKetQua);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -378,7 +418,6 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             ResumeLayout(false);
@@ -405,12 +444,17 @@
         private TextBox txtCurrentPassword;
         private Label label8;
         private Label label7;
-        private DataGridView dataGridView1;
         private Button btnChangePassword;
         private TextBox txtConfirmPassword;
         private TextBox txtNewPassword;
         private TextBox txtNgaySinh;
         private RadioButton radioNu;
         private TextBox txtDiaChi;
+        private ListView listViewKetQua;
+        private ColumnHeader colLanThi;
+        private ColumnHeader colKetQuaThi;
+        private ColumnHeader colThoiGian;
+        private ColumnHeader colMaKetQua;
+        private Button btnChiTietKetQua;
     }
 }

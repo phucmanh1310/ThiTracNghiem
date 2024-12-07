@@ -32,5 +32,6 @@ namespace BLL
         {
             return ketQuaDAL.GetLanThi(maThiSinh);
         }
+
     }
 }

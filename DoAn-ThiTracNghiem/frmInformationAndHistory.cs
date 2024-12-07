@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using DTO;
+using Microsoft.VisualBasic;
 
 namespace DoAn_ThiTracNghiem
 {
@@ -17,13 +18,12 @@ namespace DoAn_ThiTracNghiem
         private string username;
         TaiKhoanBLL tkBBL = new TaiKhoanBLL();
         ThiSinhBLL tsBBL = new ThiSinhBLL();
-
+        KetQuaBLL kqBLL = new KetQuaBLL();
 
         public frmInformationAndHistory(string username)
         {
             InitializeComponent();
             this.username = username;
-
         }
 
         private void frmInformationAndHistory_Load(object sender, EventArgs e)
@@ -39,6 +39,17 @@ namespace DoAn_ThiTracNghiem
             txtGioiTinh.Text = thiSinh.GioiTinh.ToString() == "M" ? "Nam" : "Nữ";
             txtNgaySinh.Text = thiSinh.NgaySinh.ToString("dd/MM/yyyy");
 
+            List<KetQua> listKQ = kqBLL.LayKetQuaChiTiet(thiSinh.MaThiSinh);
+            foreach (var k in listKQ)
+            {
+                ListViewItem item = new ListViewItem(k.MaKetQua.ToString());
+                item.SubItems.Add(k.LanThi.ToString());
+                item.SubItems.Add(k.KetQuaThi);
+                TimeSpan timeSpan = TimeSpan.FromSeconds(k.ThoiGian);
+                item.SubItems.Add(timeSpan.ToString(@"mm\:ss"));
+
+                listViewKetQua.Items.Add(item);
+            }
 
         }
 
@@ -72,7 +83,7 @@ namespace DoAn_ThiTracNghiem
                 btnSuaThongTin.Text = "LƯU";
             }
             else
-            { 
+            {
                 // Nếu không hiển thị các điều khiển trên, ẩn dtpNgaySinh, radioNam, radioNu và hiển thị các điều khiển ban đầu
                 txtGioiTinh.Visible = true;
                 txtNgaySinh.Visible = true;
@@ -98,6 +109,29 @@ namespace DoAn_ThiTracNghiem
             string result = tkBBL.DoiMatKhau(username, currentPassword, newPassword, confirmPassword);
 
             MessageBox.Show(result);
+        }
+
+        private void btnChiTietKetQua_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listViewKetQua.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn lần thi để xem lại bài làm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Lấy MaThiSinh của thí sinh đã chọn
+                int maKetQua = int.Parse(listViewKetQua.SelectedItems[0].SubItems[0].Text);
+
+                // Mở form mới và truyền MaThiSinh
+                FormChiTietKetQua frm = new FormChiTietKetQua(maKetQua);
+                frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace DAL
         public List<KetQua> getKetQuaThi(int maThiSinh)
         {
             List<KetQua> ketQuaList = new List<KetQua>();
-            String query = "SELECT MaKetQua,ThoiGian, LanThi, KetQua FROM KetQua WHERE MaThiSinh = @MaThiSinh";
+            String query = "SELECT MaKetQua,ThoiGian, LanThi, KetQuaThi FROM KetQua WHERE MaThiSinh = @MaThiSinh";
             using (SqlConnection conn = SqlConnectionData.Connect())
             {
                 try
@@ -26,10 +26,10 @@ namespace DAL
                     {
                         KetQua ketqua = new KetQua
                         {
-                            MaKetQua = reader.GetInt32(0),
-                            ThoiGian = reader.GetInt32(1),  // ThoiGian là cột đầu tiên trong query
-                            LanThi = reader.GetInt32(2),       // LanThi là cột thứ hai
-                            KetQuaThi = reader.GetString(3)     // KetQua là cột thứ ba
+                            MaKetQua = reader.GetInt32("MaKetQua"),
+                            ThoiGian = reader.GetInt32("ThoiGian"),
+                            LanThi = reader.GetInt32("LanThi"),
+                            KetQuaThi = reader.GetString("KetQuaThi")
                         };
                         ketQuaList.Add(ketqua);
                     }
