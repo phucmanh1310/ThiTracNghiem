@@ -674,5 +674,6 @@
         private Button btnCau2;
         private Button btnCau3;
         private GroupBox groupBox4;
+        //Manh Tran
     }
 }
