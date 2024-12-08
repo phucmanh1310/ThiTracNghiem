@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            btnLuu = new Button();
             txtDiaChi = new TextBox();
             txtGioiTinh = new TextBox();
             dtpNgaySinh = new DateTimePicker();
@@ -65,6 +66,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnLuu);
             groupBox1.Controls.Add(txtDiaChi);
             groupBox1.Controls.Add(txtGioiTinh);
             groupBox1.Controls.Add(dtpNgaySinh);
@@ -90,6 +92,20 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN";
             // 
+            // btnLuu
+            // 
+            btnLuu.BackColor = Color.RoyalBlue;
+            btnLuu.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLuu.ForeColor = Color.White;
+            btnLuu.Location = new Point(911, 92);
+            btnLuu.Margin = new Padding(2);
+            btnLuu.Name = "btnLuu";
+            btnLuu.Size = new Size(143, 37);
+            btnLuu.TabIndex = 24;
+            btnLuu.Text = "LƯU";
+            btnLuu.UseVisualStyleBackColor = false;
+            btnLuu.Click += btnLuu_Click;
+            // 
             // txtDiaChi
             // 
             txtDiaChi.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -107,17 +123,17 @@
             txtGioiTinh.Location = new Point(637, 51);
             txtGioiTinh.Margin = new Padding(2);
             txtGioiTinh.Name = "txtGioiTinh";
-            txtGioiTinh.Size = new Size(204, 24);
+            txtGioiTinh.Size = new Size(255, 24);
             txtGioiTinh.TabIndex = 22;
             txtGioiTinh.Text = "Giới tính";
             txtGioiTinh.TextAlign = HorizontalAlignment.Center;
             // 
             // dtpNgaySinh
             // 
-            dtpNgaySinh.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dtpNgaySinh.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             dtpNgaySinh.Location = new Point(637, 85);
             dtpNgaySinh.Name = "dtpNgaySinh";
-            dtpNgaySinh.Size = new Size(227, 27);
+            dtpNgaySinh.Size = new Size(255, 28);
             dtpNgaySinh.TabIndex = 21;
             // 
             // txtNgaySinh
@@ -130,7 +146,6 @@
             txtNgaySinh.TabIndex = 20;
             txtNgaySinh.Text = "Ngày sinh";
             txtNgaySinh.TextAlign = HorizontalAlignment.Center;
-            txtNgaySinh.TextChanged += txtNgaySinh_TextChanged;
             // 
             // radioNu
             // 
@@ -150,7 +165,7 @@
             btnSuaThongTin.BackColor = Color.RoyalBlue;
             btnSuaThongTin.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSuaThongTin.ForeColor = Color.White;
-            btnSuaThongTin.Location = new Point(911, 82);
+            btnSuaThongTin.Location = new Point(911, 51);
             btnSuaThongTin.Margin = new Padding(2);
             btnSuaThongTin.Name = "btnSuaThongTin";
             btnSuaThongTin.Size = new Size(143, 37);
@@ -456,5 +471,6 @@
         private ColumnHeader colThoiGian;
         private ColumnHeader colMaKetQua;
         private Button btnChiTietKetQua;
+        private Button btnLuu;
     }
 }

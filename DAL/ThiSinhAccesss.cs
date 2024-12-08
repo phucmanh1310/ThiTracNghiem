@@ -208,7 +208,7 @@ namespace DAL
                     conn.Open();
 
                     // Câu lệnh SQL để cập nhật thông tin thí sinh
-                    string query = "UPDATE ThiSinh SET HoTenThiSinh = @HoTenThiSinh, NgaySinh = @NgaySinh, GioiTinh = @GioiTinh, DiaChi = @DiaChi, Username = @Username WHERE MaThiSinh = @MaThiSinh";
+                    string query = "UPDATE ThiSinh SET HoTenThiSinh = @HoTenThiSinh, NgaySinh = @NgaySinh, GioiTinh = @GioiTinh, DiaChi = @DiaChi WHERE MaThiSinh = @MaThiSinh";
                     SqlCommand cmd = new SqlCommand(query, conn);
 
                     // Thêm các tham số vào câu lệnh SQL
@@ -217,7 +217,6 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@NgaySinh", thiSinh.NgaySinh);
                     cmd.Parameters.AddWithValue("@GioiTinh", thiSinh.GioiTinh);
                     cmd.Parameters.AddWithValue("@DiaChi", thiSinh.DiaChi);
-                    cmd.Parameters.AddWithValue("@Username", thiSinh.Username);
 
                     // Thực thi câu lệnh SQL và trả về kết quả
                     int rowsAffected = cmd.ExecuteNonQuery();
