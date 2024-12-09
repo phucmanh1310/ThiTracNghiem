@@ -13,7 +13,7 @@ namespace DoAn_ThiTracNghiem
         private string username;
         private int CauHoiHienTai = 0;
         public Dictionary<int, int?> DapAnDaChon = new Dictionary<int, int?>();//1
-        
+
 
         private ThiSinhBLL thiSinhBBL = new ThiSinhBLL();
         private CauHoiBLL cauHoiBBL = new CauHoiBLL();
@@ -46,6 +46,7 @@ namespace DoAn_ThiTracNghiem
             radioButton2.CheckedChanged += RadioButton_CheckedChanged;
             radioButton3.CheckedChanged += RadioButton_CheckedChanged;
             radioButton4.CheckedChanged += RadioButton_CheckedChanged;
+            TaoDanhSachButtonCauHoi();
 
         }
 
@@ -60,14 +61,20 @@ namespace DoAn_ThiTracNghiem
                 pictureBoxCauHoi.Image = null;
             }
         }
-
         private void HienThiCauHoi()
         {
             var cauHoiHienTai = listCauHoi[CauHoiHienTai];
             lbCauHoi.Text = $"Câu {CauHoiHienTai + 1}: {cauHoiHienTai.NDCauHoi}";
             HienThiHinhAnh(cauHoiHienTai.HinhAnh);
             HienThiDapAn(cauHoiHienTai.MaCauHoi);
-            
+
+            // Cập nhật màu sắc cho các nút câu hỏi
+            for (int i = 0; i < questionButtons.Count; i++)
+            {
+                var btnCauHoi = questionButtons[i];
+                bool isAnswered = DapAnDaChon.ContainsKey(cauHoiHienTai.MaCauHoi) && DapAnDaChon[cauHoiHienTai.MaCauHoi] != null;
+                btnCauHoi.SetSelected(isAnswered); // Đổi màu cho nút câu hỏi
+            }
         }
 
         private void HienThiDapAn(int maCauHoi)
@@ -86,7 +93,6 @@ namespace DoAn_ThiTracNghiem
             {
                 radioButtons[i].Text = listDapAn[i].NDCauTraLoi;
                 radioButtons[i].Tag = listDapAn[i].MaCauTraLoi;
-
                 // Nếu người dùng đã trả lời câu hỏi này, đánh dấu đáp án đã chọn
                 if (DapAnDaChon.ContainsKey(maCauHoi) && DapAnDaChon[maCauHoi] == listDapAn[i].MaCauTraLoi)
                 {
@@ -100,42 +106,24 @@ namespace DoAn_ThiTracNghiem
                 radioButtons[i].Visible = false;
             }
         }
-
-        private void RadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            var selectedRadio = (RadioButton)sender;
-            int maCauTraLoi = (int)selectedRadio.Tag;
-            int maCauHoi = listCauHoi[CauHoiHienTai].MaCauHoi;
-
-            // Lưu đáp án vào DapAnDaChon khi người dùng thay đổi lựa chọn
-            if (selectedRadio.Checked)
-            {
-                DapAnDaChon[maCauHoi] = maCauTraLoi;
-            }
-        }
-
-        private void ButtonCauHoi_Click(object sender, EventArgs e)
-        {
-            var btn = sender as Button;
-            CauHoiHienTai = int.Parse(btn.Name.Replace("btnCau", "")) - 1;
-            HienThiCauHoi();
-        }
-
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             if (CauHoiHienTai > 0)
             {
                 CauHoiHienTai--;
                 HienThiCauHoi();
+                UpdateQuestionStatus();  // Cập nhật lại màu sắc các nút
             }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (CauHoiHienTai < listCauHoi.Count - 1) // Kiểm tra không vượt quá số câu hỏi
+            // Chuyển câu hỏi (giả sử bạn đang giữ chỉ số câu hỏi hiện tại)
+            if (CauHoiHienTai < listCauHoi.Count - 1)
             {
-                CauHoiHienTai++;
-                HienThiCauHoi();
+                CauHoiHienTai++;  // Tăng chỉ số câu hỏi lên
+                HienThiCauHoi();     // Tải lại câu hỏi và đáp án
+                UpdateQuestionStatus();  // Cập nhật lại trạng thái câu hỏi đã trả lời
             }
         }
 
@@ -148,13 +136,32 @@ namespace DoAn_ThiTracNghiem
                 Submit();
             }
         }
-        
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (timeleft > 0)
+            {
+                timeleft--;
+                lableTime.Text = FormatTime(timeleft);
+            }
+            else
+            {
+                timer1.Stop();
+                MessageBox.Show("Phần thi đã hết giờ!", "Hết giờ!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Submit();
+            }
+        }
 
+        private string FormatTime(int seconds)
+        {
+            int minutes = seconds / 60;
+            int remainingSeconds = seconds % 60;
+            return $"{minutes:D2}:{remainingSeconds:D2}";
+        }
+        //test
         private void Submit()
         {
             timer1.Stop();
             var listCauHoi = cauHoiBBL.GetCauHoi();
-
 
             // Tính điểm
             int score = 0;
@@ -191,29 +198,100 @@ namespace DoAn_ThiTracNghiem
             ketQuaBLL.LuuKetQua(ketQua, DapAnDaChon);
 
             MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
-                                "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+                                "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (timeleft > 0)
+            var selectedRadio = (RadioButton)sender;
+            int maCauTraLoi = (int)selectedRadio.Tag;
+            int maCauHoi = listCauHoi[CauHoiHienTai].MaCauHoi;
+
+            if (selectedRadio.Checked)
             {
-                timeleft--;
-                lableTime.Text = FormatTime(timeleft);
+                DapAnDaChon[maCauHoi] = maCauTraLoi;
+
+                // Cập nhật trạng thái câu hỏi là đã trả lời
+                var cauHoi = listCauHoi.FirstOrDefault(c => c.MaCauHoi == maCauHoi);
+                if (cauHoi != null)
+                {
+                    cauHoi.IsAnswered = true;
+                }
+
+                UpdateQuestionStatus(); // Cập nhật giao diện câu hỏi đã trả lời
             }
-            else
+        }
+        private void UpdateQuestionStatus()
+        {
+            for (int i = 0; i < listCauHoi.Count; i++)
             {
-                timer1.Stop();
-                MessageBox.Show("Phần thi đã hết giờ!", "Hết giờ!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Submit();
+                var cauHoi = listCauHoi[i];
+                Button btnCauHoi = GetButtonForQuestion(i);  // Lấy button câu hỏi
+
+                // Kiểm tra xem câu hỏi đã được trả lời chưa và thay đổi màu sắc button
+                if (DapAnDaChon.ContainsKey(cauHoi.MaCauHoi) && DapAnDaChon[cauHoi.MaCauHoi] != null)
+                {
+                    btnCauHoi.BackColor = Color.Green;  // Đã trả lời
+                }
+                else
+                {
+                    btnCauHoi.BackColor = Color.White;  // Chưa trả lời
+                }
+            }
+        }
+        private Button GetButtonForQuestion(int index)  // Định nghĩa phương thức này
+        {
+            // Lấy Button tương ứng cho câu hỏi theo chỉ số index
+            return questionButtons.FirstOrDefault(btn => btn.QuestionIndex == index)?.Button;
+        }
+
+
+        private List<QuestionButton> questionButtons = new List<QuestionButton>();
+
+        private void TaoDanhSachButtonCauHoi()
+        {
+
+            int buttonWidth = 35; // Kích thước button nhỏ hơn
+            int buttonHeight = 35;
+            int margin = 10; // Khoảng cách giữa các button
+            int buttonsPerRow = 5; // Số button mỗi hàng
+
+            // Cập nhật font size cho số trong button
+            Font buttonFont = new Font("Arial", 10); // Thử tăng font size nếu cần
+
+            for (int i = 0; i < 25; i++)
+            {
+                QuestionButton btn = new QuestionButton
+                {
+                    QuestionIndex = i,
+                    Size = new Size(buttonWidth, buttonHeight),
+                    Location = new Point(11 + (i % 5) * 45, 48 + (i / 5) * 45), // Cập nhật lại vị trí nếu cần
+                };
+
+                btn.SetText((i + 1).ToString());
+
+                // Đặt font và căn giữa văn bản trong button
+                btn.Button.Font = buttonFont;
+                btn.Button.TextAlign = ContentAlignment.MiddleCenter; // Căn giữa nội dung trong button
+
+                btn.Button.Click += ButtonCauHoi_Click;
+                questionButtons.Add(btn);
+                groupBox3.Controls.Add(btn);
             }
         }
 
-        private string FormatTime(int seconds)
+
+        private void ButtonCauHoi_Click(object sender, EventArgs e)
         {
-            int minutes = seconds / 60;
-            int remainingSeconds = seconds % 60;
-            return $"{minutes:D2}:{remainingSeconds:D2}";
+            Button clickedButton = sender as Button;
+            if (clickedButton != null)
+            {
+                int questionNumber = int.Parse(clickedButton.Text);
+                CauHoiHienTai = questionNumber - 1; // Tính toán lại câu hỏi hiện tại
+                HienThiCauHoi(); // Hiển thị câu hỏi hiện tại
+                UpdateQuestionStatus();  // Cập nhật lại màu sắc các nút
+            }
         }
+
     }
 }
