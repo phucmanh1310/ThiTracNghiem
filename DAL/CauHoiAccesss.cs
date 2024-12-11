@@ -265,7 +265,28 @@ namespace DAL
                 }
             }
         }
+        public List<int> GetMaCauHoiByMaKetQua(int maKetQua)
+        {
+            List<int> danhSachMaCauHoi = new List<int>();
+            string query = "SELECT MaCauHoi FROM ChiTietKetQua WHERE MaKetQua = @maKetQua ORDER BY MaChiTietKetQua ASC";
 
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn)) {
+                    cmd.Parameters.Add("@maKetQua", SqlDbType.Int).Value = maKetQua;
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            danhSachMaCauHoi.Add(reader.GetInt32(0));
+                            
+                        }
+                    }
+                }
+                return danhSachMaCauHoi;
+            }
+        }
 
     }
 }

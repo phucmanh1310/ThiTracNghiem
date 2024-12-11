@@ -45,6 +45,11 @@ namespace BLL
         {
             return chAccess.UpdateCauHoiAndDapAn(maCauHoi, maPhan, ndCauHoi, hinhAnh, danhSachDapAn);
         }
+
+        public List<int> GetMaCauHoiByMaKetQua(int maKetQua)
+        {
+            return chAccess.GetMaCauHoiByMaKetQua(maKetQua);
+        }
     }
 
 }

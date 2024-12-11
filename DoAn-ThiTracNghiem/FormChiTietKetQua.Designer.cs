@@ -163,6 +163,7 @@
             btnNext.TabIndex = 12;
             btnNext.Text = "Câu sau";
             btnNext.UseVisualStyleBackColor = true;
+            btnNext.Click += btnNext_Click;
             // 
             // btnPrevious
             // 
@@ -174,6 +175,7 @@
             btnPrevious.TabIndex = 11;
             btnPrevious.Text = "Câu trước";
             btnPrevious.UseVisualStyleBackColor = true;
+            btnPrevious.Click += btnPrevious_Click;
             // 
             // pictureBoxCauHoi
             // 

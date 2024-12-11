@@ -64,11 +64,11 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.RoyalBlue;
-            groupBox1.Location = new Point(23, 10);
-            groupBox1.Margin = new Padding(4, 3, 4, 3);
+            groupBox1.Location = new Point(26, 13);
+            groupBox1.Margin = new Padding(5, 4, 5, 4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4, 3, 4, 3);
-            groupBox1.Size = new Size(335, 116);
+            groupBox1.Padding = new Padding(5, 4, 5, 4);
+            groupBox1.Size = new Size(383, 155);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN";
@@ -76,10 +76,10 @@
             // txtMaSo
             // 
             txtMaSo.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtMaSo.Location = new Point(84, 38);
-            txtMaSo.Margin = new Padding(4, 3, 4, 3);
+            txtMaSo.Location = new Point(96, 51);
+            txtMaSo.Margin = new Padding(5, 4, 5, 4);
             txtMaSo.Name = "txtMaSo";
-            txtMaSo.Size = new Size(195, 23);
+            txtMaSo.Size = new Size(222, 27);
             txtMaSo.TabIndex = 3;
             txtMaSo.Text = "Mã số";
             txtMaSo.TextAlign = HorizontalAlignment.Center;
@@ -88,10 +88,10 @@
             // txtHoTen
             // 
             txtHoTen.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtHoTen.Location = new Point(84, 74);
-            txtHoTen.Margin = new Padding(4, 3, 4, 3);
+            txtHoTen.Location = new Point(96, 99);
+            txtHoTen.Margin = new Padding(5, 4, 5, 4);
             txtHoTen.Name = "txtHoTen";
-            txtHoTen.Size = new Size(195, 23);
+            txtHoTen.Size = new Size(222, 27);
             txtHoTen.TabIndex = 2;
             txtHoTen.Text = "Họ tên";
             txtHoTen.TextAlign = HorizontalAlignment.Center;
@@ -100,10 +100,10 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(16, 76);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(18, 101);
+            label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new Size(45, 15);
+            label2.Size = new Size(56, 20);
             label2.TabIndex = 1;
             label2.Text = "Họ tên";
             // 
@@ -111,10 +111,10 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(16, 40);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(18, 53);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(39, 15);
+            label1.Size = new Size(51, 20);
             label1.TabIndex = 0;
             label1.Text = "Mã số";
             // 
@@ -123,10 +123,10 @@
             lableTime.AutoSize = true;
             lableTime.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lableTime.ForeColor = Color.Red;
-            lableTime.Location = new Point(124, 40);
-            lableTime.Margin = new Padding(4, 0, 4, 0);
+            lableTime.Location = new Point(142, 53);
+            lableTime.Margin = new Padding(5, 0, 5, 0);
             lableTime.Name = "lableTime";
-            lableTime.Size = new Size(88, 37);
+            lableTime.Size = new Size(109, 46);
             lableTime.TabIndex = 4;
             lableTime.Text = "15:00";
             // 
@@ -140,11 +140,11 @@
             groupBox2.Controls.Add(pnlDapAn);
             groupBox2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.RoyalBlue;
-            groupBox2.Location = new Point(23, 131);
-            groupBox2.Margin = new Padding(4, 3, 4, 3);
+            groupBox2.Location = new Point(26, 175);
+            groupBox2.Margin = new Padding(5, 4, 5, 4);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(4, 3, 4, 3);
-            groupBox2.Size = new Size(775, 407);
+            groupBox2.Padding = new Padding(5, 4, 5, 4);
+            groupBox2.Size = new Size(886, 543);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "CÂU HỎI";
@@ -152,10 +152,10 @@
             // btnNext
             // 
             btnNext.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnNext.Location = new Point(650, 362);
-            btnNext.Margin = new Padding(2);
+            btnNext.Location = new Point(743, 483);
+            btnNext.Margin = new Padding(2, 3, 2, 3);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(96, 26);
+            btnNext.Size = new Size(110, 35);
             btnNext.TabIndex = 12;
             btnNext.Text = "Câu sau";
             btnNext.UseVisualStyleBackColor = true;
@@ -164,10 +164,10 @@
             // btnPrevious
             // 
             btnPrevious.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnPrevious.Location = new Point(32, 363);
-            btnPrevious.Margin = new Padding(2);
+            btnPrevious.Location = new Point(37, 484);
+            btnPrevious.Margin = new Padding(2, 3, 2, 3);
             btnPrevious.Name = "btnPrevious";
-            btnPrevious.Size = new Size(89, 28);
+            btnPrevious.Size = new Size(102, 37);
             btnPrevious.TabIndex = 11;
             btnPrevious.Text = "Câu trước";
             btnPrevious.UseVisualStyleBackColor = true;
@@ -175,10 +175,10 @@
             // 
             // btnSubmit
             // 
-            btnSubmit.Location = new Point(304, 358);
-            btnSubmit.Margin = new Padding(2);
+            btnSubmit.Location = new Point(347, 477);
+            btnSubmit.Margin = new Padding(2, 3, 2, 3);
             btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(155, 31);
+            btnSubmit.Size = new Size(177, 41);
             btnSubmit.TabIndex = 10;
             btnSubmit.Text = "NỘP BÀI";
             btnSubmit.UseVisualStyleBackColor = true;
@@ -186,10 +186,10 @@
             // 
             // pictureBoxCauHoi
             // 
-            pictureBoxCauHoi.Location = new Point(458, 114);
-            pictureBoxCauHoi.Margin = new Padding(4, 3, 4, 3);
+            pictureBoxCauHoi.Location = new Point(523, 152);
+            pictureBoxCauHoi.Margin = new Padding(5, 4, 5, 4);
             pictureBoxCauHoi.Name = "pictureBoxCauHoi";
-            pictureBoxCauHoi.Size = new Size(309, 221);
+            pictureBoxCauHoi.Size = new Size(353, 295);
             pictureBoxCauHoi.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxCauHoi.TabIndex = 5;
             pictureBoxCauHoi.TabStop = false;
@@ -199,10 +199,10 @@
             lbCauHoi.AutoSize = true;
             lbCauHoi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbCauHoi.ForeColor = Color.Black;
-            lbCauHoi.Location = new Point(32, 44);
-            lbCauHoi.Margin = new Padding(4, 0, 4, 0);
+            lbCauHoi.Location = new Point(37, 59);
+            lbCauHoi.Margin = new Padding(5, 0, 5, 0);
             lbCauHoi.Name = "lbCauHoi";
-            lbCauHoi.Size = new Size(71, 21);
+            lbCauHoi.Size = new Size(90, 28);
             lbCauHoi.TabIndex = 0;
             lbCauHoi.Text = "Câu hỏi?";
             // 
@@ -213,21 +213,19 @@
             pnlDapAn.Controls.Add(radioButton3);
             pnlDapAn.Controls.Add(radioButton4);
             pnlDapAn.FlowDirection = FlowDirection.TopDown;
-            pnlDapAn.Location = new Point(16, 114);
-            pnlDapAn.Margin = new Padding(3, 2, 3, 2);
+            pnlDapAn.Location = new Point(18, 152);
             pnlDapAn.Name = "pnlDapAn";
-            pnlDapAn.Size = new Size(426, 221);
+            pnlDapAn.Size = new Size(487, 295);
             pnlDapAn.TabIndex = 14;
             // 
             // radioButton1
             // 
             radioButton1.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             radioButton1.ForeColor = SystemColors.ControlText;
-            radioButton1.Location = new Point(3, 2);
-            radioButton1.Margin = new Padding(3, 2, 3, 2);
-            radioButton1.MaximumSize = new Size(0, 210);
+            radioButton1.Location = new Point(3, 3);
+            radioButton1.MaximumSize = new Size(0, 280);
             radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(411, 47);
+            radioButton1.Size = new Size(469, 63);
             radioButton1.TabIndex = 0;
             radioButton1.TabStop = true;
             radioButton1.Text = "radioButton1";
@@ -237,11 +235,10 @@
             // 
             radioButton2.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             radioButton2.ForeColor = SystemColors.ControlText;
-            radioButton2.Location = new Point(3, 53);
-            radioButton2.Margin = new Padding(3, 2, 3, 2);
-            radioButton2.MaximumSize = new Size(0, 210);
+            radioButton2.Location = new Point(3, 72);
+            radioButton2.MaximumSize = new Size(0, 280);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(411, 47);
+            radioButton2.Size = new Size(469, 63);
             radioButton2.TabIndex = 1;
             radioButton2.TabStop = true;
             radioButton2.Text = "radioButton2";
@@ -251,11 +248,10 @@
             // 
             radioButton3.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             radioButton3.ForeColor = SystemColors.ControlText;
-            radioButton3.Location = new Point(3, 104);
-            radioButton3.Margin = new Padding(3, 2, 3, 2);
-            radioButton3.MaximumSize = new Size(0, 210);
+            radioButton3.Location = new Point(3, 141);
+            radioButton3.MaximumSize = new Size(0, 280);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(411, 46);
+            radioButton3.Size = new Size(469, 61);
             radioButton3.TabIndex = 2;
             radioButton3.TabStop = true;
             radioButton3.Text = "radioButton3";
@@ -265,11 +261,10 @@
             // 
             radioButton4.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             radioButton4.ForeColor = SystemColors.ControlText;
-            radioButton4.Location = new Point(3, 154);
-            radioButton4.Margin = new Padding(3, 2, 3, 2);
-            radioButton4.MaximumSize = new Size(0, 210);
+            radioButton4.Location = new Point(3, 208);
+            radioButton4.MaximumSize = new Size(0, 280);
             radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(395, 47);
+            radioButton4.Size = new Size(469, 63);
             radioButton4.TabIndex = 3;
             radioButton4.TabStop = true;
             radioButton4.Text = "radioButton4";
@@ -283,11 +278,9 @@
             // groupBox3
             // 
             groupBox3.ForeColor = Color.CornflowerBlue;
-            groupBox3.Location = new Point(804, 137);
-            groupBox3.Margin = new Padding(3, 2, 3, 2);
+            groupBox3.Location = new Point(919, 183);
             groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new Padding(3, 2, 3, 2);
-            groupBox3.Size = new Size(228, 338);
+            groupBox3.Size = new Size(261, 451);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "ĐÁP ÁN";
@@ -297,25 +290,25 @@
             groupBox4.Controls.Add(lableTime);
             groupBox4.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox4.ForeColor = Color.RoyalBlue;
-            groupBox4.Location = new Point(381, 10);
-            groupBox4.Margin = new Padding(4, 3, 4, 3);
+            groupBox4.Location = new Point(435, 13);
+            groupBox4.Margin = new Padding(5, 4, 5, 4);
             groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new Padding(4, 3, 4, 3);
-            groupBox4.Size = new Size(335, 116);
+            groupBox4.Padding = new Padding(5, 4, 5, 4);
+            groupBox4.Size = new Size(383, 155);
             groupBox4.TabIndex = 4;
             groupBox4.TabStop = false;
             groupBox4.Text = "THỜI GIAN THI CÒN LẠI";
             // 
             // frmExamination
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1044, 616);
+            ClientSize = new Size(1193, 821);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Margin = new Padding(4, 3, 4, 3);
+            Margin = new Padding(5, 4, 5, 4);
             Name = "frmExamination";
             Text = "frmExamination";
             Load += frmExamination_Load;

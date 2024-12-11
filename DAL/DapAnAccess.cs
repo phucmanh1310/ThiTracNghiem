@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,37 @@ namespace DAL
                     return false; // Trả về false nếu xảy ra lỗi
                 }
             }
+        }
+
+        public int? GetCauTraLoiByCauHoi(int maCauHoi, int maKetQua)
+        {
+            int? result = null; // Giá trị mặc định nếu không tìm thấy hoặc kết quả là null
+            string query = "SELECT MaCauTraLoi FROM ChiTietKetQua WHERE MaCauHoi = @maCauHoi AND MaKetQua = @maKetQua";
+
+            using (SqlConnection conn = SqlConnectionData.Connect())
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    // Thêm tham số @maCauHoi và @maKetQua
+                    cmd.Parameters.Add("@maCauHoi", SqlDbType.Int).Value = maCauHoi;
+                    cmd.Parameters.Add("@maKetQua", SqlDbType.Int).Value = maKetQua;
+
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Kiểm tra xem cột đầu tiên có phải là NULL hay không
+                            if (!reader.IsDBNull(0))
+                            {
+                                result = reader.GetInt32(0); // Lấy giá trị MaCauTraLoi
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
 
