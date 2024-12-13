@@ -59,6 +59,7 @@
             txtCurrentPassword = new TextBox();
             label6 = new Label();
             btnChiTietKetQua = new Button();
+            btnQuayLai = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -417,11 +418,22 @@
             btnChiTietKetQua.UseVisualStyleBackColor = false;
             btnChiTietKetQua.Click += btnChiTietKetQua_Click;
             // 
+            // btnQuayLai
+            // 
+            btnQuayLai.Location = new Point(999, 670);
+            btnQuayLai.Name = "btnQuayLai";
+            btnQuayLai.Size = new Size(94, 29);
+            btnQuayLai.TabIndex = 22;
+            btnQuayLai.Text = "Quay lại";
+            btnQuayLai.UseVisualStyleBackColor = true;
+            btnQuayLai.Click += btnQuayLai_Click;
+            // 
             // frmInformationAndHistory
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1146, 711);
+            Controls.Add(btnQuayLai);
             Controls.Add(btnChiTietKetQua);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -472,5 +484,6 @@
         private ColumnHeader colMaKetQua;
         private Button btnChiTietKetQua;
         private Button btnLuu;
+        private Button btnQuayLai;
     }
 }

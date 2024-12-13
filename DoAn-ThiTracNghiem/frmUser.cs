@@ -33,6 +33,7 @@ namespace DoAn_ThiTracNghiem
             frmInformationAndHistory frm = new frmInformationAndHistory(username);
             this.Hide();
             frm.ShowDialog();
+            this.Show();
         }
     }
 }

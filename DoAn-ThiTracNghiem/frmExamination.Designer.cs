@@ -311,6 +311,7 @@
             Margin = new Padding(5, 4, 5, 4);
             Name = "frmExamination";
             Text = "frmExamination";
+            FormClosing += frmExamination_FormClosing;
             Load += frmExamination_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

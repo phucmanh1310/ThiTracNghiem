@@ -221,7 +221,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(829, 518);
+            ClientSize = new Size(815, 518);
             Controls.Add(dtpNgaySinh);
             Controls.Add(btnSignUp);
             Controls.Add(btnBack);

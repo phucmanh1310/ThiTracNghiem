@@ -29,10 +29,13 @@ namespace DoAn_ThiTracNghiem
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            this.Name = "QuestionButton";
-            this.Size = new System.Drawing.Size(75, 50);
-            this.ResumeLayout(false);
+            SuspendLayout();
+            // 
+            // QuestionButton
+            // 
+            Name = "QuestionButton";
+            Size = new Size(71, 43);
+            ResumeLayout(false);
         }
 
         private void OnButtonClicked()

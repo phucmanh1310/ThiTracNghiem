@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BLL;
 using DTO;
+using Newtonsoft.Json;
 
 namespace DoAn_ThiTracNghiem
 {
@@ -20,6 +21,7 @@ namespace DoAn_ThiTracNghiem
         private DapAnBBL dapAnBBL = new DapAnBBL();
         private KetQuaBLL ketQuaBLL = new KetQuaBLL();
         private List<CauHoi> listCauHoi;
+        private TienTrinhBLL ttBLL = new TienTrinhBLL();
 
         public frmExamination(string username)
         {
@@ -40,6 +42,43 @@ namespace DoAn_ThiTracNghiem
             ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
             txtMaSo.Text = thiSinh.MaThiSinh.ToString();
             txtHoTen.Text = thiSinh.HoTenThiSinh;
+
+            TienTrinh tienTrinh = ttBLL.GetTienTrinh(thiSinh.MaThiSinh);
+            if (tienTrinh != null)
+            {
+                var dialogResult = MessageBox.Show("Bạn có muốn tiếp tục từ nơi đã dừng không?", "Tiến trình đã lưu", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Load tiến trình lên form
+                    CauHoiHienTai = tienTrinh.CauHoiHienTai;
+                    DapAnDaChon = JsonConvert.DeserializeObject<Dictionary<int, int?>>(tienTrinh.DapAnDC);
+
+                    timeleft = tienTrinh.ThoiGianConLai;
+                    ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
+                    // Gọi phương thức Hiển Thị Câu Hỏi để cập nhật UI
+                    HienThiCauHoi();
+                }
+                else
+                {
+                    // Nếu người dùng không muốn tiếp tục, reset form và xóa tiến trình
+                    CauHoiHienTai = 0;
+                    DapAnDaChon.Clear();
+                    timeleft = 15 * 60; // reset thời gian
+
+                    // Xóa tiến trình đã lưu
+                    ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
+
+                    HienThiCauHoi(); // Hiển thị câu hỏi đầu tiên
+                }
+            }
+            else
+            {
+                // Nếu không có tiến trình, bắt đầu từ đầu
+                CauHoiHienTai = 0;
+                DapAnDaChon.Clear();
+                timeleft = 15 * 60; // reset thời gian
+                HienThiCauHoi(); // Hiển thị câu hỏi đầu tiên
+            }
 
             // Đăng ký sự kiện CheckedChanged chỉ một lần
             radioButton1.CheckedChanged += RadioButton_CheckedChanged;
@@ -64,10 +103,11 @@ namespace DoAn_ThiTracNghiem
         private void HienThiCauHoi()
         {
             var cauHoiHienTai = listCauHoi[CauHoiHienTai];
+            
             lbCauHoi.Text = $"Câu {CauHoiHienTai + 1}: {cauHoiHienTai.NDCauHoi}";
             HienThiHinhAnh(cauHoiHienTai.HinhAnh);
             HienThiDapAn(cauHoiHienTai.MaCauHoi);
-
+            
             // Cập nhật màu sắc cho các nút câu hỏi
             for (int i = 0; i < questionButtons.Count; i++)
             {
@@ -197,6 +237,7 @@ namespace DoAn_ThiTracNghiem
 
             ketQuaBLL.LuuKetQua(ketQua, DapAnDaChon);
 
+
             MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
                                 "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -292,6 +333,51 @@ namespace DoAn_ThiTracNghiem
                 UpdateQuestionStatus();  // Cập nhật lại màu sắc các nút
             }
         }
+
+        private void frmExamination_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LuuTienTrinhThi();
+        }
+
+
+        public void LuuTienTrinhThi()
+        {
+            ThiSinh thiSinh = thiSinhBBL.GetThiSinh(username);
+            string dapAnDCJson = JsonConvert.SerializeObject(LayDanhSachDapAn());
+
+            TienTrinh tienTrinh = new TienTrinh
+            {
+                MaThiSinh = thiSinh.MaThiSinh,
+                DapAnDC = dapAnDCJson,
+                CauHoiHienTai = listCauHoi[CauHoiHienTai].MaCauHoi,
+                ThoiGianConLai = timeleft
+            };
+
+            ttBLL.LuuTienTrinh(tienTrinh);
+        }
+
+        // Phương thức mới để lấy tất cả câu hỏi và đáp án đã chọn
+        private Dictionary<int, int?> LayDanhSachDapAn()
+        {
+            Dictionary<int, int?> dapAnDaChonFull = new Dictionary<int, int?>();
+
+            foreach (var cauHoi in listCauHoi)
+            {
+                if (DapAnDaChon.ContainsKey(cauHoi.MaCauHoi))
+                {
+                    dapAnDaChonFull[cauHoi.MaCauHoi] = DapAnDaChon[cauHoi.MaCauHoi];
+                }
+                else
+                {
+                    dapAnDaChonFull[cauHoi.MaCauHoi] = null; // Nếu chưa có đáp án thì gán null
+                }
+            }
+
+            return dapAnDaChonFull;
+        }
+
+
+
 
     }
 }

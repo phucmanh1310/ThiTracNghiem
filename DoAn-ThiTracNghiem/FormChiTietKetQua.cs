@@ -14,6 +14,7 @@ namespace DoAn_ThiTracNghiem
 {
     public partial class FormChiTietKetQua : Form
     {
+        
         private int maKetQua;
         private int CauHoiHienTai = 0;
         DapAnBBL daBLL = new DapAnBBL();
@@ -26,7 +27,6 @@ namespace DoAn_ThiTracNghiem
         {
             InitializeComponent();
             this.maKetQua = maKetQua;
-            
             listMaCauHoi = chBLL.GetMaCauHoiByMaKetQua(maKetQua);
 
             HienThiCauHoi();
@@ -35,9 +35,12 @@ namespace DoAn_ThiTracNghiem
 
         private void FormChiTietKetQua_Load(object sender, EventArgs e)
         {
-            
 
+            TaoButtonCauHoi();
+            
         }
+
+
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
@@ -45,7 +48,7 @@ namespace DoAn_ThiTracNghiem
             {
                 CauHoiHienTai--;
                 HienThiCauHoi();
-               
+
             }
         }
 
@@ -56,7 +59,7 @@ namespace DoAn_ThiTracNghiem
             {
                 CauHoiHienTai++;  // Tăng chỉ số câu hỏi lên
                 HienThiCauHoi();     // Tải lại câu hỏi và đáp án
-                
+
             }
         }
 
@@ -70,6 +73,11 @@ namespace DoAn_ThiTracNghiem
 
             HienThiHinhAnh(cauhoi.HinhAnh);
             HienThiDapAn(maCauHoi);
+
+            for (int i = 0; i < questionButtons.Count; i++)
+            {
+                var btnCauHoi = questionButtons[i];
+            }
         }
 
         private void HienThiHinhAnh(string imagePath)
@@ -91,10 +99,14 @@ namespace DoAn_ThiTracNghiem
             var listDapAn = daBLL.GetDapAn(maCauHoi);
             RadioButton[] radioButtons = { radioButton1, radioButton2, radioButton3, radioButton4 };
 
+            
+
             // Đặt lại trạng thái cho tất cả RadioButton về "unchecked"
             foreach (var radioButton in radioButtons)
             {
                 radioButton.Checked = false;
+                
+                radioButton.ForeColor = Color.Red;
             }
 
             // Cập nhật các đáp án vào RadioButton
@@ -102,7 +114,11 @@ namespace DoAn_ThiTracNghiem
             {
                 radioButtons[i].Text = listDapAn[i].NDCauTraLoi;
                 radioButtons[i].Tag = listDapAn[i].MaCauTraLoi;
-                
+
+                if (daBLL.IsCorrectAnswer(maCauHoi, listDapAn[i].MaCauTraLoi))
+                {
+                    radioButtons[i].ForeColor = Color.Green;
+                }
             }
 
             // Ẩn các radio button không sử dụng (nếu ít hơn 4 đáp án)
@@ -122,6 +138,66 @@ namespace DoAn_ThiTracNghiem
                     }
                 }
             }
+
+
+        }
+
+        //private Button GetButtonForQuestion(int index)  // Định nghĩa phương thức này
+        //{
+        //    // Lấy Button tương ứng cho câu hỏi theo chỉ số index
+        //    return questionButtons.FirstOrDefault(btn => btn.QuestionIndex == index)?.Button;
+        //}
+
+        private List<QuestionButton> questionButtons = new List<QuestionButton>();
+
+        private void TaoButtonCauHoi()
+        {
+            int buttonWidth = 35; // Kích thước button nhỏ hơn
+            int buttonHeight = 35;
+            int margin = 10; // Khoảng cách giữa các button
+            int buttonsPerRow = 5; // Số button mỗi hàng
+
+            // Cập nhật font size cho số trong button
+            Font buttonFont = new Font("Arial", 10); // Thử tăng font size nếu cần
+
+            for (int i = 0; i < 25; i++)
+            {
+                QuestionButton btn = new QuestionButton
+                {
+                    QuestionIndex = i,
+                    Size = new Size(buttonWidth, buttonHeight),
+                    Location = new Point(11 + (i % 5) * 45, 48 + (i / 5) * 45), // Cập nhật lại vị trí nếu cần
+                };
+
+                btn.SetText((i + 1).ToString());
+
+                // Đặt font và căn giữa văn bản trong button
+                btn.Button.Font = buttonFont;
+                btn.Button.TextAlign = ContentAlignment.MiddleLeft; // Căn giữa nội dung trong button
+
+                btn.Button.Click += ButtonCauHoi_Click;
+                questionButtons.Add(btn);
+                groupBox3.Controls.Add(btn);
+
+                
+            }
+        }
+
+        private void ButtonCauHoi_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            if (clickedButton != null)
+            {
+                int questionNumber = int.Parse(clickedButton.Text);
+                CauHoiHienTai = questionNumber - 1; // Tính toán lại câu hỏi hiện tại
+                HienThiCauHoi(); // Hiển thị câu hỏi hiện tại
+                //UpdateQuestionStatus();  // Cập nhật lại màu sắc các nút
+            }
+        }
+
+        private void btnQuayLai_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
