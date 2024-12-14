@@ -63,7 +63,7 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
-        private void HienThiCauHoi()
+        /*private void HienThiCauHoi()
         {
             int maCauHoi = listMaCauHoi[CauHoiHienTai];
 
@@ -78,9 +78,9 @@ namespace DoAn_ThiTracNghiem
             {
                 var btnCauHoi = questionButtons[i];
             }
-        }
+        }*/
 
-        private void HienThiHinhAnh(string imagePath)
+        /*private void HienThiHinhAnh(string imagePath)
         {
             if (!string.IsNullOrEmpty(imagePath))
             {
@@ -89,6 +89,60 @@ namespace DoAn_ThiTracNghiem
             else
             {
                 pictureBoxCauHoi.Image = null;
+            }
+        }*/
+        private void HienThiCauHoi()
+        {
+            if (listMaCauHoi == null || listMaCauHoi.Count == 0)
+            {
+                MessageBox.Show("Không có câu hỏi nào để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int maCauHoi = listMaCauHoi[CauHoiHienTai];
+
+            try
+            {
+                CauHoi cauhoi = chBLL.GetCauHoiChiTietById(maCauHoi);
+                lbCauHoi.Text = $"Câu {CauHoiHienTai + 1}: {cauhoi.NDCauHoi}";
+                HienThiHinhAnh(cauhoi.HinhAnh);
+                HienThiDapAn(maCauHoi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi hiển thị câu hỏi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void HienThiHinhAnh(string relativePath)
+        {
+            try
+            {
+                int maCauHoi = listMaCauHoi[CauHoiHienTai];
+                var chiTietCauHoi = chBLL.GetCauHoiChiTietById(maCauHoi);
+                // Hiển thị hình ảnh (nếu có)
+                if (!string.IsNullOrEmpty(chiTietCauHoi.HinhAnh))
+                {
+                    string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\", chiTietCauHoi.HinhAnh);
+
+                    if (File.Exists(imagePath))
+                    {
+                        pictureBoxCauHoi.Image = Image.FromFile(imagePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy hình ảnh.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        pictureBoxCauHoi.Image = null;
+                    }
+                }
+                else
+                {
+                    pictureBoxCauHoi.Image = null;
+                }             
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi hiển thị hình ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

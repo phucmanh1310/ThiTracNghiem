@@ -88,17 +88,39 @@ namespace DoAn_ThiTracNghiem
             TaoDanhSachButtonCauHoi();
         }
 
-        private void HienThiHinhAnh(string imagePath)
+        private void HienThiHinhAnh(string relativePath)
         {
-            if (!string.IsNullOrEmpty(imagePath))
+            try
             {
-                pictureBoxCauHoi.Image = Image.FromFile(imagePath);
+                var cauHoiHienTai = listCauHoi[CauHoiHienTai]; // Lấy câu hỏi hiện tại
+                var chiTietCauHoi = cauHoiBBL.GetCauHoiChiTietById(cauHoiHienTai.MaCauHoi); // Gọi qua đối tượng `cauHoiBBL`
+
+                // Hiển thị hình ảnh (nếu có)
+                if (!string.IsNullOrEmpty(chiTietCauHoi.HinhAnh))
+                {
+                    string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\", chiTietCauHoi.HinhAnh);
+
+                    if (File.Exists(imagePath))
+                    {
+                        pictureBoxCauHoi.Image = Image.FromFile(imagePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy hình ảnh.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        pictureBoxCauHoi.Image = null;
+                    }
+                }
+                else
+                {
+                    pictureBoxCauHoi.Image = null;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                pictureBoxCauHoi.Image = null;
+                MessageBox.Show($"Lỗi khi hiển thị hình ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void HienThiCauHoi()
         {
             var cauHoiHienTai = listCauHoi[CauHoiHienTai];
