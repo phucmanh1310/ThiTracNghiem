@@ -27,7 +27,15 @@ namespace DoAn_ThiTracNghiem
         {
             frmAllInformation frm = new frmAllInformation();
             frm.ShowDialog();
-        
+
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Bạn có chắc chắn muốn thoát quyền admin ?! " , "Thông báo" , MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Dispose();
+            }
         }
     }
 }

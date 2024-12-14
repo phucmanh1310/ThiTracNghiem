@@ -37,6 +37,7 @@ namespace DoAn_ThiTracNghiem
             lblThongTin = new Label();
             pictureBox1 = new PictureBox();
             lblLuyenThi = new Label();
+            btnDangXuat = new Button();
             ((System.ComponentModel.ISupportInitialize)picExamination).BeginInit();
             grpBoxFeature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -79,7 +80,7 @@ namespace DoAn_ThiTracNghiem
             grpBoxFeature.Margin = new Padding(3, 2, 3, 2);
             grpBoxFeature.Name = "grpBoxFeature";
             grpBoxFeature.Padding = new Padding(3, 2, 3, 2);
-            grpBoxFeature.Size = new Size(739, 451);
+            grpBoxFeature.Size = new Size(739, 371);
             grpBoxFeature.TabIndex = 1;
             grpBoxFeature.TabStop = false;
             grpBoxFeature.Text = "Giao diện thí sinh";
@@ -120,11 +121,22 @@ namespace DoAn_ThiTracNghiem
             lblLuyenThi.TabIndex = 1;
             lblLuyenThi.Text = "LÀM BÀI THI";
             // 
+            // btnDangXuat
+            // 
+            btnDangXuat.Location = new Point(295, 457);
+            btnDangXuat.Name = "btnDangXuat";
+            btnDangXuat.Size = new Size(126, 37);
+            btnDangXuat.TabIndex = 2;
+            btnDangXuat.Text = "Đăng Xuất";
+            btnDangXuat.UseVisualStyleBackColor = true;
+            btnDangXuat.Click += btnDangXuat_Click;
+            // 
             // frmUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(752, 527);
+            Controls.Add(btnDangXuat);
             Controls.Add(grpBoxFeature);
             Controls.Add(lblTitle);
             Margin = new Padding(3, 2, 3, 2);
@@ -149,5 +161,6 @@ namespace DoAn_ThiTracNghiem
         private PictureBox picDocument;
         private Label lblThongTin;
         private PictureBox pictureBox1;
+        private Button btnDangXuat;
     }
 }
