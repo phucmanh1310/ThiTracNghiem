@@ -19,14 +19,13 @@ namespace BLL
 
         public List<KetQua> LayKetQuaChiTiet(int maThiSinh)
         {
-            // Nếu cần xử lý thêm logic, thực hiện ở đây
             return ketQuaDAL.getKetQuaThi(maThiSinh);
         }
-
         public bool LuuKetQua(KetQua ketQua, Dictionary<int, int?> DapAnDaChon)
         {
             return ketQuaDAL.LuuKetQua(ketQua, DapAnDaChon);
         }
+
 
         public int GetLanThi(int maThiSinh)
         {

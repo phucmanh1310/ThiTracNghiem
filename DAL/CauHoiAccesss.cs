@@ -27,8 +27,8 @@ namespace DAL
                 // Cấu trúc đề thi
                 var deThiCauTruc = new Dictionary<int, int>
                 {
-                    { 1, 8 }, // Mã phần 1: 8 câu
-                    { 6, 1 }, // Mã phần 6: 1 câu (câu điểm liệt)
+                    { 1, 3 }, // Mã phần 1: 8 câu
+                    { 6, 6 }, // Mã phần 6: 1 câu (câu điểm liệt)
                     { 2, 1 }, // Mã phần 2: 1 câu
                     { 3, 1 }, // Mã phần 3: 1 câu
                     { 4, 7 }, // Mã phần 4: 7 câu

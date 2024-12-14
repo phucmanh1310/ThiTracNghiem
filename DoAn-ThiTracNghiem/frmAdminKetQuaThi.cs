@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using DTO;
@@ -17,6 +13,7 @@ namespace DoAn_ThiTracNghiem
         private int maThiSinh;
         private KetQuaBLL ketQuaBLL;
         private ThiSinhBLL thiSinhBLL;
+
         public frmAdminKetQuaThi(int maThiSinh)
         {
             InitializeComponent();
@@ -24,85 +21,79 @@ namespace DoAn_ThiTracNghiem
             ketQuaBLL = new KetQuaBLL();
             thiSinhBLL = new ThiSinhBLL();
         }
-        private String GetHoTenThiSinh(int maThiSinh)
+
+        private string GetHoTenThiSinh(int maThiSinh)
         {
-            String hoVaTen = "";
-            hoVaTen = thiSinhBLL.GetHoTenTS(maThiSinh);
-            return hoVaTen;
+            // Lấy họ và tên thí sinh
+            return thiSinhBLL.GetHoTenTS(maThiSinh);
         }
+
         private void frnAdminKetQuaThi_Load(object sender, EventArgs e)
         {
             // Lấy danh sách kết quả thi
             List<KetQua> ketQuaList = ketQuaBLL.LayKetQuaChiTiet(maThiSinh);
+
             if (ketQuaList != null && ketQuaList.Count > 0)
             {
+                // Hiển thị thông tin thí sinh
                 string hoTenThiSinh = GetHoTenThiSinh(maThiSinh);
                 txtHoTen.Text = hoTenThiSinh;
                 txtMaTS.Text = maThiSinh.ToString();
 
-                // Đổ danh sách vào ComboBox
+                // Đổ danh sách lần thi vào ComboBox
                 cmbLanThi.DataSource = ketQuaList;
-                cmbLanThi.DisplayMember = "LanThi"; // Hiển thị số lần thi
-                cmbLanThi.ValueMember = "LanThi";     // Dùng STT làm giá trị
+                cmbLanThi.DisplayMember = "LanThi"; // Hiển thị lần thi
+                cmbLanThi.ValueMember = "LanThi";  // Giá trị là số lần thi
             }
             else
             {
+                // Nếu không có kết quả thi
                 MessageBox.Show("Không có kết quả thi nào được tìm thấy cho thí sinh này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
 
         private void cmbLanThi_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbLanThi.SelectedItem != null)
             {
-                // Lấy đối tượng KetQua từ ComboBox
+                // Lấy đối tượng kết quả thi từ ComboBox
                 KetQua ketQua = (KetQua)cmbLanThi.SelectedItem;
 
                 if (ketQua != null)
                 {
-                    // Hiển thị thông tin chi tiết
-                    txtSTT.Text = ketQua.MaKetQua.ToString();
-                    txtThoiGian.Text = ketQua.ThoiGian.ToString();
-                    txtKetQua.Text = ketQua.KetQuaThi;
+                    // Hiển thị thông tin chi tiết của lần thi
+                    txtSTT.Text = ketQua.MaKetQua.ToString();       // Mã kết quả
+                    txtThoiGian.Text = $"{ketQua.ThoiGian} giây";  // Thời gian làm bài
+                    txtKetQua.Text = ketQua.KetQuaThi;            // Số câu đúng
 
-                    // Kiểm tra kết quả thi
-                    string ketQuaThi = ketQua.KetQuaThi; // Ví dụ: "21/25"
-                    if (!string.IsNullOrEmpty(ketQuaThi) && ketQuaThi.Contains("/"))
+                    // Hiển thị trạng thái đạt/không đạt từ cột `TrangThai`
+                    if (ketQua.TrangThai == "Đạt")
                     {
-                        string[] parts = ketQuaThi.Split('/');
-                        int soCauDung = int.Parse(parts[0]); // Số câu đúng
-                        int tongSoCau = int.Parse(parts[1]); // Tổng số câu
-
-                        if (soCauDung >= 21)
-                        {
-                            lblKetQua.Text = "Kết Quả Đậu";
-                            lblKetQua.ForeColor = Color.Green;
-                        }
-                        else
-                        {
-                            lblKetQua.Text = "Kết Quả Rớt";
-                            lblKetQua.ForeColor = Color.Red;
-                        }
+                        lblKetQua.Text = "Kết Quả: Đạt";
+                        lblKetQua.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        lblKetQua.Text = "Kết Quả: Không đạt";
+                        lblKetQua.ForeColor = Color.Red;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Không tìm thấy thông tin chi tiết cho lần thi này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
+                // Nếu không có kết quả thi
                 if (cmbLanThi.Items.Count == 0)
                 {
                     MessageBox.Show("Thí sinh này chưa có kết quả thi nào!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
                 }
-
             }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Dispose();
+            Dispose(); // Đóng form hiện tại
         }
     }
 }
-

@@ -27,6 +27,7 @@ namespace DoAn_ThiTracNghiem
         {
             InitializeComponent();
             this.username = username;
+            listCauHoi = cauHoiBBL.GetCauHoi();
             HienThiCauHoi();
 
         }
@@ -172,6 +173,9 @@ namespace DoAn_ThiTracNghiem
             if (MessageBox.Show($"Còn {soCauChuaTraLoi} câu hỏi chưa trả lời. Bạn chắc chắn nộp bài chứ?", "Nộp bài!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 Submit();
+                this.Dispose();
+                frmUser frm = new frmUser(username);
+                frm.ShowDialog();
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -233,12 +237,22 @@ namespace DoAn_ThiTracNghiem
                 ThoiGian = 15 * 60 - timeleft // Tính thời gian đã làm bài
             };
 
-            ketQuaBLL.LuuKetQua(ketQua, DapAnDaChon);
+            // Lưu kết quả thi vào cơ sở dữ liệu và kiểm tra câu điểm liệt
+            bool isPassed = ketQuaBLL.LuuKetQua(ketQua, DapAnDaChon);
 
-
-            MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}",
-                                "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Nếu không đạt, thông báo kết quả không đạt, ngược lại thông báo đạt
+            if (isPassed)
+            {
+                MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}\nKết quả: Đạt",
+                                 "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Bạn đã nộp bài thành công!\nĐiểm số: {score}/{listCauHoi.Count}\nThời gian làm bài: {FormatTime(ketQua.ThoiGian)}\nKết quả: Không đạt",
+                                 "Nộp bài thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
+
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {

@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using DTO;
-using Microsoft.VisualBasic;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace DoAn_ThiTracNghiem
 {
@@ -30,7 +23,7 @@ namespace DoAn_ThiTracNghiem
         private void frmInformationAndHistory_Load(object sender, EventArgs e)
         {
             // Thiết lập các TextBox chỉ để xem, không thể chỉnh sửa
-            txtMaSo.ReadOnly = true; // Không cho sửa mã số
+            txtMaSo.ReadOnly = true;
             txtHoTen.ReadOnly = true;
             txtDiaChi.ReadOnly = true;
             txtGioiTinh.ReadOnly = true;
@@ -48,12 +41,11 @@ namespace DoAn_ThiTracNghiem
             if (thiSinh != null)
             {
                 txtMaSo.Text = thiSinh.MaThiSinh.ToString();
-                txtHoTen.Text = thiSinh.HoTenThiSinh ?? ""; // Tránh lỗi nếu HoTenThiSinh là null
-                txtDiaChi.Text = thiSinh.DiaChi ?? "";      // Tránh lỗi nếu DiaChi là null
+                txtHoTen.Text = thiSinh.HoTenThiSinh ?? ""; // Tránh lỗi nếu null
+                txtDiaChi.Text = thiSinh.DiaChi ?? "";      // Tránh lỗi nếu null
                 txtGioiTinh.Text = thiSinh.GioiTinh == 'M' ? "Nam" : "Nữ";
                 txtNgaySinh.Text = thiSinh.NgaySinh.ToString("dd/MM/yyyy");
-                // Cài đặt giá trị ngày sinh trong DateTimePicker
-                dtpNgaySinh.Value = thiSinh.NgaySinh;
+                dtpNgaySinh.Value = thiSinh.NgaySinh; // Cài đặt ngày sinh
             }
             else
             {
@@ -61,22 +53,37 @@ namespace DoAn_ThiTracNghiem
             }
 
             // Làm mới ListView
+            RefreshListViewKetQua(thiSinh.MaThiSinh);
+        }
+
+        private void RefreshListViewKetQua(int maThiSinh)
+        {
             listViewKetQua.Items.Clear();
-            List<KetQua> listKQ = kqBLL.LayKetQuaChiTiet(thiSinh.MaThiSinh);
+            List<KetQua> listKQ = kqBLL.LayKetQuaChiTiet(maThiSinh);
+
             foreach (var k in listKQ)
             {
+                // Thêm thông tin kết quả vào ListView
                 ListViewItem item = new ListViewItem(k.MaKetQua.ToString());
                 item.SubItems.Add(k.LanThi.ToString());
-                item.SubItems.Add(k.KetQuaThi);
+                item.SubItems.Add(k.KetQuaThi); // Số câu đúng
                 TimeSpan timeSpan = TimeSpan.FromSeconds(k.ThoiGian);
-                item.SubItems.Add(timeSpan.ToString(@"mm\:ss"));
+                item.SubItems.Add(timeSpan.ToString(@"mm\:ss")); // Thời gian làm bài
+                item.SubItems.Add(k.TrangThai); // Hiển thị trạng thái (Đạt/Không đạt)
+
+                // Đổi màu cho từng dòng dựa trên trạng thái
+                if (k.TrangThai == "Đạt")
+                {
+                    item.ForeColor = Color.Green;
+                }
+                else
+                {
+                    item.ForeColor = Color.Red;
+                }
 
                 listViewKetQua.Items.Add(item);
             }
         }
-
-
-
 
         private void btnSuaThongTin_Click(object sender, EventArgs e)
         {
@@ -84,7 +91,6 @@ namespace DoAn_ThiTracNghiem
             btnLuu.Visible = true;   // Hiển thị nút Lưu để lưu thay đổi
             btnSuaThongTin.Visible = false; // Ẩn nút Sửa
 
-            // Chuyển đổi trạng thái hiển thị giữa TextBox và các điều khiển chỉnh sửa
             if (txtGioiTinh.Visible || txtNgaySinh.Visible)
             {
                 txtHoTen.ReadOnly = false;
@@ -95,7 +101,6 @@ namespace DoAn_ThiTracNghiem
                 radioNam.Visible = true;
                 radioNu.Visible = true;
 
-                // Cài đặt trạng thái ban đầu của RadioButton dựa vào giới tính hiện tại
                 if (txtGioiTinh.Text == "Nam")
                 {
                     radioNam.Checked = true;
@@ -114,12 +119,8 @@ namespace DoAn_ThiTracNghiem
                 radioNu.Visible = false;
             }
 
-            // Đảm bảo giao diện được làm mới ngay lập tức
-            Application.DoEvents();
+            Application.DoEvents(); // Đảm bảo giao diện được làm mới ngay lập tức
         }
-
-
-
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
@@ -147,24 +148,20 @@ namespace DoAn_ThiTracNghiem
                 {
                     MessageBox.Show("Sửa thông tin thí sinh hoàn tất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Reset các trạng thái control
                     btnSuaThongTin.Visible = true;
                     btnLuu.Visible = false;
 
-                    // Reset lại các TextBox để chỉ hiển thị dữ liệu, không cho sửa
                     txtHoTen.ReadOnly = true;
                     txtDiaChi.ReadOnly = true;
                     txtGioiTinh.ReadOnly = true;
                     txtNgaySinh.ReadOnly = true;
 
-                    // Hiển thị lại các điều khiển đúng trạng thái
                     txtGioiTinh.Visible = true;
                     txtNgaySinh.Visible = true;
                     dtpNgaySinh.Visible = false;
                     radioNam.Visible = false;
                     radioNu.Visible = false;
 
-                    // Reload lại dữ liệu
                     frmInformationAndHistory_Load(sender, e);
                 }
                 else
@@ -178,12 +175,8 @@ namespace DoAn_ThiTracNghiem
             }
         }
 
-
-
-
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-
             string currentPassword = txtCurrentPassword.Text;
             string newPassword = txtNewPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
@@ -203,10 +196,8 @@ namespace DoAn_ThiTracNghiem
                     return;
                 }
 
-                // Lấy MaThiSinh của thí sinh đã chọn
                 int maKetQua = int.Parse(listViewKetQua.SelectedItems[0].SubItems[0].Text);
 
-                // Mở form mới và truyền MaThiSinh
                 FormChiTietKetQua frm = new FormChiTietKetQua(maKetQua);
                 frm.ShowDialog();
             }
