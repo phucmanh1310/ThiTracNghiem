@@ -154,13 +154,6 @@ namespace DoAn_ThiTracNghiem
                 return;
             }
 
-            /*    // Kiểm tra ComboBox loại câu hỏi
-                if (cbbLoaiCauHoi_Sua.SelectedIndex == -1 || cbbLoaiCauHoi_Sua.SelectedValue == null)
-                {
-                    MessageBox.Show("Vui lòng chọn loại câu hỏi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-    */
             // Lấy mã phần từ ComboBox
             short maPhan;
             if (!short.TryParse(cbbLoaiCauHoi_Sua.SelectedValue.ToString(), out maPhan))
@@ -169,54 +162,40 @@ namespace DoAn_ThiTracNghiem
                 return;
             }
 
-            // Xử lý hình ảnh nếu có, chuyển hình ảnh thành chuỗi base64
-            string hinhAnhBase64 = null;
+            // Đường dẫn thư mục cố định
+            string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\images");
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath); // Tạo thư mục nếu chưa tồn tại
+            }
+
+            // Xử lý hình ảnh nếu có
             string imagePath = null;
             if (picImage.Image != null)
             {
                 string fileName = Path.GetFileName(picImage.Tag.ToString());
-                string folderPath = Path.Combine(Application.StartupPath, "Images");
-
-                // Tạo thư mục nếu không tồn tại
-                if (!Directory.Exists(folderPath))
-                {
-                    Directory.CreateDirectory(folderPath);
-                }
-
                 imagePath = Path.Combine(folderPath, fileName);
 
-                // Sao chép hình ảnh vào thư mục
+                // Sao chép hình ảnh vào thư mục cố định
                 picImage.Image.Save(imagePath);
 
-                // Chuyển hình ảnh thành base64
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    picImage.Image.Save(ms, picImage.Image.RawFormat);
-                    byte[] imageBytes = ms.ToArray();
-                    hinhAnhBase64 = Convert.ToBase64String(imageBytes);
-                }
+                // Lưu đường dẫn tương đối
+                imagePath = Path.Combine("images", fileName);
             }
 
-
-            // Tạo đối tượng câu hỏi với HinhAnh dưới dạng base64
+            // Tạo đối tượng câu hỏi
             CauHoi cauHoi = new CauHoi(ndCauHoi, maPhan, imagePath);
 
             // Tạo danh sách đáp án
             List<DapAn> dapAns = new List<DapAn>
-            {
-                new DapAn(0, txtAnswer1.Text.Trim(), null, cbxAnswer1.Checked),
-                new DapAn(0, txtAnswer2.Text.Trim(), null, cbxAnswer2.Checked),
-                new DapAn(0, txtAnswer3.Text.Trim(), null, cbxAnswer3.Checked),
-                new DapAn(0, txtAnswer4.Text.Trim(), null, cbxAnswer4.Checked)
-            };
+                {
+                    new DapAn(0, txtAnswer1.Text.Trim(), null, cbxAnswer1.Checked),
+                    new DapAn(0, txtAnswer2.Text.Trim(), null, cbxAnswer2.Checked),
+                    new DapAn(0, txtAnswer3.Text.Trim(), null, cbxAnswer3.Checked),
+                    new DapAn(0, txtAnswer4.Text.Trim(), null, cbxAnswer4.Checked)
+                };
 
             // Kiểm tra đáp án hợp lệ
-            /*if (dapAns.Any(da => string.IsNullOrWhiteSpace(da.NDCauTraLoi)))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ các đáp án.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }*/
-
             if (!dapAns.Any(da => da.DungSai))
             {
                 MessageBox.Show("Vui lòng chọn ít nhất một đáp án đúng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -237,6 +216,8 @@ namespace DoAn_ThiTracNghiem
                 MessageBox.Show($"Lỗi khi thêm câu hỏi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
 
         private void ResetForm()
@@ -308,12 +289,11 @@ namespace DoAn_ThiTracNghiem
                     // In ra thông tin câu hỏi
                     txtQuestion.Text = chiTietCauHoi.NDCauHoi;
 
-                    // Kiểm tra nếu có đường dẫn hình ảnh
+                    // Hiển thị hình ảnh (nếu có)
                     if (!string.IsNullOrEmpty(chiTietCauHoi.HinhAnh))
                     {
-                        string imagePath = chiTietCauHoi.HinhAnh;
+                        string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\", chiTietCauHoi.HinhAnh);
 
-                        // Kiểm tra xem đường dẫn có hợp lệ không (có thể là đường dẫn đầy đủ hoặc tương đối)
                         if (File.Exists(imagePath))
                         {
                             picImage.Image = Image.FromFile(imagePath);
@@ -407,23 +387,28 @@ namespace DoAn_ThiTracNghiem
                     int maCauHoi = int.Parse(selectedItem.SubItems[1].Text);
 
                     // Lấy thông tin từ giao diện
-                    string ndCauHoi = txtQuestion.Text;
+                    string ndCauHoi = txtQuestion.Text.Trim();
                     int maPhan = (int)cbbLoaiCauHoi_Sua.SelectedValue;
-                    string hinhAnh = picImage.ImageLocation; // Đường dẫn hình ảnh
+
+                    // Đảm bảo đường dẫn hình ảnh không bị null
+                    string hinhAnh = picImage.Tag != null ? picImage.Tag.ToString() : null;
+
                     List<DapAn> danhSachDapAn = new List<DapAn>
-                    {
-                    new DapAn { NDCauTraLoi = txtAnswer1.Text, DungSai = cbxAnswer1.Checked },
-                    new DapAn { NDCauTraLoi = txtAnswer2.Text, DungSai = cbxAnswer2.Checked },
-                    new DapAn { NDCauTraLoi = txtAnswer3.Text, DungSai = cbxAnswer3.Checked },
-                    new DapAn { NDCauTraLoi = txtAnswer4.Text, DungSai = cbxAnswer4.Checked },
-                    };
+            {
+                new DapAn { NDCauTraLoi = txtAnswer1.Text.Trim(), DungSai = cbxAnswer1.Checked },
+                new DapAn { NDCauTraLoi = txtAnswer2.Text.Trim(), DungSai = cbxAnswer2.Checked },
+                new DapAn { NDCauTraLoi = txtAnswer3.Text.Trim(), DungSai = cbxAnswer3.Checked },
+                new DapAn { NDCauTraLoi = txtAnswer4.Text.Trim(), DungSai = cbxAnswer4.Checked },
+            };
+
+                    // Kiểm tra đáp án đúng
                     if (!cbxAnswer1.Checked && !cbxAnswer2.Checked && !cbxAnswer3.Checked && !cbxAnswer4.Checked)
                     {
-                        MessageBox.Show("Vui lòng chọn đáp án đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Vui lòng chọn ít nhất một đáp án đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
-                    // Gọi hàm BLL để cập nhật
+                    // Gọi BLL để cập nhật
                     if (CauHoiBLL.CapNhatCauHoiVaDapAn(maCauHoi, maPhan, ndCauHoi, hinhAnh, danhSachDapAn))
                     {
                         MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -432,12 +417,12 @@ namespace DoAn_ThiTracNghiem
                     }
                     else
                     {
-                        MessageBox.Show("Cập nhật thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Cập nhật thất bại! Hãy kiểm tra lại dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -445,6 +430,7 @@ namespace DoAn_ThiTracNghiem
                 MessageBox.Show("Vui lòng chọn một câu hỏi để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         //xóa dữ liệu
         private void btnXoa_Click(object sender, EventArgs e)
         {

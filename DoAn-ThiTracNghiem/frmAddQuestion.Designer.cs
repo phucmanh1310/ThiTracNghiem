@@ -86,7 +86,7 @@
             lblQuestion.ForeColor = Color.MidnightBlue;
             lblQuestion.Location = new Point(2, 116);
             lblQuestion.Name = "lblQuestion";
-            lblQuestion.Size = new Size(97, 28);
+            lblQuestion.Size = new Size(78, 21);
             lblQuestion.TabIndex = 1;
             lblQuestion.Text = "Câu Hỏi :";
             // 
@@ -97,7 +97,7 @@
             lblAnswer1.ForeColor = Color.MidnightBlue;
             lblAnswer1.Location = new Point(509, 476);
             lblAnswer1.Name = "lblAnswer1";
-            lblAnswer1.Size = new Size(82, 23);
+            lblAnswer1.Size = new Size(63, 17);
             lblAnswer1.TabIndex = 3;
             lblAnswer1.Text = "Đáp án 1";
             // 
@@ -107,7 +107,7 @@
             txtAnswer1.ForeColor = SystemColors.GrayText;
             txtAnswer1.Location = new Point(509, 491);
             txtAnswer1.Name = "txtAnswer1";
-            txtAnswer1.Size = new Size(754, 36);
+            txtAnswer1.Size = new Size(754, 30);
             txtAnswer1.TabIndex = 2;
             // 
             // btnAddQuestion
@@ -131,7 +131,7 @@
             lblAnswer2.ForeColor = Color.MidnightBlue;
             lblAnswer2.Location = new Point(509, 529);
             lblAnswer2.Name = "lblAnswer2";
-            lblAnswer2.Size = new Size(82, 23);
+            lblAnswer2.Size = new Size(63, 17);
             lblAnswer2.TabIndex = 7;
             lblAnswer2.Text = "Đáp án 2";
             // 
@@ -141,7 +141,7 @@
             txtAnswer2.ForeColor = SystemColors.GrayText;
             txtAnswer2.Location = new Point(512, 549);
             txtAnswer2.Name = "txtAnswer2";
-            txtAnswer2.Size = new Size(751, 36);
+            txtAnswer2.Size = new Size(751, 30);
             txtAnswer2.TabIndex = 6;
             // 
             // lblAnswer3
@@ -151,7 +151,7 @@
             lblAnswer3.ForeColor = Color.MidnightBlue;
             lblAnswer3.Location = new Point(509, 592);
             lblAnswer3.Name = "lblAnswer3";
-            lblAnswer3.Size = new Size(82, 23);
+            lblAnswer3.Size = new Size(63, 17);
             lblAnswer3.TabIndex = 11;
             lblAnswer3.Text = "Đáp án 3";
             // 
@@ -161,7 +161,7 @@
             txtAnswer3.ForeColor = SystemColors.GrayText;
             txtAnswer3.Location = new Point(512, 612);
             txtAnswer3.Name = "txtAnswer3";
-            txtAnswer3.Size = new Size(751, 36);
+            txtAnswer3.Size = new Size(751, 30);
             txtAnswer3.TabIndex = 10;
             // 
             // lblAnswer4
@@ -171,7 +171,7 @@
             lblAnswer4.ForeColor = Color.MidnightBlue;
             lblAnswer4.Location = new Point(509, 655);
             lblAnswer4.Name = "lblAnswer4";
-            lblAnswer4.Size = new Size(82, 23);
+            lblAnswer4.Size = new Size(63, 17);
             lblAnswer4.TabIndex = 13;
             lblAnswer4.Text = "Đáp án 4";
             // 
@@ -181,7 +181,7 @@
             txtAnswer4.ForeColor = SystemColors.GrayText;
             txtAnswer4.Location = new Point(512, 675);
             txtAnswer4.Name = "txtAnswer4";
-            txtAnswer4.Size = new Size(751, 36);
+            txtAnswer4.Size = new Size(751, 30);
             txtAnswer4.TabIndex = 12;
             // 
             // cbxAnswer1
@@ -191,7 +191,7 @@
             cbxAnswer1.ForeColor = Color.RoyalBlue;
             cbxAnswer1.Location = new Point(1274, 491);
             cbxAnswer1.Name = "cbxAnswer1";
-            cbxAnswer1.Size = new Size(87, 34);
+            cbxAnswer1.Size = new Size(71, 27);
             cbxAnswer1.TabIndex = 14;
             cbxAnswer1.Text = "Đúng";
             cbxAnswer1.UseVisualStyleBackColor = true;
@@ -203,7 +203,7 @@
             cbxAnswer2.ForeColor = Color.RoyalBlue;
             cbxAnswer2.Location = new Point(1274, 551);
             cbxAnswer2.Name = "cbxAnswer2";
-            cbxAnswer2.Size = new Size(87, 34);
+            cbxAnswer2.Size = new Size(71, 27);
             cbxAnswer2.TabIndex = 15;
             cbxAnswer2.Text = "Đúng";
             cbxAnswer2.UseVisualStyleBackColor = true;
@@ -215,7 +215,7 @@
             cbxAnswer3.ForeColor = Color.RoyalBlue;
             cbxAnswer3.Location = new Point(1274, 614);
             cbxAnswer3.Name = "cbxAnswer3";
-            cbxAnswer3.Size = new Size(87, 34);
+            cbxAnswer3.Size = new Size(71, 27);
             cbxAnswer3.TabIndex = 16;
             cbxAnswer3.Text = "Đúng";
             cbxAnswer3.UseVisualStyleBackColor = true;
@@ -227,7 +227,7 @@
             cbxAnswer4.ForeColor = Color.RoyalBlue;
             cbxAnswer4.Location = new Point(1274, 677);
             cbxAnswer4.Name = "cbxAnswer4";
-            cbxAnswer4.Size = new Size(87, 34);
+            cbxAnswer4.Size = new Size(71, 27);
             cbxAnswer4.TabIndex = 17;
             cbxAnswer4.Text = "Đúng";
             cbxAnswer4.UseVisualStyleBackColor = true;
@@ -275,7 +275,7 @@
             // 
             txtThemLoai.Location = new Point(502, 35);
             txtThemLoai.Name = "txtThemLoai";
-            txtThemLoai.Size = new Size(315, 34);
+            txtThemLoai.Size = new Size(315, 28);
             txtThemLoai.TabIndex = 24;
             // 
             // label1
@@ -286,7 +286,7 @@
             label1.ForeColor = Color.MidnightBlue;
             label1.Location = new Point(457, 0);
             label1.Name = "label1";
-            label1.Size = new Size(160, 28);
+            label1.Size = new Size(128, 21);
             label1.TabIndex = 23;
             label1.Text = "Thêm loại mới :\r\n";
             // 
@@ -296,7 +296,7 @@
             cbbLoaiCauHoi.FormattingEnabled = true;
             cbbLoaiCauHoi.Location = new Point(73, 33);
             cbbLoaiCauHoi.Name = "cbbLoaiCauHoi";
-            cbbLoaiCauHoi.Size = new Size(343, 36);
+            cbbLoaiCauHoi.Size = new Size(343, 29);
             cbbLoaiCauHoi.TabIndex = 0;
             cbbLoaiCauHoi.SelectedIndexChanged += cbbLoaiCauHoi_SelectedIndexChanged;
             // 
@@ -343,7 +343,7 @@
             label2.ForeColor = Color.MidnightBlue;
             label2.Location = new Point(1011, 155);
             label2.Name = "label2";
-            label2.Size = new Size(109, 28);
+            label2.Size = new Size(88, 21);
             label2.TabIndex = 24;
             label2.Text = "Hình ảnh :";
             // 
@@ -410,7 +410,7 @@
             label3.ForeColor = Color.MidnightBlue;
             label3.Location = new Point(6, 61);
             label3.Name = "label3";
-            label3.Size = new Size(137, 28);
+            label3.Size = new Size(110, 21);
             label3.TabIndex = 27;
             label3.Text = "Loại câu hỏi :";
             // 
@@ -420,12 +420,12 @@
             cbbLoaiCauHoi_Sua.FormattingEnabled = true;
             cbbLoaiCauHoi_Sua.Location = new Point(159, 58);
             cbbLoaiCauHoi_Sua.Name = "cbbLoaiCauHoi_Sua";
-            cbbLoaiCauHoi_Sua.Size = new Size(327, 36);
+            cbbLoaiCauHoi_Sua.Size = new Size(327, 29);
             cbbLoaiCauHoi_Sua.TabIndex = 26;
             // 
             // frmAddQuestion
             // 
-            AutoScaleDimensions = new SizeF(8F, 19F);
+            AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1388, 774);
             Controls.Add(btnTaiLai);

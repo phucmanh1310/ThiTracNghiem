@@ -30,9 +30,9 @@
         {
             groupBox2 = new GroupBox();
             pnlDapAn = new FlowLayoutPanel();
+            radioButton3 = new RadioButton();
             radioButton1 = new RadioButton();
             radioButton2 = new RadioButton();
-            radioButton3 = new RadioButton();
             radioButton4 = new RadioButton();
             btnNext = new Button();
             btnPrevious = new Button();
@@ -65,9 +65,9 @@
             // 
             // pnlDapAn
             // 
-            pnlDapAn.Controls.Add(radioButton3);
             pnlDapAn.Controls.Add(radioButton1);
             pnlDapAn.Controls.Add(radioButton2);
+            pnlDapAn.Controls.Add(radioButton3);
             pnlDapAn.Controls.Add(radioButton4);
             pnlDapAn.FlowDirection = FlowDirection.TopDown;
             pnlDapAn.Location = new Point(32, 114);
@@ -76,11 +76,25 @@
             pnlDapAn.Size = new Size(400, 173);
             pnlDapAn.TabIndex = 14;
             // 
+            // radioButton3
+            // 
+            radioButton3.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            radioButton3.ForeColor = SystemColors.ControlText;
+            radioButton3.Location = new Point(3, 57);
+            radioButton3.Margin = new Padding(3, 2, 3, 2);
+            radioButton3.MaximumSize = new Size(0, 210);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(377, 24);
+            radioButton3.TabIndex = 2;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "radioButton3";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
             // radioButton1
             // 
             radioButton1.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             radioButton1.ForeColor = SystemColors.ControlText;
-            radioButton1.Location = new Point(3, 30);
+            radioButton1.Location = new Point(3, 2);
             radioButton1.Margin = new Padding(3, 2, 3, 2);
             radioButton1.MaximumSize = new Size(0, 210);
             radioButton1.Name = "radioButton1";
@@ -94,7 +108,7 @@
             // 
             radioButton2.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             radioButton2.ForeColor = SystemColors.ControlText;
-            radioButton2.Location = new Point(3, 56);
+            radioButton2.Location = new Point(3, 28);
             radioButton2.Margin = new Padding(3, 2, 3, 2);
             radioButton2.MaximumSize = new Size(0, 210);
             radioButton2.Name = "radioButton2";
@@ -103,20 +117,6 @@
             radioButton2.TabStop = true;
             radioButton2.Text = "radioButton2";
             radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            radioButton3.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            radioButton3.ForeColor = SystemColors.ControlText;
-            radioButton3.Location = new Point(3, 2);
-            radioButton3.Margin = new Padding(3, 2, 3, 2);
-            radioButton3.MaximumSize = new Size(0, 210);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(377, 24);
-            radioButton3.TabIndex = 2;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "radioButton3";
-            radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton4
             // 
