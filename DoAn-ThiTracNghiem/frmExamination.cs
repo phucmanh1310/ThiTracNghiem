@@ -46,12 +46,16 @@ namespace DoAn_ThiTracNghiem
                 var dialogResult = MessageBox.Show("Bạn có muốn tiếp tục từ nơi đã dừng không?", "Tiến trình đã lưu", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    var dapAnDaChonLuu = JsonConvert.DeserializeObject<Dictionary<int, int?>>(tienTrinh.DapAnDC);
+                    DapAnDaChon = dapAnDaChonLuu;
 
-                    timeleft = tienTrinh.ThoiGianConLai;
-                    ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
-                    
+                    listCauHoi = ttBLL.GetCauHoiTuTienTrinh(tienTrinh.DapAnDC);
+
+                    // Hiển thị các câu hỏi đã được lọc
                     HienThiCauHoi();
+                    
                 }
+
                 else
                 {
                     // Nếu người dùng không muốn tiếp tục, reset form và xóa tiến trình

@@ -13,6 +13,8 @@ namespace DAL
 {
     public class CauHoiAccesss : DatabaseAccess
     {
+        
+
         public List<CauHoi> GetCauHoi()
         {
             List<CauHoi> danhSachCauHoi = new List<CauHoi>();

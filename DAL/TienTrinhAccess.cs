@@ -104,44 +104,54 @@ namespace DAL
             }
         }
 
-        public List<int> LayDanhSachMaCauHoi(int maThiSinh)
+        public List<CauHoi> GetCauHoiTuTienTrinh(string dapAnDC)
         {
-            string query = "SELECT DapAnDC FROM TienTrinh WHERE MaThiSinh = @MaThiSinh";
-            string dapAnDCJson = null;
+            List<CauHoi> danhSachCauHoi = new List<CauHoi>();
 
             try
             {
+                // Giải mã DapAnDC (giả sử DapAnDC là chuỗi JSON)
+                var dapAnDaChonLuu = JsonConvert.DeserializeObject<Dictionary<int, int?>>(dapAnDC);
+
+                // Lấy danh sách MaCauHoi từ DapAnDC
+                List<int> danhSachMaCauHoi = dapAnDaChonLuu.Keys.ToList();
+
+                // Xây dựng câu truy vấn để lấy các câu hỏi tương ứng với MaCauHoi
+                string query = "SELECT * FROM CauHoi WHERE MaCauHoi IN (" + string.Join(",", danhSachMaCauHoi) + ")";
+
                 using (SqlConnection conn = SqlConnectionData.Connect())
                 {
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@MaThiSinh", maThiSinh);
-
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                dapAnDCJson = reader.GetString(reader.GetOrdinal("DapAnDC"));
+                                string hinhAnh = reader["HinhAnh"] == DBNull.Value ? null : reader["HinhAnh"].ToString();
+                                CauHoi cauHoi = new CauHoi(
+                                    Convert.ToInt32(reader["MaCauHoi"]),
+                                    reader["NDCauHoi"].ToString(),
+                                    short.Parse(reader["MaPhan"].ToString()),
+                                    hinhAnh
+                                );
+
+                                // Thêm câu hỏi vào danh sách
+                                danhSachCauHoi.Add(cauHoi);
                             }
                         }
                     }
                 }
-
-                // Giải mã chuỗi JSON
-                var dapAnDict = JsonConvert.DeserializeObject<Dictionary<int, int?>>(dapAnDCJson);
-
-                // Lấy danh sách MaCauHoi từ Dictionary
-                List<int> listMaCauHoi = dapAnDict.Keys.ToList();
-
-                return listMaCauHoi;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi khi lấy danh sách MaCauHoi: {ex.Message}");
-                throw;
+                Console.WriteLine($"Lỗi khi lấy câu hỏi từ tiến trình: {ex.Message}");
+                throw; // Ném lỗi ra ngoài nếu cần
             }
+
+            return danhSachCauHoi;
         }
-    
+
+
     }
 }

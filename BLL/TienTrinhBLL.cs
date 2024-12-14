@@ -27,9 +27,9 @@ namespace BLL
             tienTrinhAccess.XoaTienTrinh(maThiSinh);
         }
 
-        public List<int> LayDanhSachMaCauHoi(int maThiSinh)
+        public List<CauHoi> GetCauHoiTuTienTrinh(string dapAnDC)
         {
-            return tienTrinhAccess.LayDanhSachMaCauHoi(maThiSinh);
+            return tienTrinhAccess.GetCauHoiTuTienTrinh(dapAnDC);
         }
     }
 }
