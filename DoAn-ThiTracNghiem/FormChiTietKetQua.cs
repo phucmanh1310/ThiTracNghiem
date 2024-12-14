@@ -105,7 +105,7 @@ namespace DoAn_ThiTracNghiem
             foreach (var radioButton in radioButtons)
             {
                 radioButton.Checked = false;
-                
+                radioButton.Visible = true;
                 radioButton.ForeColor = Color.Red;
             }
 

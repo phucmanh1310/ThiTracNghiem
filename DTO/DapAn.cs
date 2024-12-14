@@ -10,10 +10,10 @@ namespace DTO
     {
         public int MaCauTraLoi { get; set; }
         public string NDCauTraLoi { get; set; }
-        public string MaCauHoi { get; set; }
+        public int? MaCauHoi { get; set; }
         public bool DungSai { get; set; }
 
-        public DapAn(int maCauTraLoi, string ndCauTraLoi, string maCauHoi, bool dungSai)
+        public DapAn(int maCauTraLoi, string ndCauTraLoi, int? maCauHoi, bool dungSai)
         {
             MaCauTraLoi = maCauTraLoi;
             NDCauTraLoi = ndCauTraLoi;

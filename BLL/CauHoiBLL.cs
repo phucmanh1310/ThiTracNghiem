@@ -25,7 +25,7 @@ namespace BLL
 
             foreach (var dapAn in dapAns)
             {
-                dapAn.MaCauHoi = maCauHoi.ToString();
+                dapAn.MaCauHoi = maCauHoi;
                 chAccess.AddDapAn(dapAn);
             }
         }

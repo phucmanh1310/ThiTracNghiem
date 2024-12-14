@@ -53,7 +53,7 @@ namespace DoAn_ThiTracNghiem
 
                     timeleft = tienTrinh.ThoiGianConLai;
                     ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
-                    // Gọi phương thức Hiển Thị Câu Hỏi để cập nhật UI
+                    
                     HienThiCauHoi();
                 }
                 else
@@ -65,17 +65,18 @@ namespace DoAn_ThiTracNghiem
 
                     // Xóa tiến trình đã lưu
                     ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
-                    listCauHoi = cauHoiBBL.GetCauHoi();
+                    
                     HienThiCauHoi(); // Hiển thị câu hỏi đầu tiên
                 }
             }
+
             else
             {
                 // Nếu không có tiến trình, bắt đầu từ đầu
                 CauHoiHienTai = 0;
                 DapAnDaChon.Clear();
                 timeleft = 15 * 60; // reset thời gian
-                listCauHoi = cauHoiBBL.GetCauHoi();
+                
                 HienThiCauHoi(); // Hiển thị câu hỏi đầu tiên
             }
 
@@ -85,7 +86,6 @@ namespace DoAn_ThiTracNghiem
             radioButton3.CheckedChanged += RadioButton_CheckedChanged;
             radioButton4.CheckedChanged += RadioButton_CheckedChanged;
             TaoDanhSachButtonCauHoi();
-
         }
 
         private void HienThiHinhAnh(string imagePath)
@@ -125,6 +125,7 @@ namespace DoAn_ThiTracNghiem
             foreach (var radioButton in radioButtons)
             {
                 radioButton.Checked = false;
+                radioButton.Visible = true;
             }
 
             // Cập nhật các đáp án vào RadioButton
@@ -203,8 +204,7 @@ namespace DoAn_ThiTracNghiem
         private void Submit()
         {
             timer1.Stop();
-            var listCauHoi = cauHoiBBL.GetCauHoi();
-
+            
             // Tính điểm
             int score = 0;
 

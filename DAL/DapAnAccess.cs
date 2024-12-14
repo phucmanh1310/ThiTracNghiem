@@ -27,7 +27,7 @@ namespace DAL
                         DapAn dapAn = new DapAn(
                             int.Parse(reader["MaCauTraLoi"].ToString()),
                             reader["NDCauTraLoi"].ToString(),
-                            reader["MaCauHoi"].ToString(),
+                            int.Parse(reader["MaCauHoi"].ToString()),
                             bool.Parse(reader["DungSai"].ToString())
                         );
                         danhSachDapAn.Add(dapAn);
