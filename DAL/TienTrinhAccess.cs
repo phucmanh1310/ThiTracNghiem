@@ -104,5 +104,44 @@ namespace DAL
             }
         }
 
+        public List<int> LayDanhSachMaCauHoi(int maThiSinh)
+        {
+            string query = "SELECT DapAnDC FROM TienTrinh WHERE MaThiSinh = @MaThiSinh";
+            string dapAnDCJson = null;
+
+            try
+            {
+                using (SqlConnection conn = SqlConnectionData.Connect())
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaThiSinh", maThiSinh);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                dapAnDCJson = reader.GetString(reader.GetOrdinal("DapAnDC"));
+                            }
+                        }
+                    }
+                }
+
+                // Giải mã chuỗi JSON
+                var dapAnDict = JsonConvert.DeserializeObject<Dictionary<int, int?>>(dapAnDCJson);
+
+                // Lấy danh sách MaCauHoi từ Dictionary
+                List<int> listMaCauHoi = dapAnDict.Keys.ToList();
+
+                return listMaCauHoi;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lấy danh sách MaCauHoi: {ex.Message}");
+                throw;
+            }
+        }
+    
     }
 }

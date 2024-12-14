@@ -27,9 +27,7 @@ namespace DoAn_ThiTracNghiem
         {
             InitializeComponent();
             this.username = username;
-            listCauHoi = cauHoiBBL.GetCauHoi();
-            HienThiCauHoi();
-
+            listCauHoi = new List<CauHoi>();
         }
 
         private void frmExamination_Load(object sender, EventArgs e)
@@ -48,8 +46,6 @@ namespace DoAn_ThiTracNghiem
                 var dialogResult = MessageBox.Show("Bạn có muốn tiếp tục từ nơi đã dừng không?", "Tiến trình đã lưu", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    // Load tiến trình lên form
-                    DapAnDaChon = JsonConvert.DeserializeObject<Dictionary<int, int?>>(tienTrinh.DapAnDC);
 
                     timeleft = tienTrinh.ThoiGianConLai;
                     ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
@@ -65,7 +61,7 @@ namespace DoAn_ThiTracNghiem
 
                     // Xóa tiến trình đã lưu
                     ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
-                    
+                    listCauHoi = cauHoiBBL.GetCauHoi();
                     HienThiCauHoi(); // Hiển thị câu hỏi đầu tiên
                 }
             }
@@ -76,7 +72,7 @@ namespace DoAn_ThiTracNghiem
                 CauHoiHienTai = 0;
                 DapAnDaChon.Clear();
                 timeleft = 15 * 60; // reset thời gian
-                
+                listCauHoi = cauHoiBBL.GetCauHoi();
                 HienThiCauHoi(); // Hiển thị câu hỏi đầu tiên
             }
 
@@ -386,9 +382,5 @@ namespace DoAn_ThiTracNghiem
 
             return dapAnDaChonFull;
         }
-
-
-
-
     }
 }

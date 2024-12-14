@@ -26,5 +26,10 @@ namespace BLL
         {
             tienTrinhAccess.XoaTienTrinh(maThiSinh);
         }
+
+        public List<int> LayDanhSachMaCauHoi(int maThiSinh)
+        {
+            return tienTrinhAccess.LayDanhSachMaCauHoi(maThiSinh);
+        }
     }
 }
