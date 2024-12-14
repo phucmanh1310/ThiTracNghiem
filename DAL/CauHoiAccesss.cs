@@ -70,36 +70,27 @@ namespace DAL
             return danhSachCauHoi;
         }
 
-        
-
         public int AddCauHoi(CauHoi cauHoi)
         {
             using (SqlConnection connection = SqlConnectionData.Connect())
             {
-                // Câu lệnh SQL để thêm câu hỏi
                 string query = "INSERT INTO CauHoi (NDCauHoi, MaPhan, HinhAnh) OUTPUT INSERTED.MaCauHoi VALUES (@NDCauHoi, @MaPhan, @HinhAnh)";
                 SqlCommand command = new SqlCommand(query, connection);
 
-                // Gán các tham số cho câu lệnh SQL
                 command.Parameters.AddWithValue("@NDCauHoi", cauHoi.NDCauHoi);
                 command.Parameters.AddWithValue("@MaPhan", cauHoi.MaPhan);
 
-                // Xử lý HinhAnh là null hoặc đường dẫn
                 if (string.IsNullOrEmpty(cauHoi.HinhAnh))
                 {
                     command.Parameters.Add("@HinhAnh", SqlDbType.NVarChar).Value = DBNull.Value;
                 }
                 else
                 {
-                    // Chỉ lưu đường dẫn tương đối
-                    string startupPath = AppContext.BaseDirectory;
-                    string relativePath = cauHoi.HinhAnh.Replace(startupPath + "\\", "");
-                    command.Parameters.Add("@HinhAnh", SqlDbType.NVarChar).Value = relativePath;
+                    command.Parameters.Add("@HinhAnh", SqlDbType.NVarChar).Value = cauHoi.HinhAnh;
                 }
 
-
                 connection.Open();
-                return (int)command.ExecuteScalar(); // Trả về mã câu hỏi vừa được thêm
+                return (int)command.ExecuteScalar();
             }
         }
         // Thêm đáp án vào cơ sở dữ liệu
@@ -207,7 +198,7 @@ namespace DAL
                 }
             }
         }
-     
+
 
         public bool UpdateCauHoiAndDapAn(int maCauHoi, int maPhan, string ndCauHoi, string hinhAnh, List<DapAn> danhSachDapAn)
         {
@@ -220,9 +211,11 @@ namespace DAL
                 {
                     // Cập nhật câu hỏi
                     string queryCauHoi = @"
-                    UPDATE CauHoi
-                    SET NDCauHoi = @NDCauHoi, MaPhan = @MaPhan, HinhAnh = @HinhAnh
-                    WHERE MaCauHoi = @MaCauHoi";
+                UPDATE CauHoi
+                SET NDCauHoi = @NDCauHoi, 
+                    MaPhan = @MaPhan, 
+                    HinhAnh = @HinhAnh
+                WHERE MaCauHoi = @MaCauHoi";
 
                     SqlCommand cmdCauHoi = new SqlCommand(queryCauHoi, conn, transaction);
                     cmdCauHoi.Parameters.AddWithValue("@MaCauHoi", maCauHoi);
@@ -257,14 +250,16 @@ namespace DAL
                     transaction.Commit();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Rollback transaction nếu có lỗi
+                    // Rollback nếu có lỗi
                     transaction.Rollback();
-                    throw;
+                    Console.WriteLine($"Error updating question: {ex.Message}");
+                    return false;
                 }
             }
         }
+
         public List<int> GetMaCauHoiByMaKetQua(int maKetQua)
         {
             List<int> danhSachMaCauHoi = new List<int>();
