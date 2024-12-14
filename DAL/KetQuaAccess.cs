@@ -50,20 +50,39 @@ namespace DAL
                 {
                     conn.Open();
 
+                    // Kiểm tra câu điểm liệt (Mã phần 6)
+                    bool isDiemLiệtSai = false;
+                    int? dapAnDiemLiet = DapAnDaChon.FirstOrDefault(x => x.Key == 6).Value;
+
+                    if (dapAnDiemLiet.HasValue)
+                    {
+                        // Kiểm tra đáp án của câu điểm liệt (Câu điểm liệt có DungSai = 1 là đáp án đúng)
+                        DapAnAccesss dapAnAccess = new DapAnAccesss();
+                        bool isCorrect = dapAnAccess.IsCorrectAnswer(6, dapAnDiemLiet.Value);
+
+                        if (!isCorrect)
+                        {
+                            isDiemLiệtSai = true; // Nếu sai câu điểm liệt, đánh dấu kết quả là không đạt
+                        }
+                    }
+
+                    // Nếu câu điểm liệt sai, cập nhật kết quả thi là "không đạt"
+                    string ketQuaThi = isDiemLiệtSai ? "Không đạt" : ketQua.KetQuaThi;
+
                     // Lệnh SQL để lưu kết quả vào bảng KetQua
                     string query = @"
-                                   INSERT INTO KetQua (LanThi, KetQuaThi, MaThiSinh, ThoiGian)
-                                   OUTPUT INSERTED.MaKetQua
-                                   VALUES (@LanThi, @KetQuaThi, @MaThiSinh, @ThoiGian)";
+                               INSERT INTO KetQua (LanThi, KetQuaThi, MaThiSinh, ThoiGian)
+                               OUTPUT INSERTED.MaKetQua
+                               VALUES (@LanThi, @KetQuaThi, @MaThiSinh, @ThoiGian)";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@LanThi", ketQua.LanThi);
-                    cmd.Parameters.AddWithValue("@KetQuaThi", ketQua.KetQuaThi);
+                    cmd.Parameters.AddWithValue("@KetQuaThi", ketQuaThi); // Nếu câu điểm liệt sai, kết quả là "Không đạt"
                     cmd.Parameters.AddWithValue("@MaThiSinh", ketQua.MaThiSinh);
                     cmd.Parameters.AddWithValue("@ThoiGian", ketQua.ThoiGian);
-                    
+
                     int maKetQua = (int)cmd.ExecuteScalar();
 
-                    foreach(var dapan in DapAnDaChon)
+                    foreach (var dapan in DapAnDaChon)
                     {
                         string insert = "INSERT INTO ChiTietKetQua(MaKetQua, MaCauHoi, MaCauTraLoi) VALUES (@MaKetQua, @MaCauHoi, @MaCauTraLoi)";
                         SqlCommand command = new SqlCommand(insert, conn);
@@ -81,6 +100,7 @@ namespace DAL
                 }
             }
         }
+
 
 
 
