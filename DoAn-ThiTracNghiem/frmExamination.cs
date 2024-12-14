@@ -53,7 +53,7 @@ namespace DoAn_ThiTracNghiem
 
                     // Hiển thị các câu hỏi đã được lọc
                     HienThiCauHoi();
-                    
+                    ttBLL.XoaTienTrinh(thiSinh.MaThiSinh);
                 }
 
                 else
