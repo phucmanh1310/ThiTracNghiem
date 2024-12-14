@@ -14,8 +14,8 @@ namespace DAL
     {
         public void LuuTienTrinh(TienTrinh tienTrinh)
         {
-            string query = "INSERT INTO TienTrinh (MaThiSinh, CauHoiHienTai, DapAnDC, ThoiGianConLai)" +
-                           " VALUES (@MaThiSinh, @CauHoiHienTai, @DapAnDC, @ThoiGianConLai)";
+            string query = "INSERT INTO TienTrinh (MaThiSinh, DapAnDC, ThoiGianConLai)" +
+                           " VALUES (@MaThiSinh, @DapAnDC, @ThoiGianConLai)";
 
             try
             {
@@ -25,7 +25,6 @@ namespace DAL
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@MaThiSinh", tienTrinh.MaThiSinh);
-                        cmd.Parameters.AddWithValue("@CauHoiHienTai", tienTrinh.CauHoiHienTai);
                         cmd.Parameters.AddWithValue("@DapAnDC", tienTrinh.DapAnDC);
                         cmd.Parameters.AddWithValue("@ThoiGianConLai", tienTrinh.ThoiGianConLai);
                         cmd.ExecuteNonQuery();
@@ -42,7 +41,7 @@ namespace DAL
 
         public TienTrinh GetTienTrinh(int maThiSinh)
         {
-            string query = "SELECT MaThiSinh, CauHoiHienTai, DapAnDC, ThoiGianConLai FROM TienTrinh WHERE MaThiSinh = @MaThiSinh";
+            string query = "SELECT MaThiSinh, DapAnDC, ThoiGianConLai FROM TienTrinh WHERE MaThiSinh = @MaThiSinh";
 
             TienTrinh tienTrinh = null;
 
@@ -62,7 +61,6 @@ namespace DAL
                                 tienTrinh = new TienTrinh
                                 {
                                     MaThiSinh = reader.GetInt32(reader.GetOrdinal("MaThiSinh")),
-                                    CauHoiHienTai = reader.GetInt32(reader.GetOrdinal("CauHoiHienTai")),
                                     DapAnDC = reader.GetString(reader.GetOrdinal("DapAnDC")),
                                     ThoiGianConLai = reader.GetInt32(reader.GetOrdinal("ThoiGianConLai"))
                                 };
