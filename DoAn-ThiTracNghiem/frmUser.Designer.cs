@@ -48,7 +48,7 @@ namespace DoAn_ThiTracNghiem
             picExamination.Cursor = Cursors.Hand;
             picExamination.ErrorImage = null;
             picExamination.Image = (Image)resources.GetObject("picExamination.Image");
-            picExamination.Location = new Point(76, 127);
+            picExamination.Location = new Point(72, 56);
             picExamination.Margin = new Padding(3, 2, 3, 2);
             picExamination.Name = "picExamination";
             picExamination.Size = new Size(220, 165);
@@ -70,6 +70,7 @@ namespace DoAn_ThiTracNghiem
             // 
             // grpBoxFeature
             // 
+            grpBoxFeature.Controls.Add(btnDangXuat);
             grpBoxFeature.Controls.Add(lblThongTin);
             grpBoxFeature.Controls.Add(pictureBox1);
             grpBoxFeature.Controls.Add(lblLuyenThi);
@@ -80,7 +81,7 @@ namespace DoAn_ThiTracNghiem
             grpBoxFeature.Margin = new Padding(3, 2, 3, 2);
             grpBoxFeature.Name = "grpBoxFeature";
             grpBoxFeature.Padding = new Padding(3, 2, 3, 2);
-            grpBoxFeature.Size = new Size(739, 371);
+            grpBoxFeature.Size = new Size(739, 329);
             grpBoxFeature.TabIndex = 1;
             grpBoxFeature.TabStop = false;
             grpBoxFeature.Text = "Giao diện thí sinh";
@@ -90,7 +91,7 @@ namespace DoAn_ThiTracNghiem
             lblThongTin.AutoSize = true;
             lblThongTin.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblThongTin.ForeColor = SystemColors.ActiveCaptionText;
-            lblThongTin.Location = new Point(412, 303);
+            lblThongTin.Location = new Point(416, 235);
             lblThongTin.Name = "lblThongTin";
             lblThongTin.Size = new Size(264, 25);
             lblThongTin.TabIndex = 3;
@@ -101,7 +102,7 @@ namespace DoAn_ThiTracNghiem
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.ErrorImage = null;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(449, 127);
+            pictureBox1.Location = new Point(435, 56);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(220, 165);
@@ -115,7 +116,7 @@ namespace DoAn_ThiTracNghiem
             lblLuyenThi.AutoSize = true;
             lblLuyenThi.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblLuyenThi.ForeColor = SystemColors.ActiveCaptionText;
-            lblLuyenThi.Location = new Point(125, 302);
+            lblLuyenThi.Location = new Point(130, 235);
             lblLuyenThi.Name = "lblLuyenThi";
             lblLuyenThi.Size = new Size(126, 25);
             lblLuyenThi.TabIndex = 1;
@@ -123,7 +124,7 @@ namespace DoAn_ThiTracNghiem
             // 
             // btnDangXuat
             // 
-            btnDangXuat.Location = new Point(295, 457);
+            btnDangXuat.Location = new Point(307, 292);
             btnDangXuat.Name = "btnDangXuat";
             btnDangXuat.Size = new Size(126, 37);
             btnDangXuat.TabIndex = 2;
@@ -135,8 +136,7 @@ namespace DoAn_ThiTracNghiem
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(752, 527);
-            Controls.Add(btnDangXuat);
+            ClientSize = new Size(752, 403);
             Controls.Add(grpBoxFeature);
             Controls.Add(lblTitle);
             Margin = new Padding(3, 2, 3, 2);

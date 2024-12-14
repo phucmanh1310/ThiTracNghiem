@@ -102,7 +102,7 @@
             // 
             // btnDangXuat
             // 
-            btnDangXuat.Location = new Point(337, 357);
+            btnDangXuat.Location = new Point(312, 282);
             btnDangXuat.Name = "btnDangXuat";
             btnDangXuat.Size = new Size(131, 31);
             btnDangXuat.TabIndex = 5;
@@ -114,6 +114,7 @@
             // 
             groupBox1.BackColor = SystemColors.Control;
             groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(btnDangXuat);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(picThongTinThiSinh);
             groupBox1.Controls.Add(picThemCauHoi);
@@ -121,7 +122,7 @@
             groupBox1.ForeColor = Color.MidnightBlue;
             groupBox1.Location = new Point(24, 60);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(775, 291);
+            groupBox1.Size = new Size(775, 313);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "QUYỀN ADMIN";
@@ -132,7 +133,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(822, 400);
             Controls.Add(groupBox1);
-            Controls.Add(btnDangXuat);
             Controls.Add(label1);
             Margin = new Padding(2);
             Name = "frmAdmin";
